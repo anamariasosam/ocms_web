@@ -4,7 +4,7 @@ const LoginHeader = () => (
 	<div>
 		<span>Bienvenido</span>
 		{ ' | ' }
-		<a href="#">Iniciar Sesión</a>
+		<a href="/inicio">Iniciar Sesión</a>
 	</div>
 )
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Login from './Login'
 import Nav from './Nav'
 
