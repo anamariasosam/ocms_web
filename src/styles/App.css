@@ -1,0 +1,32 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, Arial;
+}
+
+/* LoginHeader */
+
+.login--container {
+	text-align: right;
+	height: 30px;
+	background-color: #16343b;
+	background-image: url(../images/header_light.jpg);
+	background-position: top center;
+	background-repeat: no-repeat;
+	width: 100%;
+}
+
+.login--welcome,
+.login--link,
+.login--pipe {
+	color: #fff;
+	display: inline-block;
+	margin: 8px;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.login--link {
+	text-decoration: none;
+	margin-right: 50px;
+}
