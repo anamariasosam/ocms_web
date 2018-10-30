@@ -1,32 +1,56 @@
 body {
-	margin: 0;
-	padding: 0;
-	font-family: Verdana, Arial;
+  padding: 0;
+  margin: 0;
+  font-family: Verdana, Arial;
 }
 
 /* LoginHeader */
 
 .login--container {
-	text-align: right;
-	height: 30px;
-	background-color: #16343b;
-	background-image: url(../images/header_light.jpg);
-	background-position: top center;
-	background-repeat: no-repeat;
-	width: 100%;
+  width: 100%;
+  height: 27px;
+  text-align: right;
+  background-color: #16343b;
+  background-image: url(../images/header_light.jpg);
+  background-repeat: no-repeat;
+  background-position: top center;
+  box-shadow: 0 7px 11px 0 #ccc;
 }
 
-.login--welcome,
-.login--link,
-.login--pipe {
-	color: #fff;
-	display: inline-block;
-	margin: 8px;
-	font-size: 11px;
-	font-weight: bold;
+.login--welcome, .login--link, .login--pipe {
+  display: inline-block;
+  margin: 7px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: bold;
 }
 
 .login--link {
-	text-decoration: none;
-	margin-right: 50px;
+  margin-right: 53px;
+  text-decoration: none;
+}
+
+/* Nav */
+
+.nav--container {
+  justify-content: space-between;
+  display: flex;
+  margin-left: 11px;
+}
+
+.nav--list {
+  margin-top: 39px;
+  margin-right: 107px;
+  font-size: 14px;
+  list-style-type: none;
+}
+
+.nav--list li {
+  display: inline-block;
+  margin-left: 35px;
+}
+
+.nav--list li a {
+  color: #777;
+  text-decoration: none;
 }
