@@ -1,11 +1,11 @@
 import React from 'react'
-import Login from './Login'
+import LoginHeader from './LoginHeader'
 import Nav from './Nav'
 
 const Header = () => {
   return (
     <header>
-      <Login />
+      <LoginHeader />
       <Nav />
     </header>
   )
