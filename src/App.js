@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import ModulesList from './components/ModulesList'
 import Home from './views/Home'
 import Login from './views/Login'
+import RecoverPassword from './views/RecoverPassword'
 
 import './styles/App.css'
 
@@ -15,7 +16,8 @@ const App = () => {
         <Header />
 				<div className="main--content">
 					<Route path="/" component={Home} exact />
-					<Route path="/login" component={Login} exact />
+					<Route path="/login" component={Login} />
+					<Route path="/recoverPassword" component={RecoverPassword} />
 				</div>
         <ModulesList />
         <Footer />
