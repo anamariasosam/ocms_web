@@ -231,3 +231,29 @@ body {
   margin-top: 30px;
   text-align: right;
 }
+
+/* Error Box */
+.error--container {
+  align-items: center;
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  margin: 20px auto;
+  color: #fb1414;
+  background: #eee;
+  -webkit-box-shadow: 0 0 8px #8c8c8c;
+          box-shadow: 0 0 8px #8c8c8c;
+  border: 1px solid #ff8a8a;
+
+     -moz-box-shadow: 0 0 8px #8c8c8c;
+}
+
+.error--icon {
+  display: inline-block;
+  width: 40px;
+  margin: 5px 10px;
+}
+
+.error--description {
+  /* display: inline-block; */
+}
