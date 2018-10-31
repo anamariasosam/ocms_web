@@ -4,7 +4,7 @@ import ModuleItem from './ModuleItem'
 
 const modules = [
 	{
-		name: "Gestion Curricular",
+		name: "Gestión Curricular",
 		image: require('../images/Book.png')
 	},
 	{
@@ -12,11 +12,11 @@ const modules = [
 		image: require('../images/Bank.png')
 	},
 	{
-		name: "Calendario Academico",
+		name: "Calendario Académico",
 		image: require('../images/Calendar.png')
 	},
 	{
-		name: "Orientacion Academica",
+		name: "Orientación Académica",
 		image: require('../images/Dashboard.png')
 	},
 	{

@@ -1,8 +1,16 @@
 import React from 'react'
 
+const year = () => (
+	(new Date()).getFullYear()
+)
+
 const FooterCredits = () => (
-	<div>
-		<p>Copyright © 2018 OCMS Project - Universidad de Medellín</p>
+	<div className="footer--copyright">
+		<p>
+			Copyright © { year() } OCMS Project 
+			- 
+			Universidad de Medellín
+		</p>
 	</div>
 )
 
