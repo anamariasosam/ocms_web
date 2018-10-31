@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const FooterMenu = () => {
   return (
@@ -9,8 +10,8 @@ const FooterMenu = () => {
       <div>
         <ul className="footer--menu">
           <li>OCMS</li>
-          <li>Ir a inicio</li>
-          <li>Acceso a mi cuenta</li>
+          <li><Link to="/" className="footer--link">Ir a inicio</Link></li>
+          <li><Link to="/login" className="footer--link">Acceso a mi cuenta</Link></li>
           <li>Acerca del proyecto</li>
         </ul>
       </div>
@@ -18,7 +19,6 @@ const FooterMenu = () => {
         <ul className="footer--menu">
           <li>Actas</li>
           <li>Lista de actas</li>
-          <li>Otra opcion</li>
         </ul>
       </div>
       <div>

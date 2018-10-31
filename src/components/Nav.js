@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Nav = () => (
 	<nav className="nav--container">
@@ -7,9 +8,9 @@ const Nav = () => (
 			alt='logo'
 		/>
 		<ul className="nav--list">
-			<li><a href="/Inicio">Inicio</a></li>
-			<li><a href="/Equipo">Equipo</a></li>
-			<li><a href="/Contactenos">Contáctenos</a></li>
+			<li><Link to="/" className="footer--link">Inicio</Link></li>
+			<li>Equipo</li>
+			<li>Contáctenos</li>
 		</ul>
 	</nav>
 )

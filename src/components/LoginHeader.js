@@ -1,10 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const LoginHeader = () => (
 	<div className="login--header">
 		<span className="login--welcome">Bienvenido</span>
 		<span className="login--pipe">|</span>
-		<a href="/inicio" className="login--link">Iniciar Sesión</a>
+		<Link to="/login" className="login--link">Iniciar Sesión</Link>
 	</div>
 )
 

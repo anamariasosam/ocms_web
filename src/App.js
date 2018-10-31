@@ -15,7 +15,7 @@ const App = () => {
         <Header />
 				<div className="main--content">
 					<Route path="/" component={Home} exact />
-					<Route path="/" component={Login} exact />
+					<Route path="/login" component={Login} exact />
 				</div>
         <ModulesList />
         <Footer />

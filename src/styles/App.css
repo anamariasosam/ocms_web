@@ -53,6 +53,7 @@ body {
 .nav--list li {
   display: inline-block;
   margin-right: 35px;
+  color: #777;
 }
 
 .nav--list li a {
