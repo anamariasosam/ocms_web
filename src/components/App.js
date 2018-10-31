@@ -9,6 +9,7 @@ class App extends Component {
     return (
       <Fragment>
         <Header />
+        <div className="main-content"></div>
         <ModulesList />
         <Footer />
       </Fragment>

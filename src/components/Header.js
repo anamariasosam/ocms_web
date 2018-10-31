@@ -1,13 +1,13 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import Login from './Login'
 import Nav from './Nav'
 
 const Header = () => {
   return (
-    <Fragment>
+    <header>
       <Login />
       <Nav />
-    </Fragment>
+    </header>
   )
 }
 

@@ -27,7 +27,7 @@ const modules = [
 
 
 const ModulesList = () => (
-	<nav>
+	<nav className="modules--menu">
 		{
 			modules.map(module => (
 				<ModuleItem
