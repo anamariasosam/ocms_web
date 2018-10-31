@@ -34,6 +34,7 @@ const FooterMenu = () => {
               href="ocms@udem.edu.co"
               target="_blank"
               className="footer--link"
+              rel="noopener noreferrer" 
             > 
               ocms@udem.edu.co
             </a>
@@ -48,6 +49,7 @@ const FooterMenu = () => {
               href="https://www.udem.edu.co"
               target="_blank"
               className="footer--link"
+              rel="noopener noreferrer" 
             > 
               www.udem.edu.co
             </a>
