@@ -7,6 +7,8 @@ import Home from './views/Home'
 import Login from './views/Login'
 import RecoverPassword from './views/RecoverPassword'
 import Module from './views/modules/Module'
+import AcademicSchedule from './views/modules/AcademicSchedule'
+
 
 import './styles/App.css'
 
@@ -20,7 +22,11 @@ class App extends Component {
             <Route path="/" component={Home}  />
             <Route path="/login" component={Login} />
             <Route path="/recuperarClave" component={RecoverPassword} />
-            <Route path="/modulo/:nombreMdulo" component={Module} />
+            <Route path='/modulo/calendarioAcademico' component={AcademicSchedule} />
+            <Route path='/modulo/gestionCurricular' component={Module} />
+            <Route path='/modulo/bancoDeProyectos' component={Module} />
+            <Route path='/modulo/orientacionAcademica' component={Module} />
+            <Route path='/modulo/redesSociales' component={Module} />
           </div>
           <ModulesList />
           <Footer />
