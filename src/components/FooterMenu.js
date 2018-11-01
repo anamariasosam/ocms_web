@@ -10,8 +10,8 @@ const FooterMenu = () => {
       <div>
         <ul className="footer--menu">
           <li>OCMS</li>
-          <li><Link to="/" className="footer--link">Ir a inicio</Link></li>
-          <li><Link to="/login" className="footer--link">Acceso a mi cuenta</Link></li>
+          <li><Link to="/" className="footer--link reset--link">Ir a inicio</Link></li>
+          <li><Link to="/login" className="footer--link reset--link">Acceso a mi cuenta</Link></li>
           <li>Acerca del proyecto</li>
         </ul>
       </div>
@@ -33,7 +33,7 @@ const FooterMenu = () => {
             <a 
               href="ocms@udem.edu.co"
               target="_blank"
-              className="footer--link"
+              className="footer--link reset--link"
               rel="noopener noreferrer" 
             > 
               ocms@udem.edu.co
@@ -48,7 +48,7 @@ const FooterMenu = () => {
             <a 
               href="https://www.udem.edu.co"
               target="_blank"
-              className="footer--link"
+              className="footer--link reset--link"
               rel="noopener noreferrer" 
             > 
               www.udem.edu.co

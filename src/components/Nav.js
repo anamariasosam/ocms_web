@@ -8,7 +8,7 @@ const Nav = () => (
 			alt='logo'
 		/>
 		<ul className="nav--list">
-			<li><Link to="/" className="footer--link">Inicio</Link></li>
+			<li><Link to="/" className="reset--link">Inicio</Link></li>
 			<li>Equipo</li>
 			<li>Contáctenos</li>
 		</ul>

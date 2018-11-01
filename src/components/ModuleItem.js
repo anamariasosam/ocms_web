@@ -1,18 +1,28 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 
 const ProjectsList = ({ module }) => {
-	const { name, image } = module
+	const { name, image, slug } = module
 	return (
-		<figure className="module--item">
-			<img 
-				src={image}
-				alt={name}
-				className="module--image"
-			/>
-			<figcaption className="module--name">
-				<p>{name}</p>
-			</figcaption>
-		</figure>
+		<Link
+        to={{
+          pathname: '/modulo/' + slug,
+          state: { module },
+				}}
+				class="reset--link"
+      >
+			<figure className="module--item">
+				<img 
+					src={image}
+					alt={name}
+					className="module--image"
+				/>
+				<figcaption className="module--name">
+					<p>{name}</p>
+				</figcaption>
+			</figure>
+		</Link>
 	)
 }
 

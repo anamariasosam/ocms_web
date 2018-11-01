@@ -14,7 +14,7 @@ const PasswordForm = () => (
 			<input type="text" id="password" className="input"/>
 
 			<div className="form--controls">
-				<Link to="/login" className="form--link">Iniciar Sesión</Link>
+				<Link to="/login" className="form--link reset--link">Iniciar Sesión</Link>
 
 				<input type="submit" value="Continuar" className="button"/>
 			</div>

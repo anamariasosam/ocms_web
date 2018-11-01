@@ -11,7 +11,7 @@ const LoginForm = () => (
 			<input type="text" id="password" className="input"/>
 
 			<div className="form--controls">
-				<Link to="/recoverPassword" className="form--link">Olvidaste tu clave?</Link>
+				<Link to="/recuperarClave" className="form--link reset--link">Olvidaste tu clave?</Link>
 				<input type="submit" value="Continuar" className="button"/>
 			</div>
 		</form>
