@@ -339,3 +339,30 @@ body {
   margin: 0 8px;
   vertical-align: middle;
 }
+
+/* Box */
+.box {
+  padding: .3rem;
+  padding-right: 4.5rem;
+  color: #8c8c8c;
+  text-align: left;
+  text-transform: uppercase;
+  border: 1px solid #ccc;
+}
+
+
+/* Calendar Info */
+.calendarInfo--list {
+  flex-direction: row;
+  flex-wrap: wrap;
+  display: flex;
+  padding: 0;
+}
+
+.calendarInfo--list {
+  list-style: none;
+}
+
+.calendarInfo--list li {
+  margin-right: 60px;
+}

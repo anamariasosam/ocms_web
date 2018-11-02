@@ -1,16 +1,35 @@
 import React, { Fragment, Component } from 'react'
 import Options from '../../../components/Options'
-
+import { calendars } from '../../../data/data'
 
 class Calendar extends Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      calendars,
+    }
 
     this.handleAction = this.handleAction.bind(this)
   }
 
   handleAction(e) {
     console.log(e)
+  }
+
+  renderCalendars() {
+    return(
+      this.state.calendars.map( calendar => (
+        <tr key={calendar.id}>
+          <td>{calendar.id}</td>
+          <td>{calendar.startDate}</td>
+          <td>{calendar.endDate}</td>
+          <td>
+            <Options handleAction={this.handleAction}/>
+          </td>
+        </tr>
+      ))
+    )
   }
   
   render() {
@@ -30,38 +49,7 @@ class Calendar extends Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>2017-1</td>
-                <td>Enero 23</td>
-                <td>Junio 23</td>
-                <td>
-                  <Options handleAction={this.handleAction}/>
-                </td>
-              </tr>
-              <tr>
-                <td>2017-2</td>
-                <td>Julio 23</td>
-                <td>Noviembre 23</td>
-                <td>
-                  <Options handleAction={this.handleAction}/>
-                </td>
-              </tr>
-              <tr>
-                <td>2018-1</td>
-                <td>Enero 23</td>
-                <td>Junio 23</td>
-                <td>
-                  <Options handleAction={this.handleAction}/>
-                </td>
-              </tr>
-              <tr>
-                <td>2018-2</td>
-                <td>Julio 23</td>
-                <td>Noviembre 23</td>
-                <td>
-                  <Options handleAction={this.handleAction}/>
-                </td>
-              </tr>
+              { this.renderCalendars() }
             </tbody>
           </table>
         </div>
