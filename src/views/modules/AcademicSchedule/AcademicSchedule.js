@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Route } from 'react-router-dom'
 
 import ModuleLayout from '../../../layouts/ModuleLayout'
@@ -31,7 +31,8 @@ const AcademicSchedule = () => {
         {
           menu.map(
             element => (
-              <Route 
+              <Route
+                key={element.name}
                 path={element.path}
                 component={element.component}
               />

@@ -15,6 +15,24 @@ body {
   text-decoration: underline;
 }
 
+.reset--button {
+  width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-font-smoothing: inherit;
+  line-height: normal;
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.reset--button:focus {
+  outline: 0;
+}
+
 /* LoginHeader */
 
 .login--header {
@@ -281,4 +299,43 @@ body {
 .sidebar--list li:before {
   padding-right: 8px;
   content: '»';
+}
+
+/* Tables */
+.table {
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+}
+
+.table td, .table th {
+  padding: .75rem 2rem;
+  border: 1px solid #ddd;
+}
+
+.table td {
+  padding-left: .65rem;
+  text-align: left;
+}
+
+.table td:last-child {
+  padding: .45rem;
+  text-align: center;
+}
+
+.thead th {
+  color: #666;
+  text-align: center;
+  background-color: #d9d9d9;
+  border-color: #ddd;
+}
+
+/* Module */
+.module--container {
+  margin-top: 2rem;
+}
+
+/* Actions */
+.action--image {
+  margin: 0 8px;
+  vertical-align: middle;
 }
