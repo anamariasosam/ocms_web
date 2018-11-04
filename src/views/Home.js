@@ -1,9 +1,13 @@
 import React, { Fragment } from 'react'
+import MainLayout from '../layouts/MainLayout.js'
 
 const Home = () => {
   return (
-    <Fragment>
-    </Fragment>
+    <MainLayout>
+      <Fragment>
+      </Fragment>
+    </MainLayout>
+    
   )
 }
 
