@@ -4,8 +4,8 @@ import { Route } from 'react-router-dom'
 import ModuleLayout from '../../../layouts/ModuleLayout'
 
 import Calendar from './Calendar'
-import Event from './Event'
 import Agenda from './Agenda'
+import Event from './Event'
 
 const menu = [
   {
@@ -14,14 +14,14 @@ const menu = [
     component: Calendar
   },
   {
-    path: '/calendarioAcademico/programarEvento',
+    path: '/calendarioAcademico/realizarProgramacion',
     name: 'Realizar programación',
-    component: Event
+    component: Agenda
   },
   {
-    path: '/calendarioAcademico/realizarProgramacion',
+    path: '/calendarioAcademico/programarEvento',
     name: 'Programar evento',
-    component: Agenda
+    component: Event
   }
 ]
 

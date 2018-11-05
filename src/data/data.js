@@ -49,7 +49,7 @@ export const calendars = [
 	}
 ] 
 
-export const events = [
+export const schedules = [
 	{
 		id: '2017-1-1',
 		startDate: '11/09/17',
@@ -69,3 +69,32 @@ export const events = [
 		name: 'Foros'
 	},
 ]
+
+export const events = [
+	{
+		id: '1.ISW1',
+		name: 'Ingeniería de Software I',
+		attendant: 'Bell',
+		date: '15/10/2017',
+		hour: '18:00',
+		aforo: '111'
+	},
+	{
+		id: '2.ISW2',
+		name: 'Ingeniería de Software II',
+		attendant: 'Juan Bernardo',
+		date: '30/10/2017',
+		hour: '14:00',
+		aforo: '50'
+	},
+	{
+		id: '3.ISW3',
+		name: 'Ingeniería de Software III',
+		attendant: 'Grissa',
+		date: '10/11/2017',
+		hour: '10:00',
+		aforo: '30'
+	},
+]
+
+
