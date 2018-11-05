@@ -18,8 +18,15 @@ class Calendar extends Component {
     this.handleDelete = this.handleDelete.bind(this)
   }
 
-  handleDelete(e) {
-    console.log(e)
+  handleDelete(id) {
+    var confirmDelete = window.confirm("Estas seguro que deseas eliminar?")
+    if (confirmDelete) {
+      const calendars = this.state.calendars.filter(c => c.id !== id)
+      
+      this.setState({
+        calendars,
+      })
+    } 
   }
 
   renderCalendars() {
@@ -30,7 +37,7 @@ class Calendar extends Component {
           <td>{calendar.startDate}</td>
           <td>{calendar.endDate}</td>
           <td>
-            <Options handleDelete={this.handleDelete} urls={this.state.urls}/>
+            <Options handleDelete={() => this.handleDelete(calendar.id)} urls={this.state.urls}/>
           </td>
         </tr>
       ))

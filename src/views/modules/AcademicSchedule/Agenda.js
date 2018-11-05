@@ -21,10 +21,17 @@ class Agenda extends Component {
     this.handleDelete = this.handleDelete.bind(this)
   }
 
-  handleDelete(e) {
-    console.log(e)
+  handleDelete(id) {
+    var confirmDelete = window.confirm("Estas seguro que deseas eliminar?")
+    if (confirmDelete) {
+      const schedules = this.state.schedules.filter(s => s.id !== id)
+      
+      this.setState({
+        schedules,
+      })
+    } 
   }
-
+  
   renderEvents() {
     return(
       this.state.schedules.map( event => (
@@ -34,7 +41,7 @@ class Agenda extends Component {
           <td>{event.startDate}</td>
           <td>{event.endDate}</td>
           <td>
-            <Options handleDelete={this.handleDelete} urls={this.state.urls}/>
+            <Options handleDelete={() => this.handleDelete(event.id)} urls={this.state.urls}/>
           </td>
         </tr>
       ))

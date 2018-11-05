@@ -21,8 +21,15 @@ class Event extends Component {
     this.handleDelete = this.handleDelete.bind(this)
   }
 
-  handleDelete(e) {
-    console.log(e)
+  handleDelete(id) {
+    var confirmDelete = window.confirm("Estas seguro que deseas eliminar?")
+    if (confirmDelete) {
+      const events = this.state.events.filter(e => e.id !== id)
+      
+      this.setState({
+        events,
+      })
+    } 
   }
 
   renderEvents() {
@@ -36,7 +43,7 @@ class Event extends Component {
           <td>{event.hour}</td>
           <td>{event.aforo}</td>
           <td>
-            <Options handleDelete={this.handleDelete} urls={this.state.urls}/>
+            <Options handleDelete={() => this.handleDelete(event.id)} urls={this.state.urls}/>
           </td>
         </tr>
       ))
