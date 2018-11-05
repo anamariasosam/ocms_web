@@ -11,13 +11,17 @@ class Event extends Component {
     this.state = {
       events,
       schedule: schedules[0],
-      titles: ['Periodo', 'Fecha Inicio', 'Fecha Fin', 'Nombre']
+      titles: ['Periodo', 'Fecha Inicio', 'Fecha Fin', 'Nombre'],
+      urls: [
+        '/calendarioAcademico/programarEvento/edit',
+        '/calendarioAcademico/programarEvento/edit'
+      ]
     }
 
-    this.handleAction = this.handleAction.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
-  handleAction(e) {
+  handleDelete(e) {
     console.log(e)
   }
 
@@ -32,7 +36,7 @@ class Event extends Component {
           <td>{event.hour}</td>
           <td>{event.aforo}</td>
           <td>
-            <Options handleAction={this.handleAction}/>
+            <Options handleDelete={this.handleDelete} urls={this.state.urls}/>
           </td>
         </tr>
       ))

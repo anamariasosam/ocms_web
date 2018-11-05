@@ -9,12 +9,16 @@ class Calendar extends Component {
 
     this.state = {
       calendars,
+      urls: [
+        '/calendarioAcademico/realizarProgramacion',
+        '/calendarioAcademico/gestionarCalendario/edit'
+      ]
     }
 
-    this.handleAction = this.handleAction.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
-  handleAction(e) {
+  handleDelete(e) {
     console.log(e)
   }
 
@@ -26,7 +30,7 @@ class Calendar extends Component {
           <td>{calendar.startDate}</td>
           <td>{calendar.endDate}</td>
           <td>
-            <Options handleAction={this.handleAction}/>
+            <Options handleDelete={this.handleDelete} urls={this.state.urls}/>
           </td>
         </tr>
       ))

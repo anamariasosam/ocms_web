@@ -11,13 +11,17 @@ class Agenda extends Component {
     this.state = {
       calendar: calendars[0],
       schedules,
-      titles: ['Periodo', 'Fecha Inicio', 'Fecha Fin']
+      titles: ['Periodo', 'Fecha Inicio', 'Fecha Fin'],
+      urls: [
+        '/calendarioAcademico/programarEvento',
+        '/calendarioAcademico/realizarProgramacion/edit'
+      ]
     }
 
-    this.handleAction = this.handleAction.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
-  handleAction(e) {
+  handleDelete(e) {
     console.log(e)
   }
 
@@ -30,7 +34,7 @@ class Agenda extends Component {
           <td>{event.startDate}</td>
           <td>{event.endDate}</td>
           <td>
-            <Options handleAction={this.handleAction}/>
+            <Options handleDelete={this.handleDelete} urls={this.state.urls}/>
           </td>
         </tr>
       ))

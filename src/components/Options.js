@@ -1,23 +1,24 @@
 import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
 
-const Options = ({ handleAction }) => {
+const Options = ({ handleDelete, urls }) => {
   return (
 		<Fragment>
-			<button className="reset--button" onClick={() => handleAction('show')}>
+			<Link className="reset--link" to={urls[0]}>
 				<img 
 					src={require('../images/show.png')} 
 					alt="show"
 					className="action--image"
 				/>
-			</button>
-			<button className="reset--button" onClick={() => handleAction('edit')}>
+			</Link>
+			<Link className="reset--link" to={urls[1]}>
 				<img 
 					src={require('../images/edit.png')} 
 					alt="edit"
 					className="action--image"
 				/>
-			</button>
-			<button className="reset--button" onClick={() => handleAction('delete')}>
+			</Link>
+			<button className="reset--button" onClick={handleDelete}>
 				<img 
 					src={require('../images/delete.png')} 
 					alt="remove"

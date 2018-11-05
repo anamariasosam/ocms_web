@@ -36,7 +36,6 @@ const forms = [
   },
   {
     path: '/calendarioAcademico/realizarProgramacion/edit',
-    name: 'Realizar programación',
     component: AgendaForm
   },
   {
