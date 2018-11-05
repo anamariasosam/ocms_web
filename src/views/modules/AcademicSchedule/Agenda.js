@@ -2,6 +2,7 @@ import React, { Fragment, Component } from 'react'
 import Options from '../../../components/Options'
 import AditionalInfo from '../../../components/AditionalInfo'
 import { calendars, schedules } from '../../../data/data'
+import { Link } from 'react-router-dom'
 
 class Agenda extends Component {
   constructor(props) {
@@ -59,6 +60,13 @@ class Agenda extends Component {
               { this.renderEvents() }
             </tbody>
           </table>
+
+          <Link 
+            to="/calendarioAcademico/realizarProgramacion/edit"
+            className="reset--link button"
+          >
+            + Programación
+          </Link>
         </div>
       </Fragment>
     )

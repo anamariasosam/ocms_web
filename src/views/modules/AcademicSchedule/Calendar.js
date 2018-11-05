@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from 'react'
 import Options from '../../../components/Options'
 import { calendars } from '../../../data/data'
+import { Link } from 'react-router-dom'
 
 class Calendar extends Component {
   constructor(props) {
@@ -52,7 +53,14 @@ class Calendar extends Component {
               { this.renderCalendars() }
             </tbody>
           </table>
-        </div>
+
+          <Link 
+            to="/calendarioAcademico/gestionarCalendario/edit"
+            className="reset--link button"
+          >
+            + Calendario
+          </Link>
+        </div>   
       </Fragment>
     )
   }

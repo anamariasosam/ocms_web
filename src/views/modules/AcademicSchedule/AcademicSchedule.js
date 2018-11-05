@@ -7,6 +7,10 @@ import Calendar from './Calendar'
 import Agenda from './Agenda'
 import Event from './Event'
 
+import CalendarForm from './CalendarForm'
+import AgendaForm from './AgendaForm'
+import EventForm from './EventForm'
+
 const menu = [
   {
     path: '/calendarioAcademico/gestionarCalendario',
@@ -25,6 +29,24 @@ const menu = [
   }
 ]
 
+const forms = [
+  {
+    path: '/calendarioAcademico/gestionarCalendario/edit',
+    component: CalendarForm
+  },
+  {
+    path: '/calendarioAcademico/realizarProgramacion/edit',
+    name: 'Realizar programación',
+    component: AgendaForm
+  },
+  {
+    path: '/calendarioAcademico/programarEvento/edit',
+    component: EventForm
+  }
+]
+
+
+
 const AcademicSchedule = () => {
     return (
       <ModuleLayout menu={menu}>
@@ -32,7 +54,20 @@ const AcademicSchedule = () => {
           menu.map(
             element => (
               <Route
+                exact
                 key={element.name}
+                path={element.path}
+                component={element.component}
+              />
+            )
+          )
+        }
+        {
+          forms.map(
+            element => (
+              <Route
+                exact
+                key={element.path}
                 path={element.path}
                 component={element.component}
               />
