@@ -6,7 +6,7 @@ const ProjectsList = ({ module }) => {
 	const { name, image, slug } = module
 	return (
 		<Link
-			to={`/modulo/${slug}`}
+			to={`/${slug}`}
 			className="reset--link"
 		>
 			<figure className="module--item">
