@@ -46,7 +46,9 @@ body {
   box-shadow: 0 7px 11px 0 #ccc;
 }
 
-.login--welcome, .login--link, .login--pipe {
+.login--welcome,
+.login--link,
+.login--pipe {
   display: inline-block;
   margin: 7px;
   color: #fff;
@@ -109,9 +111,15 @@ body {
   margin: 10px;
   text-align: center;
   background: #cdf4fb;
-  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#b8c8d4));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#fff),
+    to(#b8c8d4)
+  );
   background: -moz-linear-gradient(top, #fff, #b8c8d4);
-  background:   -o-linear-gradient(top, #fff, #b8c8d4);
+  background: -o-linear-gradient(top, #fff, #b8c8d4);
   box-shadow: 6px 6px 20px 2px #8c8c8c;
   border: solid 1px #192a2e;
 }
@@ -125,9 +133,15 @@ body {
   color: #fff;
   font-size: 14px;
   font-weight: bold;
-  background: -webkit-gradient(linear, left top, left bottom, from(#6e6e6e), to(#343434));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#6e6e6e),
+    to(#343434)
+  );
   background: -moz-linear-gradient(top, #6e6e6e, #343434);
-  background:   -o-linear-gradient(top, #6e6e6e, #343434);
+  background: -o-linear-gradient(top, #6e6e6e, #343434);
   border: solid 1px #313131;
 }
 
@@ -182,7 +196,8 @@ body {
 
 /* Login View */
 
-.login--container, .password--container {
+.login--container,
+.password--container {
   align-items: center;
   flex-direction: row;
   flex-wrap: wrap;
@@ -190,7 +205,8 @@ body {
   display: flex;
 }
 
-.login--image, .password--image {
+.login--image,
+.password--image {
   margin: 0 30px;
 }
 
@@ -208,7 +224,7 @@ body {
 .required::before {
   margin-right: 4px;
   color: red;
-  content: '*';;
+  content: "*";
 }
 
 .input {
@@ -230,15 +246,21 @@ body {
   color: #fff;
   font-size: 14px;
   background: #203b42;
-  background: -webkit-gradient(linear, left top, left bottom, from(#3a7e8e), to(#203b42));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#3a7e8e),
+    to(#203b42)
+  );
   background: -moz-linear-gradient(top, #3a7e8e, #203b42);
-  background:   -o-linear-gradient(top, #3a7e8e, #203b42);
+  background: -o-linear-gradient(top, #3a7e8e, #203b42);
   -webkit-box-shadow: 0 0 8px #8c8c8c;
-          box-shadow: 0 0 8px #8c8c8c;
+  box-shadow: 0 0 8px #8c8c8c;
   border: none;
   border-radius: 3px;
 
-     -moz-box-shadow: 0 0 8px #8c8c8c;
+  -moz-box-shadow: 0 0 8px #8c8c8c;
 }
 
 .form--controls {
@@ -266,30 +288,42 @@ body {
   margin: 10px 7px 10px 0;
 }
 
-/* Error Box */
-.error--container {
+/* Alert Box */
+.alert--container {
   align-items: center;
   display: flex;
   width: 100%;
-  padding: 10px;
+  padding: 5px;
   margin: 20px auto;
-  color: #fb1414;
-  background: #eee;
   -webkit-box-shadow: 0 0 8px #8c8c8c;
-          box-shadow: 0 0 8px #8c8c8c;
-  border: 1px solid #ff8a8a;
+  box-shadow: 0 0 8px #8c8c8c;
+  border: 1px solid transparent;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  opacity: 1;
 
-     -moz-box-shadow: 0 0 8px #8c8c8c;
+  -moz-box-shadow: 0 0 8px #8c8c8c;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
 }
 
-.error--icon {
+.alert--icon {
   display: inline-block;
   width: 40px;
-  margin: 5px 10px;
+  margin: 0 10px;
 }
 
-.error--description {
-  /* display: inline-block; */
+.alert--danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+.alert--success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
 }
 
 /* Module */
@@ -317,7 +351,7 @@ body {
 
 .sidebar--list li:before {
   padding-right: 8px;
-  content: '»';
+  content: "»";
 }
 
 /* Tables */
@@ -326,18 +360,19 @@ body {
   border-collapse: collapse;
 }
 
-.table td, .table th {
-  padding: .75rem 2rem;
+.table td,
+.table th {
+  padding: 0.75rem 2rem;
   border: 1px solid #ddd;
 }
 
 .table td {
-  padding-left: .65rem;
+  padding-left: 0.65rem;
   text-align: left;
 }
 
 .table td:last-child {
-  padding: .45rem;
+  padding: 0.45rem;
   text-align: center;
 }
 
@@ -361,14 +396,13 @@ body {
 
 /* Box */
 .box {
-  padding: .3rem;
+  padding: 0.3rem;
   padding-right: 4.5rem;
   color: #8c8c8c;
   text-align: left;
   text-transform: uppercase;
   border: 1px solid #ccc;
 }
-
 
 /* Calendar Info */
 .calendarInfo--list {

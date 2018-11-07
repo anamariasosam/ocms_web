@@ -1,60 +1,65 @@
-import React, { Fragment, Component } from 'react'
-import Options from '../../../components/Options'
-import AditionalInfo from '../../../components/AditionalInfo'
-import { calendars, schedules } from '../../../data/data'
-import { Link } from 'react-router-dom'
+import React, { Fragment, Component } from "react";
+import Options from "../../../components/Options";
+import AditionalInfo from "../../../components/AditionalInfo";
+import { calendars, schedules } from "../../../data/data";
+import { Link } from "react-router-dom";
 
 class Agenda extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       calendar: calendars[0],
       schedules,
-      titles: ['Periodo', 'Fecha Inicio', 'Fecha Fin'],
+      titles: ["Periodo", "Fecha Inicio", "Fecha Fin"],
       urls: [
-        '/calendarioAcademico/programarEvento',
-        '/calendarioAcademico/realizarProgramacion/edit'
+        "/calendarioAcademico/programarEvento/",
+        "/calendarioAcademico/realizarProgramacion/edit/"
       ]
-    }
+    };
 
-    this.handleDelete = this.handleDelete.bind(this)
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleUrls(id) {
+    return this.state.urls.map(url => url.concat(id));
   }
 
   handleDelete(id) {
-    var confirmDelete = window.confirm("Estas seguro que deseas eliminar?")
+    var confirmDelete = window.confirm("Estas seguro que deseas eliminar?");
     if (confirmDelete) {
-      const schedules = this.state.schedules.filter(s => s.id !== id)
-      
+      const schedules = this.state.schedules.filter(s => s.id !== id);
+
       this.setState({
-        schedules,
-      })
-    } 
+        schedules
+      });
+    }
   }
-  
+
   renderEvents() {
-    return(
-      this.state.schedules.map( event => (
-        <tr key={event.id}>
-          <td>{event.id}</td>
-          <td>{event.name}</td>
-          <td>{event.startDate}</td>
-          <td>{event.endDate}</td>
-          <td>
-            <Options handleDelete={() => this.handleDelete(event.id)} urls={this.state.urls}/>
-          </td>
-        </tr>
-      ))
-    )
+    return this.state.schedules.map(event => (
+      <tr key={event.id}>
+        <td>{event.id}</td>
+        <td>{event.name}</td>
+        <td>{event.startDate}</td>
+        <td>{event.endDate}</td>
+        <td>
+          <Options
+            handleDelete={() => this.handleDelete(event.id)}
+            urls={this.handleUrls(event.id)}
+          />
+        </td>
+      </tr>
+    ));
   }
-  
+
   render() {
     return (
       <Fragment>
         <h2>Realizar programación</h2>
 
-        <AditionalInfo data={this.state.calendar} titles={this.state.titles}/>
-  
+        <AditionalInfo data={this.state.calendar} titles={this.state.titles} />
+
         <div className="module--container">
           <h3>Programaciones</h3>
           <table className="table">
@@ -67,21 +72,19 @@ class Agenda extends Component {
                 <th>ACCIONES</th>
               </tr>
             </thead>
-            <tbody>
-              { this.renderEvents() }
-            </tbody>
+            <tbody>{this.renderEvents()}</tbody>
           </table>
 
-          <Link 
-            to="/calendarioAcademico/realizarProgramacion/edit"
+          <Link
+            to="/calendarioAcademico/realizarProgramacion/create"
             className="reset--link button"
           >
             + Programación
           </Link>
         </div>
       </Fragment>
-    )
+    );
   }
 }
 
-export default Agenda
+export default Agenda;

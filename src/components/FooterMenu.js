@@ -1,17 +1,25 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
 const FooterMenu = () => {
   return (
     <div className="footer--container">
       <div>
-        <img src={require('../images/partner.png')} alt="logo"/>
+        <img src={require("../images/partner.png")} alt="logo" />
       </div>
       <div>
         <ul className="footer--menu">
           <li>OCMS</li>
-          <li><Link to="/" className="footer--link reset--link">Ir a inicio</Link></li>
-          <li><Link to="/login" className="footer--link reset--link">Acceso a mi cuenta</Link></li>
+          <li>
+            <Link to="/" className="footer--link reset--link">
+              Ir a inicio
+            </Link>
+          </li>
+          <li>
+            <Link to="/login" className="footer--link reset--link">
+              Acceso a mi cuenta
+            </Link>
+          </li>
           <li>Acerca del proyecto</li>
         </ul>
       </div>
@@ -25,39 +33,39 @@ const FooterMenu = () => {
         <ul className="footer--menu">
           <li>Contacto</li>
           <li>
-            <img 
+            <img
               src={require("../images/icon_mail.png")}
-              alt="email" 
+              alt="email"
               className="footer--icon"
             />
-            <a 
+            <a
               href="ocms@udem.edu.co"
               target="_blank"
               className="footer--link reset--link"
-              rel="noopener noreferrer" 
-            > 
+              rel="noopener noreferrer"
+            >
               ocms@udem.edu.co
             </a>
           </li>
           <li>
-            <img 
+            <img
               src={require("../images/icon_home.png")}
-              alt="home" 
+              alt="home"
               className="footer--icon"
             />
-            <a 
+            <a
               href="https://www.udem.edu.co"
               target="_blank"
               className="footer--link reset--link"
-              rel="noopener noreferrer" 
-            > 
+              rel="noopener noreferrer"
+            >
               www.udem.edu.co
             </a>
           </li>
         </ul>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default FooterMenu
+export default FooterMenu;
