@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import AditionalInfo from "../../../components/AditionalInfo";
-import { schedules, events, attendants, groups } from "../../../data/data";
+import { schedules, attendants, groups } from "../../../data/data";
 import Success from "../../../components/Success";
 import Error from "../../../components/Error";
 
@@ -84,12 +84,12 @@ class EventEditForm extends Component {
   render() {
     return (
       <Fragment>
-        <h2>Gestionar Calendario</h2>
+        <h2>Programar Evento</h2>
 
         <AditionalInfo data={this.state.schedule} titles={this.state.titles} />
 
         <div className="form--container">
-          <h3 className="form--title">Editar Evento</h3>
+          <h3 className="form--title">Crear Evento</h3>
           <form onSubmit={this.handleSubmit}>
             <label htmlFor="subject" className="required label">
               Asignatura:

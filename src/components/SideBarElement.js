@@ -2,7 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const SideBarElement = ({ name, path }) => {
-  const active = path === window.location.pathname ? "active" : "";
+  const active =
+    path.split("/")[2] === window.location.pathname.split("/")[2]
+      ? "active"
+      : "";
   return (
     <li>
       <Link to={path} className={`reset--link ${active}`}>

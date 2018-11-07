@@ -10,7 +10,7 @@ class Agenda extends Component {
 
     this.state = {
       calendar: calendars[0],
-      schedules,
+      schedules: [],
       titles: ["Periodo", "Fecha Inicio", "Fecha Fin"],
       urls: [
         "/calendarioAcademico/programarEvento/",
@@ -19,6 +19,18 @@ class Agenda extends Component {
     };
 
     this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  componentDidMount() {
+    this.getSchedules();
+  }
+
+  getSchedules() {
+    console.log(this.props.match.params.id);
+
+    this.setState({
+      schedules
+    });
   }
 
   handleUrls(id) {

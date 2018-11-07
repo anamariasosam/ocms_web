@@ -9,8 +9,8 @@ class Event extends Component {
     super(props);
 
     this.state = {
-      events,
-      schedule: schedules[0],
+      events: [],
+      schedule: {},
       titles: ["Periodo", "Fecha Inicio", "Fecha Fin", "Nombre"],
       urls: [
         "/calendarioAcademico/programarEvento/edit/",
@@ -19,6 +19,27 @@ class Event extends Component {
     };
 
     this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  componentDidMount() {
+    this.getEvents();
+    this.getSchedule();
+  }
+
+  getEvents() {
+    console.log(this.props.match.params.id);
+
+    this.setState({
+      events
+    });
+  }
+
+  getSchedule() {
+    console.log(this.props.match.params.id);
+
+    this.setState({
+      schedule: schedules[0]
+    });
   }
 
   handleUrls(id) {

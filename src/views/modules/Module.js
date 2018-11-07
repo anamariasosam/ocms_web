@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { modules } from "../../data/data";
 
 const moduleData = moduleName =>

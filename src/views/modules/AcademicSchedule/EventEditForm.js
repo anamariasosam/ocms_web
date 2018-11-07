@@ -95,7 +95,7 @@ class EventEditForm extends Component {
   render() {
     return (
       <Fragment>
-        <h2>Gestionar Calendario</h2>
+        <h2>Gestionar Evento</h2>
 
         <AditionalInfo data={this.state.schedule} titles={this.state.titles} />
 

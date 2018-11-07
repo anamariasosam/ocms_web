@@ -41,7 +41,7 @@ class AgendaCreateForm extends Component {
   render() {
     return (
       <Fragment>
-        <h2>Gestionar Calendario</h2>
+        <h2>Gestionar Programación</h2>
 
         <div className="form--container">
           <h3 className="form--title">Crear Programación</h3>

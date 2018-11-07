@@ -21,11 +21,11 @@ const menu = [
     name: "Gestionar Calendario"
   },
   {
-    path: "/calendarioAcademico/realizarProgramacion",
+    path: "/calendarioAcademico/realizarProgramacion/2017-1",
     name: "Realizar programación"
   },
   {
-    path: "/calendarioAcademico/programarEvento",
+    path: "/calendarioAcademico/programarEvento/2017-1-1",
     name: "Programar evento"
   }
 ];
@@ -36,11 +36,11 @@ const routes = [
     component: Calendar
   },
   {
-    path: "/calendarioAcademico/realizarProgramacion",
+    path: "/calendarioAcademico/realizarProgramacion/:id/",
     component: Agenda
   },
   {
-    path: "/calendarioAcademico/programarEvento",
+    path: "/calendarioAcademico/programarEvento/:id",
     component: Event
   },
   {
@@ -62,10 +62,6 @@ const routes = [
   {
     path: "/calendarioAcademico/realizarProgramacion/create",
     component: AgendaCreateForm
-  },
-  {
-    path: "/calendarioAcademico/programarEvento/create",
-    component: EventCreateForm
   }
 ];
 
