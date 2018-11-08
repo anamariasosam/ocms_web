@@ -1,12 +1,8 @@
-import React, { Fragment } from "react";
+import React from "react";
 import MainLayout from "../layouts/MainLayout.js";
 
 const Home = () => {
-  return (
-    <MainLayout>
-      <Fragment />
-    </MainLayout>
-  );
+  return <MainLayout />;
 };
 
 export default Home;

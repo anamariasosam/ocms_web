@@ -423,3 +423,15 @@ body {
 .calendarInfo--list li {
   margin-right: 60px;
 }
+
+/* Page */
+
+.page--container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.page--container p,
+.page--container li {
+  font-size: 16px;
+}

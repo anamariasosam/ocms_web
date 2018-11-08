@@ -12,8 +12,16 @@ const Nav = () => (
           Inicio
         </Link>
       </li>
-      <li>Equipo</li>
-      <li>Contáctenos</li>
+      <li>
+        <Link to="/equipo" className="reset--link">
+          Equipo
+        </Link>
+      </li>
+      <li>
+        <Link to="/contactenos" className="reset--link">
+          Contáctenos
+        </Link>
+      </li>
     </ul>
   </nav>
 );

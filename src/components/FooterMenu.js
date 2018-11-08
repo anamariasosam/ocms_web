@@ -20,7 +20,11 @@ const FooterMenu = () => {
               Acceso a mi cuenta
             </Link>
           </li>
-          <li>Acerca del proyecto</li>
+          <li>
+            <Link to="/about" className="footer--link reset--link">
+              Acerca del proyecto
+            </Link>
+          </li>
         </ul>
       </div>
       <div>
