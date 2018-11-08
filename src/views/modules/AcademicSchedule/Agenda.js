@@ -13,7 +13,7 @@ class Agenda extends Component {
       schedules: [],
       titles: ["Periodo", "Fecha Inicio", "Fecha Fin"],
       urls: [
-        "/calendarioAcademico/programarEvento/",
+        "/calendarioAcademico/programarEvento/show/",
         "/calendarioAcademico/realizarProgramacion/edit/"
       ]
     };

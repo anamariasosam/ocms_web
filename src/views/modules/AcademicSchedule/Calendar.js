@@ -10,7 +10,7 @@ class Calendar extends Component {
     this.state = {
       calendars,
       urls: [
-        "/calendarioAcademico/realizarProgramacion/",
+        "/calendarioAcademico/realizarProgramacion/show/",
         "/calendarioAcademico/gestionarCalendario/edit/"
       ]
     };

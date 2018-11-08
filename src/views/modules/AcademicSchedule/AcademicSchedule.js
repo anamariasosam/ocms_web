@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import ModuleLayout from "../../../layouts/ModuleLayout";
 
@@ -21,11 +21,11 @@ const menu = [
     name: "Gestionar Calendario"
   },
   {
-    path: "/calendarioAcademico/realizarProgramacion/2017-1",
+    path: "/calendarioAcademico/realizarProgramacion/show/2017-1",
     name: "Realizar programación"
   },
   {
-    path: "/calendarioAcademico/programarEvento/2017-1-1",
+    path: "/calendarioAcademico/programarEvento/show/2017-1-1",
     name: "Programar evento"
   }
 ];
@@ -36,11 +36,11 @@ const routes = [
     component: Calendar
   },
   {
-    path: "/calendarioAcademico/realizarProgramacion/:id/",
+    path: "/calendarioAcademico/realizarProgramacion/show/:id",
     component: Agenda
   },
   {
-    path: "/calendarioAcademico/programarEvento/:id",
+    path: "/calendarioAcademico/programarEvento/show/:id",
     component: Event
   },
   {
@@ -60,6 +60,10 @@ const routes = [
     component: CalendarCreateForm
   },
   {
+    path: "/calendarioAcademico/programarEvento/create",
+    component: EventCreateForm
+  },
+  {
     path: "/calendarioAcademico/realizarProgramacion/create",
     component: AgendaCreateForm
   }
@@ -68,14 +72,16 @@ const routes = [
 const AcademicSchedule = () => {
   return (
     <ModuleLayout menu={menu}>
-      {routes.map(element => (
-        <Route
-          exact
-          key={element.path}
-          path={element.path}
-          component={element.component}
-        />
-      ))}
+      <Switch>
+        {routes.map(element => (
+          <Route
+            exact
+            key={element.path}
+            path={element.path}
+            component={element.component}
+          />
+        ))}
+      </Switch>
     </ModuleLayout>
   );
 };
