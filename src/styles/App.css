@@ -333,6 +333,10 @@ body {
   margin-bottom: 15px;
 }
 
+.module--children {
+  width: calc(100% - 348px);
+}
+
 /* SideBar */
 .sidebar--container {
   height: 100vh;

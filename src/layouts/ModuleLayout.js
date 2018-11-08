@@ -5,7 +5,7 @@ const ModuleLayout = ({ children, menu }) => {
   return (
     <div className="module--content">
       <SideBar menu={menu} />
-      <div>{children}</div>
+      <div className="module--children">{children}</div>
     </div>
   );
 };

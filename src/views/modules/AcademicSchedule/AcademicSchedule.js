@@ -6,6 +6,7 @@ import ModuleLayout from "../../../layouts/ModuleLayout";
 import Calendar from "./Calendar";
 import Agenda from "./Agenda";
 import Event from "./Event";
+import BigCalendar from "./BigCalendar";
 
 import CalendarCreateForm from "./CalendarCreateForm";
 import AgendaCreateForm from "./AgendaCreateForm";
@@ -66,6 +67,10 @@ const routes = [
   {
     path: "/calendarioAcademico/realizarProgramacion/create",
     component: AgendaCreateForm
+  },
+  {
+    path: "/calendarioAcademico/ver/:id",
+    component: BigCalendar
   }
 ];
 

@@ -13,7 +13,7 @@ class Event extends Component {
       schedule: {},
       titles: ["Periodo", "Fecha Inicio", "Fecha Fin", "Nombre"],
       urls: [
-        "/calendarioAcademico/programarEvento/edit/",
+        "/calendarioAcademico/ver/",
         "/calendarioAcademico/programarEvento/edit/"
       ]
     };
