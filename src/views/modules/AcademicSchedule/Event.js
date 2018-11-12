@@ -1,59 +1,56 @@
-import React, { Fragment, Component } from "react";
-import Options from "../../../components/Options";
-import AditionalInfo from "../../../components/AditionalInfo";
-import { schedules, events } from "../../../data/data";
-import { Link } from "react-router-dom";
+import React, { Fragment, Component } from 'react'
+import { Link } from 'react-router-dom'
+import Options from '../../../components/Options'
+import AditionalInfo from '../../../components/AditionalInfo'
+import { schedules, events } from '../../../data/data'
 
 class Event extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       events: [],
       schedule: {},
-      titles: ["Periodo", "Fecha Inicio", "Fecha Fin", "Nombre"],
-      urls: [
-        "/calendarioAcademico/ver/",
-        "/calendarioAcademico/programarEvento/edit/"
-      ]
-    };
+      titles: ['Periodo', 'Fecha Inicio', 'Fecha Fin', 'Nombre'],
+      urls: ['/calendarioAcademico/ver/', '/calendarioAcademico/programarEvento/edit/'],
+    }
 
-    this.handleDelete = this.handleDelete.bind(this);
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   componentDidMount() {
-    this.getEvents();
-    this.getSchedule();
+    this.getEvents()
+    this.getSchedule()
   }
 
   getEvents() {
-    console.log(this.props.match.params.id);
+    console.log(this.props.match.params.id)
 
     this.setState({
-      events
-    });
+      events,
+    })
   }
 
   getSchedule() {
-    console.log(this.props.match.params.id);
+    console.log(this.props.match.params.id)
 
     this.setState({
-      schedule: schedules[0]
-    });
+      schedule: schedules[0],
+    })
   }
 
   handleUrls(id) {
-    return this.state.urls.map(url => url.concat(id));
+    return this.state.urls.map(url => url.concat(id))
   }
 
   handleDelete(id) {
-    var confirmDelete = window.confirm("Estas seguro que deseas eliminar?");
+    const confirmDelete = window.confirm('Estas seguro que deseas eliminar?')
     if (confirmDelete) {
-      const events = this.state.events.filter(e => e.id !== id);
+      const events = this.state.events.filter(e => e.id !== id)
 
       this.setState({
-        events
-      });
+        events,
+      })
     }
   }
 
@@ -64,7 +61,7 @@ class Event extends Component {
         <td>{event.subject}</td>
         <td>{event.attendant}</td>
         <td>{event.date}</td>
-        <td>{event.date.split("T").pop()}</td>
+        <td>{event.date.split('T').pop()}</td>
         <td>{event.aforo}</td>
         <td>
           <Options
@@ -73,7 +70,7 @@ class Event extends Component {
           />
         </td>
       </tr>
-    ));
+    ))
   }
 
   render() {
@@ -100,16 +97,13 @@ class Event extends Component {
             <tbody>{this.renderEvents()}</tbody>
           </table>
 
-          <Link
-            to="/calendarioAcademico/programarEvento/create"
-            className="reset--link button"
-          >
+          <Link to="/calendarioAcademico/programarEvento/create" className="reset--link button">
             + Evento
           </Link>
         </div>
       </Fragment>
-    );
+    )
   }
 }
 
-export default Event;
+export default Event

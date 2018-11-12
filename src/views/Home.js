@@ -1,8 +1,6 @@
-import React from "react";
-import MainLayout from "../layouts/MainLayout.js";
+import React from 'react'
+import MainLayout from '../layouts/MainLayout'
 
-const Home = () => {
-  return <MainLayout />;
-};
+const Home = () => <MainLayout />
 
-export default Home;
+export default Home

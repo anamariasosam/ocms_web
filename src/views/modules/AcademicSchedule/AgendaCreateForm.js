@@ -1,41 +1,41 @@
-import React, { Component, Fragment } from "react";
-import Success from "../../../components/Success";
-import Error from "../../../components/Error";
+import React, { Component, Fragment } from 'react'
+import Success from '../../../components/Success'
+import Error from '../../../components/Error'
 
 class AgendaCreateForm extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       error: false,
       success: false,
-      message: "Creado con éxito"
-    };
+      message: 'Creado con éxito',
+    }
 
-    this.name = React.createRef();
-    this.startDate = React.createRef();
-    this.endDate = React.createRef();
+    this.name = React.createRef()
+    this.fechaInicio = React.createRef()
+    this.fechaFin = React.createRef()
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleSubmit(e) {
-    e.preventDefault();
-    console.log(this.name.current.value);
-    console.log(this.startDate.current.value);
-    console.log(this.endDate.current.value);
+    e.preventDefault()
+    console.log(this.name.current.value)
+    console.log(this.fechaInicio.current.value)
+    console.log(this.fechaFin.current.value)
 
-    this.name.current.value = "";
-    this.startDate.current.value = "";
-    this.endDate.current.value = "";
+    this.name.current.value = ''
+    this.fechaInicio.current.value = ''
+    this.fechaFin.current.value = ''
 
-    this.showSuccessMessage();
+    this.showSuccessMessage()
   }
 
   showSuccessMessage() {
     this.setState({
-      success: true
-    });
+      success: true,
+    })
   }
 
   render() {
@@ -49,42 +49,20 @@ class AgendaCreateForm extends Component {
             <label htmlFor="name" className="required label">
               Nombre:
             </label>
-            <input
-              type="text"
-              id="name"
-              className="input"
-              ref={this.name}
-              required
-            />
+            <input type="text" id="name" className="input" ref={this.name} required />
 
-            <label htmlFor="startDate" className="required label">
+            <label htmlFor="fechaInicio" className="required label">
               Fecha Inicio:
             </label>
-            <input
-              type="date"
-              id="startDate"
-              className="input"
-              ref={this.startDate}
-              required
-            />
+            <input type="date" id="fechaInicio" className="input" ref={this.fechaInicio} required />
 
-            <label htmlFor="endDate" className="required label">
+            <label htmlFor="fechaFin" className="required label">
               Fecha Fin:
             </label>
-            <input
-              type="date"
-              id="endDate"
-              className="input"
-              ref={this.endDate}
-              required
-            />
+            <input type="date" id="fechaFin" className="input" ref={this.fechaFin} required />
 
             <div className="form--controls">
-              <input
-                type="submit"
-                value="Guardar"
-                className="reset--button button"
-              />
+              <input type="submit" value="Guardar" className="reset--button button" />
             </div>
           </form>
 
@@ -92,8 +70,8 @@ class AgendaCreateForm extends Component {
           {this.state.success && <Success description={this.state.message} />}
         </div>
       </Fragment>
-    );
+    )
   }
 }
 
-export default AgendaCreateForm;
+export default AgendaCreateForm

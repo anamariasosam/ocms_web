@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const LoginHeader = () => (
   <div className="login--header">
@@ -9,6 +9,6 @@ const LoginHeader = () => (
       Iniciar Sesión
     </Link>
   </div>
-);
+)
 
-export default LoginHeader;
+export default LoginHeader

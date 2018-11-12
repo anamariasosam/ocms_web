@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
 const AditionalInfo = ({ data, titles }) => {
-  const labels = Object.keys(data);
+  const labels = Object.keys(data)
   return (
     <nav className="calendarInfo--container">
       <ul className="calendarInfo--list">
@@ -13,7 +13,7 @@ const AditionalInfo = ({ data, titles }) => {
         ))}
       </ul>
     </nav>
-  );
-};
+  )
+}
 
-export default AditionalInfo;
+export default AditionalInfo

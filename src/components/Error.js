@@ -1,18 +1,12 @@
-import React from "react";
+import React from 'react'
 
-const Error = ({ description }) => {
-  return (
-    <div className="alert--container alert--danger">
-      <div>
-        <img
-          src={require("../images/error.png")}
-          alt="error icon"
-          className="alert--icon"
-        />
-      </div>
-      <p>{description}</p>
+const Error = ({ description }) => (
+  <div className="alert--container alert--danger">
+    <div>
+      <img src={require('../images/error.png')} alt="error icon" className="alert--icon" />
     </div>
-  );
-};
+    <p>{description}</p>
+  </div>
+)
 
-export default Error;
+export default Error

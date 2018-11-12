@@ -1,35 +1,35 @@
-import React, { Fragment, Component } from "react";
-import Options from "../../../components/Options";
-import { calendars } from "../../../data/data";
-import { Link } from "react-router-dom";
+import React, { Fragment, Component } from 'react'
+import { Link } from 'react-router-dom'
+import Options from '../../../components/Options'
+import { calendars } from '../../../data/data'
 
 class Calendar extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       calendars,
       urls: [
-        "/calendarioAcademico/realizarProgramacion/show/",
-        "/calendarioAcademico/gestionarCalendario/edit/"
-      ]
-    };
+        '/calendarioAcademico/realizarProgramacion/show/',
+        '/calendarioAcademico/gestionarCalendario/edit/',
+      ],
+    }
 
-    this.handleDelete = this.handleDelete.bind(this);
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   handleUrls(id) {
-    return this.state.urls.map(url => url.concat(id));
+    return this.state.urls.map(url => url.concat(id))
   }
 
   handleDelete(id) {
-    var confirmDelete = window.confirm("Estas seguro que deseas eliminar?");
+    const confirmDelete = window.confirm('Estas seguro que deseas eliminar?')
     if (confirmDelete) {
-      const calendars = this.state.calendars.filter(c => c.id !== id);
+      const calendars = this.state.calendars.filter(c => c.id !== id)
 
       this.setState({
-        calendars
-      });
+        calendars,
+      })
     }
   }
 
@@ -37,8 +37,8 @@ class Calendar extends Component {
     return this.state.calendars.map(calendar => (
       <tr key={calendar.id}>
         <td>{calendar.id}</td>
-        <td>{calendar.startDate}</td>
-        <td>{calendar.endDate}</td>
+        <td>{calendar.fechaInicio}</td>
+        <td>{calendar.fechaFin}</td>
         <td>
           <Options
             handleDelete={() => this.handleDelete(calendar.id)}
@@ -46,7 +46,7 @@ class Calendar extends Component {
           />
         </td>
       </tr>
-    ));
+    ))
   }
 
   render() {
@@ -68,16 +68,13 @@ class Calendar extends Component {
             <tbody>{this.renderCalendars()}</tbody>
           </table>
 
-          <Link
-            to="/calendarioAcademico/gestionarCalendario/create"
-            className="reset--link button"
-          >
+          <Link to="/calendarioAcademico/gestionarCalendario/create" className="reset--link button">
             + Calendario
           </Link>
         </div>
       </Fragment>
-    );
+    )
   }
 }
 
-export default Calendar;
+export default Calendar

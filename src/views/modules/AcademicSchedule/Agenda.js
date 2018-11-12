@@ -1,50 +1,50 @@
-import React, { Fragment, Component } from "react";
-import Options from "../../../components/Options";
-import AditionalInfo from "../../../components/AditionalInfo";
-import { calendars, schedules } from "../../../data/data";
-import { Link } from "react-router-dom";
+import React, { Fragment, Component } from 'react'
+import { Link } from 'react-router-dom'
+import Options from '../../../components/Options'
+import AditionalInfo from '../../../components/AditionalInfo'
+import { calendars, schedules } from '../../../data/data'
 
 class Agenda extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       calendar: calendars[0],
       schedules: [],
-      titles: ["Periodo", "Fecha Inicio", "Fecha Fin"],
+      titles: ['Periodo', 'Fecha Inicio', 'Fecha Fin'],
       urls: [
-        "/calendarioAcademico/programarEvento/show/",
-        "/calendarioAcademico/realizarProgramacion/edit/"
-      ]
-    };
+        '/calendarioAcademico/programarEvento/show/',
+        '/calendarioAcademico/realizarProgramacion/edit/',
+      ],
+    }
 
-    this.handleDelete = this.handleDelete.bind(this);
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   componentDidMount() {
-    this.getSchedules();
+    this.getSchedules()
   }
 
   getSchedules() {
-    console.log(this.props.match.params.id);
+    console.log(this.props.match.params.id)
 
     this.setState({
-      schedules
-    });
+      schedules,
+    })
   }
 
   handleUrls(id) {
-    return this.state.urls.map(url => url.concat(id));
+    return this.state.urls.map(url => url.concat(id))
   }
 
   handleDelete(id) {
-    var confirmDelete = window.confirm("Estas seguro que deseas eliminar?");
+    const confirmDelete = window.confirm('Estas seguro que deseas eliminar?')
     if (confirmDelete) {
-      const schedules = this.state.schedules.filter(s => s.id !== id);
+      const schedules = this.state.schedules.filter(s => s.id !== id)
 
       this.setState({
-        schedules
-      });
+        schedules,
+      })
     }
   }
 
@@ -53,8 +53,8 @@ class Agenda extends Component {
       <tr key={event.id}>
         <td>{event.id}</td>
         <td>{event.name}</td>
-        <td>{event.startDate}</td>
-        <td>{event.endDate}</td>
+        <td>{event.fechaInicio}</td>
+        <td>{event.fechaFin}</td>
         <td>
           <Options
             handleDelete={() => this.handleDelete(event.id)}
@@ -62,7 +62,7 @@ class Agenda extends Component {
           />
         </td>
       </tr>
-    ));
+    ))
   }
 
   render() {
@@ -95,8 +95,8 @@ class Agenda extends Component {
           </Link>
         </div>
       </Fragment>
-    );
+    )
   }
 }
 
-export default Agenda;
+export default Agenda

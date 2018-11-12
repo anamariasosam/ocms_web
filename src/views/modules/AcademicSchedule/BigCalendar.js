@@ -1,43 +1,41 @@
-import React, { Component, Fragment } from "react";
-import Calendar from "react-big-calendar";
-import moment from "moment";
-import { events } from "../../../data/data";
+import React, { Component, Fragment } from 'react'
+import Calendar from 'react-big-calendar'
+import moment from 'moment'
+import { events } from '../../../data/data'
 
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import 'react-big-calendar/lib/css/react-big-calendar.css'
 
-const localizer = Calendar.momentLocalizer(moment);
+const localizer = Calendar.momentLocalizer(moment)
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
-      events: []
-    };
+      events: [],
+    }
   }
 
   componentDidMount() {
-    this.getEvents();
+    this.getEvents()
   }
 
   getCurrentDate() {
-    const event = events.filter(
-      event => event.id === this.props.match.params.id
-    )[0];
+    const event = events.filter(event => event.id === this.props.match.params.id)[0]
 
-    return new Date(event.date);
+    return new Date(event.date)
   }
 
   getEvents() {
     const bigCalendarEvents = events.map(event => ({
       start: new Date(event.date),
       end: new Date(event.date),
-      title: event.subject
-    }));
+      title: event.subject,
+    }))
 
     this.setState({
-      events: bigCalendarEvents
-    });
+      events: bigCalendarEvents,
+    })
   }
 
   render() {
@@ -51,12 +49,12 @@ class App extends Component {
             defaultDate={this.getCurrentDate()}
             defaultView="month"
             events={this.state.events}
-            style={{ height: "100vh" }}
+            style={{ height: '100vh' }}
           />
         </div>
       </Fragment>
-    );
+    )
   }
 }
 
-export default App;
+export default App

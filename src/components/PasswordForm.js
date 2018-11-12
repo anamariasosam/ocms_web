@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const PasswordForm = () => (
   <div className="login--form">
@@ -24,6 +24,6 @@ const PasswordForm = () => (
       </div>
     </form>
   </div>
-);
+)
 
-export default PasswordForm;
+export default PasswordForm
