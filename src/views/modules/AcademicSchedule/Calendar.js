@@ -1,14 +1,17 @@
 import React, { Fragment, Component } from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import Options from '../../../components/Options'
-import { calendars } from '../../../data/data'
+import PACKAGE from '../../../../package.json'
+
+const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
 
 class Calendar extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      calendars,
+      calendars: [],
       urls: [
         '/calendarioAcademico/realizarProgramacion/show/',
         '/calendarioAcademico/gestionarCalendario/edit/',
@@ -16,6 +19,20 @@ class Calendar extends Component {
     }
 
     this.handleDelete = this.handleDelete.bind(this)
+  }
+
+  componentDidMount() {
+    this.getCalendars()
+  }
+
+  getCalendars() {
+    axios.get(`${API_URL}/calendarios/`).then(res => {
+      const { data } = res
+
+      this.setState({
+        calendars: data,
+      })
+    })
   }
 
   handleUrls(id) {
@@ -31,22 +48,6 @@ class Calendar extends Component {
         calendars,
       })
     }
-  }
-
-  renderCalendars() {
-    return this.state.calendars.map(calendar => (
-      <tr key={calendar.id}>
-        <td>{calendar.id}</td>
-        <td>{calendar.fechaInicio}</td>
-        <td>{calendar.fechaFin}</td>
-        <td>
-          <Options
-            handleDelete={() => this.handleDelete(calendar.id)}
-            urls={this.handleUrls(calendar.id)}
-          />
-        </td>
-      </tr>
-    ))
   }
 
   render() {
@@ -74,6 +75,22 @@ class Calendar extends Component {
         </div>
       </Fragment>
     )
+  }
+
+  renderCalendars() {
+    return this.state.calendars.map(calendar => (
+      <tr key={calendar._id}>
+        <td>{calendar.nombre}</td>
+        <td>{calendar.fechaFin}</td>
+        <td>{calendar.fechaFin}</td>
+        <td>
+          <Options
+            handleDelete={() => this.handleDelete(calendar._id)}
+            urls={this.handleUrls(calendar.nombre)}
+          />
+        </td>
+      </tr>
+    ))
   }
 }
 
