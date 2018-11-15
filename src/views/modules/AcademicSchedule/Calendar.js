@@ -39,13 +39,20 @@ class Calendar extends Component {
     return this.state.urls.map(url => url.concat(id))
   }
 
-  handleDelete(id) {
+  handleDelete(calendarioId) {
     const confirmDelete = window.confirm('Estas seguro que deseas eliminar?')
     if (confirmDelete) {
-      const calendars = this.state.calendars.filter(c => c.id !== id)
-
-      this.setState({
-        calendars,
+      axios({
+        method: 'delete',
+        url: `${API_URL}/calendarios`,
+        params: {
+          calendarioId,
+        },
+      }).then(res => {
+        const { data } = res
+        this.setState({
+          calendars: data,
+        })
       })
     }
   }
@@ -81,7 +88,7 @@ class Calendar extends Component {
     return this.state.calendars.map(calendar => (
       <tr key={calendar._id}>
         <td>{calendar.nombre}</td>
-        <td>{calendar.fechaFin}</td>
+        <td>{calendar.fechaInicio}</td>
         <td>{calendar.fechaFin}</td>
         <td>
           <Options

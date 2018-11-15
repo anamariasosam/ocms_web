@@ -1,8 +1,11 @@
 import React, { Component, Fragment } from 'react'
+import axios from 'axios'
+import moment from 'moment'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
-import { calendars } from '../../../data/data'
+import PACKAGE from '../../../../package.json'
 
+const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
 class CalendarEditForm extends Component {
   constructor(props) {
     super(props)
@@ -24,20 +27,49 @@ class CalendarEditForm extends Component {
   }
 
   getCalendarValues() {
-    const calendar = calendars.filter(calendar => calendar.id === this.props.match.params.id)[0]
-
-    this.fechaInicio.current.value = calendar.fechaInicio
-    this.fechaFin.current.value = calendar.fechaFin
+    const calendarioId = this.props.match.params.id
+    axios
+      .get(`${API_URL}/calendarios`, {
+        params: {
+          calendarioId,
+        },
+      })
+      .then(res => {
+        const { data } = res
+        this.fechaInicio.current.value = moment(data.fechaInicio)
+          .utc()
+          .format('YYYY-MM-DD')
+        this.fechaFin.current.value = moment(data.fechaFin)
+          .utc()
+          .format('YYYY-MM-DD')
+      })
   }
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log(this.fechaInicio.current.value)
-    console.log(this.fechaFin.current.value)
+    const calendarioId = this.props.match.params.id
+    const fechaInicio = this.fechaInicio.current.value
+    const fechaFin = this.fechaFin.current.value
 
     this.setState({
       success: true,
     })
+
+    axios
+      .put(`${API_URL}/calendarios`, {
+        params: {
+          calendarioId,
+        },
+        data: {
+          fechaInicio,
+          fechaFin,
+        },
+      })
+      .then(res => {
+        this.setState({
+          success: true,
+        })
+      })
   }
 
   render() {
