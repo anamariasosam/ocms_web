@@ -1,15 +1,18 @@
 import React, { Fragment, Component } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 import Options from '../../../components/Options'
 import AditionalInfo from '../../../components/AditionalInfo'
-import { calendars, schedules } from '../../../data/data'
+import PACKAGE from '../../../../package.json'
+
+const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
 
 class Agenda extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      calendar: calendars[0],
+      calendar: {},
       schedules: [],
       titles: ['Periodo', 'Fecha Inicio', 'Fecha Fin'],
       urls: [
@@ -26,11 +29,32 @@ class Agenda extends Component {
   }
 
   getSchedules() {
-    console.log(this.props.match.params.id)
+    const calendarioId = this.props.match.params.id
 
-    this.setState({
-      schedules,
-    })
+    axios
+      .get(`${API_URL}/calendarios`, {
+        params: {
+          calendarioId,
+        },
+      })
+      .then(res => {
+        const { data } = res
+        const calendar = data
+        const calendarioId = calendar._id
+        axios
+          .get(`${API_URL}/programaciones`, {
+            params: {
+              calendarioId,
+            },
+          })
+          .then(res => {
+            const { data } = res
+            this.setState({
+              calendar,
+              schedules: data,
+            })
+          })
+      })
   }
 
   handleUrls(id) {
@@ -48,23 +72,6 @@ class Agenda extends Component {
     }
   }
 
-  renderEvents() {
-    return this.state.schedules.map(event => (
-      <tr key={event.id}>
-        <td>{event.id}</td>
-        <td>{event.name}</td>
-        <td>{event.fechaInicio}</td>
-        <td>{event.fechaFin}</td>
-        <td>
-          <Options
-            handleDelete={() => this.handleDelete(event.id)}
-            urls={this.handleUrls(event.id)}
-          />
-        </td>
-      </tr>
-    ))
-  }
-
   render() {
     return (
       <Fragment>
@@ -74,18 +81,25 @@ class Agenda extends Component {
 
         <div className="module--container">
           <h3>Programaciones</h3>
-          <table className="table">
-            <thead className="thead">
-              <tr>
-                <th>ID</th>
-                <th>NOMBRE</th>
-                <th>FECHA INICIO</th>
-                <th>FECHA FIN</th>
-                <th>ACCIONES</th>
-              </tr>
-            </thead>
-            <tbody>{this.renderEvents()}</tbody>
-          </table>
+          {this.state.schedules.length > 0 ? (
+            <table className="table">
+              <thead className="thead">
+                <tr>
+                  <th>ID</th>
+                  <th>NOMBRE</th>
+                  <th>FECHA INICIO</th>
+                  <th>FECHA FIN</th>
+                  <th>ACCIONES</th>
+                </tr>
+              </thead>
+              <tbody>{this.renderEvents()}</tbody>
+            </table>
+          ) : (
+            <div>
+              <p>No hay programaciones todavía...</p>
+              <br />
+            </div>
+          )}
 
           <Link
             to="/calendarioAcademico/realizarProgramacion/create"
@@ -96,6 +110,23 @@ class Agenda extends Component {
         </div>
       </Fragment>
     )
+  }
+
+  renderEvents() {
+    return this.state.schedules.map(event => (
+      <tr key={event._id}>
+        <td>{event.nombre}</td>
+        <td>{event.tipo}</td>
+        <td>{event.fechaInicio.split('T')[0]}</td>
+        <td>{event.fechaFin.split('T')[0]}</td>
+        <td>
+          <Options
+            handleDelete={() => this.handleDelete(event.id)}
+            urls={this.handleUrls(event.id)}
+          />
+        </td>
+      </tr>
+    ))
   }
 }
 
