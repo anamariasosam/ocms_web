@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import axios from 'axios'
-import moment from 'moment'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
 import PACKAGE from '../../../../package.json'
@@ -36,12 +35,8 @@ class CalendarEditForm extends Component {
       })
       .then(res => {
         const { data } = res
-        this.fechaInicio.current.value = moment(data.fechaInicio)
-          .utc()
-          .format('YYYY-MM-DD')
-        this.fechaFin.current.value = moment(data.fechaFin)
-          .utc()
-          .format('YYYY-MM-DD')
+        this.fechaInicio.current.value = data.fechaInicio.split('T')[0]
+        this.fechaFin.current.value = data.fechaFin.split('T')[0]
       })
   }
 
@@ -66,9 +61,11 @@ class CalendarEditForm extends Component {
         },
       })
       .then(res => {
-        this.setState({
-          success: true,
-        })
+        if (res.status === 200) {
+          this.setState({
+            success: true,
+          })
+        }
       })
   }
 
