@@ -42,18 +42,18 @@ class Calendar extends Component {
   handleDelete(calendarioId) {
     const confirmDelete = window.confirm('Estas seguro que deseas eliminar?')
     if (confirmDelete) {
-      axios({
-        method: 'delete',
-        url: `${API_URL}/calendarios`,
-        params: {
-          calendarioId,
-        },
-      }).then(res => {
-        const { data } = res
-        this.setState({
-          calendars: data,
+      axios
+        .delete(`${API_URL}/calendarios`, {
+          params: {
+            calendarioId,
+          },
         })
-      })
+        .then(res => {
+          const { data } = res
+          this.setState({
+            calendars: data,
+          })
+        })
     }
   }
 
