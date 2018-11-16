@@ -64,11 +64,22 @@ class Agenda extends Component {
   handleDelete(id) {
     const confirmDelete = window.confirm('Estas seguro que deseas eliminar?')
     if (confirmDelete) {
-      const schedules = this.state.schedules.filter(s => s.id !== id)
+      const calendarioId = this.state.calendar._id
+      const programacionId = id
 
-      this.setState({
-        schedules,
-      })
+      axios
+        .delete(`${API_URL}/programaciones`, {
+          params: {
+            calendarioId,
+            programacionId,
+          },
+        })
+        .then(res => {
+          const { data } = res
+          this.setState({
+            schedules: data,
+          })
+        })
     }
   }
 
@@ -121,7 +132,7 @@ class Agenda extends Component {
         <td>{event.fechaFin.split('T')[0]}</td>
         <td>
           <Options
-            handleDelete={() => this.handleDelete(event.id)}
+            handleDelete={() => this.handleDelete(event._id)}
             urls={this.handleUrls(event.id)}
           />
         </td>
