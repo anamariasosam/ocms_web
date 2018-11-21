@@ -48,6 +48,7 @@ class CalendarCreateForm extends Component {
   }
 
   toggleAlert() {
+    const { history } = this.props
     this.setState(
       {
         success: true,
@@ -57,7 +58,7 @@ class CalendarCreateForm extends Component {
           this.setState({
             success: false,
           })
-          this.props.history.goBack()
+          history.goBack()
         }, 1000)
       },
     )

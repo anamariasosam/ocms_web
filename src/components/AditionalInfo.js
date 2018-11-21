@@ -1,21 +1,33 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-const AditionalInfo = ({ data, titles }) => {
-  const labels = Object.keys(data)
-  labels.shift()
-  labels.pop()
-  return (
-    <nav className="calendarInfo--container">
-      <ul className="calendarInfo--list">
-        {labels.map((label, index) => (
-          <li key={label}>
-            <h3>{titles[index]}</h3>
-            <span className="box">{data[label].split('T')[0]}</span>
+const AditionalInfo = ({ data, titles }) => (
+  <nav className="calendarInfo--container">
+    <ul className="calendarInfo--list">
+      {titles.map(title => {
+        const key = title.replace(/\s/g, '')
+        return (
+          <li key={title}>
+            <h3>{title}</h3>
+            <span className="box">{data[key]}</span>
           </li>
-        ))}
-      </ul>
-    </nav>
-  )
+        )
+      })}
+    </ul>
+  </nav>
+)
+
+AditionalInfo.propTypes = {
+  titles: PropTypes.array.isRequired,
+  data: PropTypes.object,
+}
+AditionalInfo.defaultProps = {
+  data: {
+    nombre: '',
+    fechaInicio: '',
+    fechaFin: '',
+    tipo: '',
+  },
 }
 
 export default AditionalInfo

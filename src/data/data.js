@@ -100,6 +100,6 @@ export const events = [
   },
 ]
 
-export const attendants = ['Bell', 'Juan Bernardo', 'Grissa']
+export const attendants = ['Bell Manrique', 'Juan Bernardo', 'Grissa']
 
 export const groups = ['061', '062', '063', '065']

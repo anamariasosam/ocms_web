@@ -1,33 +1,31 @@
 import React, { Component, Fragment } from 'react'
-import AditionalInfo from '../../../components/AditionalInfo'
-import { schedules, events, attendants, groups } from '../../../data/data'
+import axios from 'axios'
+import { attendants } from '../../../data/data'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
+import PACKAGE from '../../../../package.json'
+
+const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
 
 class EventEditForm extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      subjects: [
-        'Ingeniería de Software I',
-        'Ingeniería de Software II',
-        'Ingeniería de Software III',
-        'Ingeniería de Software VI',
-      ],
-      attendants,
-      schedule: schedules[0],
-      groups,
-      titles: ['Periodo', 'Fecha Inicio', 'Fecha Fin', 'Nombre'],
+      asignaturas: [],
+      encargados: attendants,
+      grupos: [],
+      titles: ['tipo', 'fecha Inicio', 'fecha Fin'],
       error: false,
       success: false,
-      message: 'Editado con éxito',
+      message: 'Creado con éxito',
       selectedGroups: [],
     }
 
-    this.subject = React.createRef()
-    this.attendant = React.createRef()
-    this.date = React.createRef()
+    this.nombre = React.createRef()
+    this.asignatura = React.createRef()
+    this.encargado = React.createRef()
+    this.fecha = React.createRef()
     this.aforo = React.createRef()
 
     this.addGroup = this.addGroup.bind(this)
@@ -35,40 +33,109 @@ class EventEditForm extends Component {
   }
 
   componentDidMount() {
+    this.getGrupos()
+    this.getAsignaturas()
     this.getEventValues()
   }
 
-  getEventValues() {
-    const event = events.filter(event => event.id === this.props.match.params.id)[0]
-
-    this.attendant.current.value = event.attendant
-    this.subject.current.value = event.subject
-    this.date.current.value = event.date
-    this.aforo.current.value = event.aforo
-
-    this.setState({
-      selectedGroups: event.groups,
+  getAsignaturas() {
+    axios.get(`${API_URL}/asignaturas`).then(res => {
+      const { data } = res
+      this.setState({
+        asignaturas: data,
+      })
     })
+  }
+
+  getGrupos() {
+    axios.get(`${API_URL}/grupos`).then(res => {
+      const { data } = res
+      this.setState({
+        grupos: data,
+      })
+    })
+  }
+
+  getEventValues() {
+    const eventoAcademicoId = this.props.match.params.id
+
+    axios
+      .get(`${API_URL}/eventosAcademicos`, {
+        params: {
+          eventoAcademicoId,
+        },
+      })
+      .then(res => {
+        const { data } = res
+
+        this.nombre.current.value = data.nombre
+        this.fecha.current.value = data.fecha.split('.')[0]
+        this.aforo.current.value = data.aforo
+        this.asignatura.current.value = data.asignatura
+        this.encargado.current.value = data.encargado
+
+        this.setState({
+          selectedGroups: data.grupos,
+        })
+      })
   }
 
   handleSubmit(e) {
     e.preventDefault()
 
-    console.log(
-      this.subject.current.value,
-      this.attendant.current.value,
-      this.date.current.value,
-      this.aforo.current.value,
-      this.state.groups,
-    )
+    const nombre = this.nombre.current.value
+    const fecha = this.fecha.current.value
+    const aforo = this.aforo.current.value
+    const asignatura = this.asignatura.current.value
+    const grupos = this.state.selectedGroups
+    const encargado = this.encargado.current.value
 
-    this.showSuccessMessage()
+    const eventoAcademicoId = this.props.match.params.id
+
+    axios
+      .put(`${API_URL}/eventosAcademicos`, {
+        params: {
+          eventoAcademicoId,
+        },
+        data: {
+          nombre,
+          fecha,
+          aforo,
+          asignatura,
+          grupos,
+          encargado,
+        },
+      })
+      .then(res => {
+        if (res.status === 200) {
+          this.asignatura.current.value = ''
+          this.encargado.current.value = ''
+          this.fecha.current.value = ''
+          this.aforo.current.value = ''
+          this.setState({
+            selectedGroups: [],
+          })
+
+          this.toggleAlert()
+        }
+      })
   }
 
-  showSuccessMessage() {
-    this.setState({
-      success: true,
-    })
+  toggleAlert() {
+    this.setState(
+      {
+        success: true,
+      },
+      () => {
+        setTimeout(() => {
+          this.setState({
+            success: false,
+          })
+
+          this.props.history.goBack()
+        }, 1000)
+      },
+    )
   }
 
   addGroup(e) {
@@ -95,26 +162,29 @@ class EventEditForm extends Component {
       <Fragment>
         <h2>Gestionar Evento</h2>
 
-        <AditionalInfo data={this.state.schedule} titles={this.state.titles} />
-
         <div className="form--container">
-          <h3 className="form--title">Editar Evento</h3>
+          <h3 className="form--title">Crear Evento</h3>
           <form onSubmit={this.handleSubmit}>
-            <label htmlFor="subject" className="required label">
+            <label htmlFor="nombre" className="required label">
+              Nombre:
+            </label>
+            <input type="text" id="nombre" className="input" ref={this.nombre} required />
+
+            <label htmlFor="asignatura" className="required label">
               Asignatura:
             </label>
-            <select id="subject" ref={this.subject} className="input select--input">
-              {this.state.subjects.map(subject => (
-                <option key={subject}>{subject}</option>
+            <select id="asignatura" ref={this.asignatura} className="input select--input">
+              {this.state.asignaturas.map(asignatura => (
+                <option key={asignatura.nombre}>{asignatura.nombre}</option>
               ))}
             </select>
 
-            <label htmlFor="attendant" className="required label">
+            <label htmlFor="encargado" className="required label">
               Encargado:
             </label>
-            <select id="attendant" className="input select--input" ref={this.attendant}>
-              {this.state.attendants.map(attendant => (
-                <option key={attendant}>{attendant}</option>
+            <select id="encargado" className="input select--input" ref={this.encargado}>
+              {this.state.encargados.map(encargado => (
+                <option key={encargado}>{encargado}</option>
               ))}
             </select>
 
@@ -123,23 +193,23 @@ class EventEditForm extends Component {
             </label>
             <input type="number" id="aforo" className="input" ref={this.aforo} required />
 
-            <label htmlFor="date" className="required label">
+            <label htmlFor="fecha" className="required label">
               Fecha / Hora:
             </label>
-            <input type="datetime-local" id="date" className="input" ref={this.date} required />
+            <input type="datetime-local" id="fecha" className="input" ref={this.fecha} required />
 
-            <label htmlFor="groups" className="required label">
+            <label htmlFor="grupos" className="required label">
               Grupos:
             </label>
-            {this.state.groups.map(group => (
-              <label key={group} className="checkbox">
+            {this.state.grupos.map(grupo => (
+              <label key={grupo.nombre} className="checkbox">
                 <input
                   type="checkbox"
-                  name={group}
+                  name={grupo.nombre}
                   onChange={this.addGroup}
-                  checked={this.groupExist(group)}
+                  checked={this.groupExist(grupo.nombre)}
                 />
-                {group}
+                {grupo.nombre}
               </label>
             ))}
 

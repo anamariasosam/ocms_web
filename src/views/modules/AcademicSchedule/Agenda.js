@@ -14,7 +14,7 @@ class Agenda extends Component {
     this.state = {
       calendar: {},
       schedules: [],
-      titles: ['Periodo', 'Fecha Inicio', 'Fecha Fin'],
+      titles: ['nombre', 'fecha Inicio', 'fecha Fin'],
       urls: [
         '/calendarioAcademico/programarEvento/show/',
         '/calendarioAcademico/realizarProgramacion/edit/',

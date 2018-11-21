@@ -111,13 +111,7 @@ body {
   margin: 10px;
   text-align: center;
   background: #cdf4fb;
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(#fff),
-    to(#b8c8d4)
-  );
+  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#b8c8d4));
   background: -moz-linear-gradient(top, #fff, #b8c8d4);
   background: -o-linear-gradient(top, #fff, #b8c8d4);
   box-shadow: 6px 6px 20px 2px #8c8c8c;
@@ -133,13 +127,7 @@ body {
   color: #fff;
   font-size: 14px;
   font-weight: bold;
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(#6e6e6e),
-    to(#343434)
-  );
+  background: -webkit-gradient(linear, left top, left bottom, from(#6e6e6e), to(#343434));
   background: -moz-linear-gradient(top, #6e6e6e, #343434);
   background: -o-linear-gradient(top, #6e6e6e, #343434);
   border: solid 1px #313131;
@@ -224,7 +212,7 @@ body {
 .required::before {
   margin-right: 4px;
   color: red;
-  content: "*";
+  content: '*';
 }
 
 .input {
@@ -246,13 +234,7 @@ body {
   color: #fff;
   font-size: 14px;
   background: #203b42;
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(#3a7e8e),
-    to(#203b42)
-  );
+  background: -webkit-gradient(linear, left top, left bottom, from(#3a7e8e), to(#203b42));
   background: -moz-linear-gradient(top, #3a7e8e, #203b42);
   background: -o-linear-gradient(top, #3a7e8e, #203b42);
   -webkit-box-shadow: 0 0 8px #8c8c8c;
@@ -355,7 +337,7 @@ body {
 
 .sidebar--list li:before {
   padding-right: 8px;
-  content: "»";
+  content: '»';
 }
 
 /* Tables */
@@ -422,6 +404,10 @@ body {
 
 .calendarInfo--list li {
   margin-right: 60px;
+}
+
+.calendarInfo--list h3 {
+  text-transform: capitalize;
 }
 
 /* Page */

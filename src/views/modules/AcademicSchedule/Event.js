@@ -1,8 +1,11 @@
 import React, { Fragment, Component } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 import Options from '../../../components/Options'
 import AditionalInfo from '../../../components/AditionalInfo'
-import { schedules, events } from '../../../data/data'
+import PACKAGE from '../../../../package.json'
+
+const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
 
 class Event extends Component {
   constructor(props) {
@@ -11,7 +14,7 @@ class Event extends Component {
     this.state = {
       events: [],
       schedule: {},
-      titles: ['Periodo', 'Fecha Inicio', 'Fecha Fin', 'Nombre'],
+      titles: ['tipo', 'fecha Inicio', 'fecha Fin'],
       urls: ['/calendarioAcademico/ver/', '/calendarioAcademico/programarEvento/edit/'],
     }
 
@@ -20,23 +23,36 @@ class Event extends Component {
 
   componentDidMount() {
     this.getEvents()
-    this.getSchedule()
   }
 
   getEvents() {
-    console.log(this.props.match.params.id)
+    const programacionId = this.props.match.params.id
 
-    this.setState({
-      events,
-    })
-  }
+    axios
+      .get(`${API_URL}/programaciones`, {
+        params: {
+          programacionId,
+        },
+      })
+      .then(res => {
+        const { data } = res
+        const programacion = data
+        const programacionId = programacion._id
 
-  getSchedule() {
-    console.log(this.props.match.params.id)
-
-    this.setState({
-      schedule: schedules[0],
-    })
+        axios
+          .get(`${API_URL}/eventosAcademicos`, {
+            params: {
+              programacionId,
+            },
+          })
+          .then(res => {
+            const { data } = res
+            this.setState({
+              events: data,
+              schedule: programacion,
+            })
+          })
+      })
   }
 
   handleUrls(id) {
@@ -46,27 +62,38 @@ class Event extends Component {
   handleDelete(id) {
     const confirmDelete = window.confirm('Estas seguro que deseas eliminar?')
     if (confirmDelete) {
-      const events = this.state.events.filter(e => e.id !== id)
+      const programacionId = this.state.schedule._id
+      const eventoAcademicoId = id
 
-      this.setState({
-        events,
-      })
+      axios
+        .delete(`${API_URL}/eventosAcademicos`, {
+          params: {
+            programacionId,
+            eventoAcademicoId,
+          },
+        })
+        .then(res => {
+          const { data } = res
+          this.setState({
+            events: data,
+          })
+        })
     }
   }
 
   renderEvents() {
     return this.state.events.map(event => (
-      <tr key={event.id}>
-        <td>{event.id}</td>
-        <td>{event.subject}</td>
-        <td>{event.attendant}</td>
-        <td>{event.date}</td>
-        <td>{event.date.split('T').pop()}</td>
+      <tr key={event._id}>
+        <td>{event.nombre}</td>
+        <td>{event.asignatura}</td>
+        <td>{event.encargado}</td>
+        <td>{event.fecha.split('T')[0]}</td>
+        <td>{event.hora}</td>
         <td>{event.aforo}</td>
         <td>
           <Options
-            handleDelete={() => this.handleDelete(event.id)}
-            urls={this.handleUrls(event.id)}
+            handleDelete={() => this.handleDelete(event._id)}
+            urls={this.handleUrls(event.nombre)}
           />
         </td>
       </tr>
@@ -74,19 +101,20 @@ class Event extends Component {
   }
 
   render() {
+    const { schedule } = this.state
     return (
       <Fragment>
         <h2>Programar Evento</h2>
 
-        <AditionalInfo data={this.state.schedule} titles={this.state.titles} />
+        <AditionalInfo data={schedule} titles={this.state.titles} />
 
         <div className="module--container">
           <h3>Eventos</h3>
           <table className="table">
             <thead className="thead">
               <tr>
-                <th>ID</th>
                 <th>NOMBRE</th>
+                <th>ASIGNATURA</th>
                 <th>ENCARGADO</th>
                 <th>FECHA</th>
                 <th>HORA</th>
@@ -97,7 +125,13 @@ class Event extends Component {
             <tbody>{this.renderEvents()}</tbody>
           </table>
 
-          <Link to="/calendarioAcademico/programarEvento/create" className="reset--link button">
+          <Link
+            to={{
+              pathname: '/calendarioAcademico/programarEvento/create',
+              state: { schedule },
+            }}
+            className="reset--link button"
+          >
             + Evento
           </Link>
         </div>
