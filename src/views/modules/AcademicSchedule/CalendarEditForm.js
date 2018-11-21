@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
@@ -14,7 +13,6 @@ class CalendarEditForm extends Component {
       error: false,
       success: false,
       message: 'Editado con éxito',
-      saved: false,
     }
 
     this.fechaInicio = React.createRef()
@@ -78,15 +76,16 @@ class CalendarEditForm extends Component {
         setTimeout(() => {
           this.setState({
             success: false,
-            saved: true,
           })
+
+          this.props.history.goBack()
         }, 1000)
       },
     )
   }
 
   render() {
-    const { error, success, message, saved } = this.state
+    const { error, success, message } = this.state
 
     return (
       <Fragment>
@@ -112,7 +111,6 @@ class CalendarEditForm extends Component {
 
           {error && <Error description={message} />}
           {success && <Success description={message} />}
-          {saved && <Redirect to="/calendarioAcademico/gestionarCalendario" />}
         </div>
       </Fragment>
     )

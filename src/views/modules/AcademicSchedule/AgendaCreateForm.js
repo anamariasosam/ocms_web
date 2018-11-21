@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import axios from 'axios'
-import { Redirect } from 'react-router-dom'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
 import PACKAGE from '../../../../package.json'
@@ -15,7 +14,6 @@ class AgendaCreateForm extends Component {
       error: false,
       success: false,
       message: 'Creado con éxito',
-      saved: false,
       tipos: ['Parcial', 'Final', 'Foro'],
     }
 
@@ -33,7 +31,7 @@ class AgendaCreateForm extends Component {
     const fechaInicio = this.fechaInicio.current.value
     const fechaFin = this.fechaFin.current.value
     const tipo = this.tipo.current.value
-    const calendarioId = '5be9a32d93638328b927d67a'
+    const calendarioId = this.props.location.state.calendar._id
 
     axios
       .post(`${API_URL}/programaciones`, {
@@ -64,15 +62,16 @@ class AgendaCreateForm extends Component {
         setTimeout(() => {
           this.setState({
             success: false,
-            saved: true,
           })
+
+          this.props.history.goBack()
         }, 1000)
       },
     )
   }
 
   render() {
-    const { error, success, message, saved } = this.state
+    const { error, success, message } = this.state
     return (
       <Fragment>
         <h2>Gestionar Programación</h2>
@@ -111,7 +110,6 @@ class AgendaCreateForm extends Component {
 
           {error && <Error description={message} />}
           {success && <Success description={message} />}
-          {saved && <Redirect to="/calendarioAcademico/realizarProgramacion/show/2017-1" />}
         </div>
       </Fragment>
     )

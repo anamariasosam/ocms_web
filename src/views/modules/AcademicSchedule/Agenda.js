@@ -84,20 +84,21 @@ class Agenda extends Component {
   }
 
   render() {
+    const { calendar, titles, schedules } = this.state
     return (
       <Fragment>
         <h2>Realizar programación</h2>
 
-        <AditionalInfo data={this.state.calendar} titles={this.state.titles} />
+        <AditionalInfo data={calendar} titles={titles} />
 
         <div className="module--container">
           <h3>Programaciones</h3>
-          {this.state.schedules.length > 0 ? (
+          {schedules.length > 0 ? (
             <table className="table">
               <thead className="thead">
                 <tr>
-                  <th>ID</th>
                   <th>NOMBRE</th>
+                  <th>TIPO</th>
                   <th>FECHA INICIO</th>
                   <th>FECHA FIN</th>
                   <th>ACCIONES</th>
@@ -113,7 +114,10 @@ class Agenda extends Component {
           )}
 
           <Link
-            to="/calendarioAcademico/realizarProgramacion/create"
+            to={{
+              pathname: '/calendarioAcademico/realizarProgramacion/create',
+              state: { calendar },
+            }}
             className="reset--link button"
           >
             + Programación
@@ -133,7 +137,7 @@ class Agenda extends Component {
         <td>
           <Options
             handleDelete={() => this.handleDelete(event._id)}
-            urls={this.handleUrls(event.id)}
+            urls={this.handleUrls(event.nombre)}
           />
         </td>
       </tr>
