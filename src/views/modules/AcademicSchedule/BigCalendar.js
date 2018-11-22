@@ -20,8 +20,8 @@ class BigCalendar extends Component {
   }
 
   componentDidMount() {
-    this.getEvents()
     this.getCurrentDate()
+    this.getEvents()
   }
 
   getCurrentDate() {
@@ -36,9 +36,7 @@ class BigCalendar extends Component {
       .then(res => {
         const { data } = res
 
-        this.setState({
-          currentDate: data.fecha.split('T')[0],
-        })
+        return data.fecha.split('T')[0]
       })
   }
 
@@ -65,8 +63,8 @@ class BigCalendar extends Component {
             const { data } = res
 
             const bigCalendarEvents = data.map(event => ({
-              start: new Date(event.fecha),
-              end: new Date(event.fecha),
+              start: new Date(event.fecha.split('.')[0]),
+              end: moment(event.fecha.split('.')[0]).add(2, 'hours'),
               title: event.asignatura,
             }))
 

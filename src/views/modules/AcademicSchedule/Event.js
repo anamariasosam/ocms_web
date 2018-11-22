@@ -93,7 +93,7 @@ class Event extends Component {
         <td>{event.asignatura}</td>
         <td>{event.encargado}</td>
         <td>{event.fecha.split('T')[0]}</td>
-        <td>{event.hora}</td>
+        <td>{event.fecha.split('T')[1].split('.')[0]}</td>
         <td>{event.aforo}</td>
         <td>
           <Options

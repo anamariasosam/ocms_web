@@ -154,6 +154,7 @@ body {
   justify-content: space-evenly;
   display: flex;
   padding: 50px 20px;
+  margin-top: 100px;
   color: #fff;
   background-color: #173840;
   background-image: url(../images/footer_light.jpg);
