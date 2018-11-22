@@ -26,50 +26,6 @@ export const modules = [
   },
 ]
 
-export const calendars = [
-  {
-    id: '2017-1',
-    fechaInicio: '2017-01-23',
-    fechaFin: '2017-06-23',
-  },
-  {
-    id: '2017-2',
-    fechaInicio: '2017-06-23',
-    fechaFin: '2017-11-23',
-  },
-  {
-    id: '2018-1',
-    fechaInicio: '2018-01-23',
-    fechaFin: '2018-06-23',
-  },
-  {
-    id: '2018-2',
-    fechaInicio: '2018-06-23',
-    fechaFin: '2018-11-23',
-  },
-]
-
-export const schedules = [
-  {
-    id: '2017-1-1',
-    fechaInicio: '2017-09-11',
-    fechaFin: '2017-09-21',
-    name: 'Parciales',
-  },
-  {
-    id: '2017-1-2',
-    fechaInicio: '2017-11-14',
-    fechaFin: '2017-11-25',
-    name: 'Finales',
-  },
-  {
-    id: '2017-1-3',
-    fechaInicio: '2017-08-11',
-    fechaFin: '2017-11-25',
-    name: 'Foros',
-  },
-]
-
 export const events = [
   {
     id: '1.ISW1',
@@ -101,5 +57,3 @@ export const events = [
 ]
 
 export const attendants = ['Bell Manrique', 'Juan Bernardo', 'Grissa']
-
-export const groups = ['061', '062', '063', '065']

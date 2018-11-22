@@ -1,41 +1,80 @@
 import React, { Component, Fragment } from 'react'
+import axios from 'axios'
 import Calendar from 'react-big-calendar'
 import moment from 'moment'
-import { events } from '../../../data/data'
+import PACKAGE from '../../../../package.json'
 
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 
+const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
 const localizer = Calendar.momentLocalizer(moment)
 
-class App extends Component {
+class BigCalendar extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
       events: [],
+      currentDate: new Date(),
     }
   }
 
   componentDidMount() {
     this.getEvents()
+    this.getCurrentDate()
   }
 
   getCurrentDate() {
-    const event = events.filter(event => event.id === this.props.match.params.id)[0]
+    const { eventoNombre } = this.props.match.params
 
-    return new Date(event.date)
+    axios
+      .get(`${API_URL}/eventosAcademicos`, {
+        params: {
+          eventoAcademicoId: eventoNombre,
+        },
+      })
+      .then(res => {
+        const { data } = res
+
+        this.setState({
+          currentDate: data.fecha.split('T')[0],
+        })
+      })
   }
 
   getEvents() {
-    const bigCalendarEvents = events.map(event => ({
-      start: new Date(event.date),
-      end: new Date(event.date),
-      title: event.subject,
-    }))
+    const { programacionNombre } = this.props.match.params
 
-    this.setState({
-      events: bigCalendarEvents,
-    })
+    axios
+      .get(`${API_URL}/programaciones`, {
+        params: {
+          programacionId: programacionNombre,
+        },
+      })
+      .then(res => {
+        const { data } = res
+        const programacionId = data._id
+
+        axios
+          .get(`${API_URL}/eventosAcademicos`, {
+            params: {
+              programacionId,
+            },
+          })
+          .then(res => {
+            const { data } = res
+
+            const bigCalendarEvents = data.map(event => ({
+              start: new Date(event.fecha),
+              end: new Date(event.fecha),
+              title: event.asignatura,
+            }))
+
+            this.setState({
+              events: bigCalendarEvents,
+            })
+          })
+      })
   }
 
   render() {
@@ -46,7 +85,7 @@ class App extends Component {
         <div className="module--container">
           <Calendar
             localizer={localizer}
-            defaultDate={this.getCurrentDate()}
+            defaultDate={new Date(this.state.currentDate)}
             defaultView="month"
             events={this.state.events}
             style={{ height: '100vh' }}
@@ -57,4 +96,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default BigCalendar

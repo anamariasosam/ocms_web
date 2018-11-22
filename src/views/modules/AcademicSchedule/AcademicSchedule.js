@@ -69,7 +69,7 @@ const routes = [
     component: AgendaCreateForm,
   },
   {
-    path: '/calendarioAcademico/ver/:id',
+    path: '/calendarioAcademico/ver/:programacionNombre/:eventoNombre',
     component: BigCalendar,
   },
 ]

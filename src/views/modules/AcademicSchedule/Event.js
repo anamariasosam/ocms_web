@@ -56,7 +56,12 @@ class Event extends Component {
   }
 
   handleUrls(id) {
-    return this.state.urls.map(url => url.concat(id))
+    return this.state.urls.map((url, index) => {
+      if (index === 0) {
+        return url.concat(`${this.state.schedule.nombre}/${id}`)
+      }
+      return url.concat(id)
+    })
   }
 
   handleDelete(id) {
