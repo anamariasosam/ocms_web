@@ -27,12 +27,12 @@ class Event extends Component {
   }
 
   getEvents() {
-    const programacionId = this.props.match.params.id
+    const { nombre } = this.props.match.params
 
     axios
       .get(`${API_URL}/programaciones`, {
         params: {
-          programacionId,
+          nombre,
         },
       })
       .then(res => {

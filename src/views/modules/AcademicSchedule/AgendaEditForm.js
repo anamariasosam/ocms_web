@@ -29,16 +29,17 @@ class AgendaEditForm extends Component {
   }
 
   getSchedulesValues() {
-    const programacionId = this.props.match.params.id
+    const { nombre } = this.props.match.params
 
     axios
       .get(`${API_URL}/programaciones`, {
         params: {
-          programacionId,
+          nombre,
         },
       })
       .then(res => {
         const { data } = res
+        console.log(res)
         this.tipo.current.value = data.tipo
         this.fechaInicio.current.value = data.fechaInicio.split('T')[0]
         this.fechaFin.current.value = data.fechaFin.split('T')[0]
@@ -51,7 +52,7 @@ class AgendaEditForm extends Component {
     const fechaFin = this.fechaFin.current.value
     const tipo = this.tipo.current.value
 
-    const programacionId = this.props.match.params.id
+    const nombre = this.props.match.params.nombre
 
     this.setState({
       success: true,
@@ -60,7 +61,7 @@ class AgendaEditForm extends Component {
     axios
       .put(`${API_URL}/programaciones`, {
         params: {
-          programacionId,
+          nombre,
         },
         data: {
           tipo,

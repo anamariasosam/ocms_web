@@ -14,7 +14,7 @@ class AgendaCreateForm extends Component {
       error: false,
       success: false,
       message: 'Creado con éxito',
-      tipos: ['Parcial', 'Final', 'Foro'],
+      tipos: ['Parciales', 'Finales', 'Foros'],
     }
 
     this.fechaInicio = React.createRef()
@@ -30,7 +30,7 @@ class AgendaCreateForm extends Component {
     const fechaFin = this.fechaFin.current.value
     const tipo = this.tipo.current.value
     const calendarioId = this.props.location.state.calendar._id
-    const calendarioNombre = this.props.location.state.calendar.nombre
+    const calendarioSemestre = this.props.location.state.calendar.semestre
 
     axios
       .post(`${API_URL}/programaciones`, {
@@ -39,7 +39,7 @@ class AgendaCreateForm extends Component {
           fechaFin,
           tipo,
           calendarioId,
-          calendarioNombre,
+          calendarioSemestre,
         },
       })
       .then(res => {

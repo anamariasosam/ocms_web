@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import axios from 'axios'
+import moment from 'moment'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
 import PACKAGE from '../../../../package.json'
@@ -26,34 +27,34 @@ class CalendarEditForm extends Component {
   }
 
   getCalendarValues() {
-    const calendarioId = this.props.match.params.id
+    const semestre = this.props.match.params.semestre
     axios
       .get(`${API_URL}/calendarios`, {
         params: {
-          calendarioId,
+          semestre,
         },
       })
       .then(res => {
         const { data } = res
-        this.fechaInicio.current.value = data.fechaInicio.split('T')[0]
-        this.fechaFin.current.value = data.fechaFin.split('T')[0]
+        this.fechaInicio.current.value = moment(data.fechaInicio)
+          .utc()
+          .format(moment.HTML5_FMT.DATE)
+        this.fechaFin.current.value = moment(data.fechaFin)
+          .utc()
+          .format(moment.HTML5_FMT.DATE)
       })
   }
 
   handleSubmit(e) {
     e.preventDefault()
-    const calendarioId = this.props.match.params.id
+    const semestre = this.props.match.params.semestre
     const fechaInicio = this.fechaInicio.current.value
     const fechaFin = this.fechaFin.current.value
-
-    this.setState({
-      success: true,
-    })
 
     axios
       .put(`${API_URL}/calendarios`, {
         params: {
-          calendarioId,
+          semestre,
         },
         data: {
           fechaInicio,

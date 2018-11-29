@@ -18,7 +18,7 @@ class CalendarCreateForm extends Component {
 
     this.fechaInicio = React.createRef()
     this.fechaFin = React.createRef()
-    this.nombre = React.createRef()
+    this.semestre = React.createRef()
 
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -27,19 +27,19 @@ class CalendarCreateForm extends Component {
     e.preventDefault()
     const fechaInicio = this.fechaInicio.current.value
     const fechaFin = this.fechaFin.current.value
-    const nombre = this.nombre.current.value
+    const semestre = this.semestre.current.value
 
     axios
       .post(`${API_URL}/calendarios`, {
         data: {
-          nombre,
+          semestre,
           fechaInicio,
           fechaFin,
         },
       })
       .then(res => {
         if (res.status === 200) {
-          this.nombre.current.value = ''
+          this.semestre.current.value = ''
           this.fechaInicio.current.value = ''
           this.fechaFin.current.value = ''
           this.toggleAlert()
@@ -73,14 +73,14 @@ class CalendarCreateForm extends Component {
         <div className="form--container">
           <h3 className="form--title">Crear Calendario</h3>
           <form onSubmit={this.handleSubmit}>
-            <label htmlFor="nombre" className="required label">
-              Nombre:
+            <label htmlFor="semestre" className="required label">
+              Semestre:
             </label>
             <input
               type="text"
-              id="nombre"
+              id="semestre"
               className="input"
-              ref={this.nombre}
+              ref={this.semestre}
               required
               placeholder="Ejemplo: 2019-1"
             />

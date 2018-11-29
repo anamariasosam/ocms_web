@@ -57,20 +57,16 @@ class EventEditForm extends Component {
   }
 
   getEventValues() {
-    const eventoAcademicoId = this.props.match.params.id
-
+    const { nombre } = this.props.match.params
     axios
       .get(`${API_URL}/eventosAcademicos`, {
         params: {
-          eventoAcademicoId,
+          nombre,
         },
       })
       .then(res => {
         const { data } = res
-
-        this.fecha.current.value = moment(data.fecha)
-          .utc()
-          .format(moment.HTML5_FMT.DATETIME_LOCAL)
+        this.fecha.current.value = moment(data.fecha).format('YYYY-MM-DD[T]hh:mm')
         this.aforo.current.value = data.aforo
         this.asignatura.current.value = data.asignatura
         this.encargado.current.value = data.encargado
@@ -90,12 +86,12 @@ class EventEditForm extends Component {
     const grupos = this.state.selectedGroups
     const encargado = this.encargado.current.value
 
-    const eventoAcademicoId = this.props.match.params.id
+    const nombre = this.props.match.params.nombre
 
     axios
       .put(`${API_URL}/eventosAcademicos`, {
         params: {
-          eventoAcademicoId,
+          nombre,
         },
         data: {
           fecha,

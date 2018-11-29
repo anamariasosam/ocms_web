@@ -16,17 +16,19 @@ import CalendarEditForm from './CalendarEditForm'
 import AgendaEditForm from './AgendaEditForm'
 import EventEditForm from './EventEditForm'
 
+const currentYear = new Date().getFullYear()
+
 const menu = [
   {
     path: '/calendarioAcademico/gestionarCalendario',
     name: 'Gestionar Calendario',
   },
   {
-    path: '/calendarioAcademico/realizarProgramacion/show/2017-1',
+    path: `/calendarioAcademico/realizarProgramacion/show/${currentYear}-1`,
     name: 'Realizar programación',
   },
   {
-    path: '/calendarioAcademico/programarEvento/show/2017-1-1',
+    path: `/calendarioAcademico/programarEvento/show/${currentYear}-1-1`,
     name: 'Programar evento',
   },
 ]
@@ -37,23 +39,23 @@ const routes = [
     component: Calendar,
   },
   {
-    path: '/calendarioAcademico/realizarProgramacion/show/:id',
+    path: '/calendarioAcademico/realizarProgramacion/show/:semestre',
     component: Agenda,
   },
   {
-    path: '/calendarioAcademico/programarEvento/show/:id',
+    path: '/calendarioAcademico/programarEvento/show/:nombre',
     component: Event,
   },
   {
-    path: '/calendarioAcademico/gestionarCalendario/edit/:id',
+    path: '/calendarioAcademico/gestionarCalendario/edit/:semestre',
     component: CalendarEditForm,
   },
   {
-    path: '/calendarioAcademico/realizarProgramacion/edit/:id',
+    path: '/calendarioAcademico/realizarProgramacion/edit/:nombre',
     component: AgendaEditForm,
   },
   {
-    path: '/calendarioAcademico/programarEvento/edit/:id/',
+    path: '/calendarioAcademico/programarEvento/edit/:nombre/',
     component: EventEditForm,
   },
   {

@@ -15,7 +15,7 @@ class Agenda extends Component {
     this.state = {
       calendar: {},
       schedules: [],
-      titles: ['nombre', 'fecha Inicio', 'fecha Fin'],
+      titles: ['semestre', 'fecha Inicio', 'fecha Fin'],
       urls: [
         '/calendarioAcademico/programarEvento/show/',
         '/calendarioAcademico/realizarProgramacion/edit/',
@@ -30,12 +30,12 @@ class Agenda extends Component {
   }
 
   getSchedules() {
-    const calendarioId = this.props.match.params.id
+    const semestre = this.props.match.params.semestre
 
     axios
       .get(`${API_URL}/calendarios`, {
         params: {
-          calendarioId,
+          semestre,
         },
       })
       .then(res => {

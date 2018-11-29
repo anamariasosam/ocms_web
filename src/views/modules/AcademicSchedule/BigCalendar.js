@@ -15,7 +15,7 @@ class BigCalendar extends Component {
 
     this.state = {
       events: [],
-      currentDate: new Date(),
+      currentDate: '',
     }
   }
 
@@ -30,13 +30,15 @@ class BigCalendar extends Component {
     axios
       .get(`${API_URL}/eventosAcademicos`, {
         params: {
-          eventoAcademicoId: eventoNombre,
+          nombre: eventoNombre,
         },
       })
       .then(res => {
         const { data } = res
 
-        return data.fecha.split('T')[0]
+        this.setState({
+          currentDate: new Date(data.fecha),
+        })
       })
   }
 
@@ -46,7 +48,7 @@ class BigCalendar extends Component {
     axios
       .get(`${API_URL}/programaciones`, {
         params: {
-          programacionId: programacionNombre,
+          nombre: programacionNombre,
         },
       })
       .then(res => {
@@ -81,15 +83,17 @@ class BigCalendar extends Component {
         <h2>Calendario</h2>
 
         <div className="module--container">
-          <Calendar
-            localizer={localizer}
-            defaultDate={new Date(this.state.currentDate)}
-            defaultView="month"
-            events={this.state.events}
-            style={{ height: '100vh' }}
-            startAccessor="start"
-            endAccessor="end"
-          />
+          {this.state.currentDate && (
+            <Calendar
+              localizer={localizer}
+              defaultDate={this.state.currentDate}
+              defaultView="month"
+              events={this.state.events}
+              style={{ height: '100vh' }}
+              startAccessor="start"
+              endAccessor="end"
+            />
+          )}
         </div>
       </Fragment>
     )

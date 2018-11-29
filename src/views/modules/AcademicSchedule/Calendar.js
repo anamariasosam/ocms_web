@@ -68,7 +68,7 @@ class Calendar extends Component {
           <table className="table">
             <thead className="thead">
               <tr>
-                <th>NOMBRE</th>
+                <th>SEMESTRE</th>
                 <th>FECHA INICIO</th>
                 <th>FECHA FIN</th>
                 <th>ACCIONES</th>
@@ -88,7 +88,7 @@ class Calendar extends Component {
   renderCalendars() {
     return this.state.calendars.map(calendar => (
       <tr key={calendar._id}>
-        <td>{calendar.nombre}</td>
+        <td>{calendar.semestre}</td>
         <td>
           {moment(calendar.fechaInicio)
             .utc()
@@ -102,7 +102,7 @@ class Calendar extends Component {
         <td>
           <Options
             handleDelete={() => this.handleDelete(calendar._id)}
-            urls={this.handleUrls(calendar.nombre)}
+            urls={this.handleUrls(calendar.semestre)}
           />
         </td>
       </tr>
