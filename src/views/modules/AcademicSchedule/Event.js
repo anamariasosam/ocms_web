@@ -93,7 +93,11 @@ class Event extends Component {
         <td>{event.nombre}</td>
         <td>{event.asignatura}</td>
         <td>{event.encargado}</td>
-        <td>{moment(event.fecha).format('l')}</td>
+        <td>
+          {moment(event.fecha)
+            .utc()
+            .format('l')}
+        </td>
         <td>{moment(event.fecha).format('h:mm a')}</td>
         <td>{event.aforo}</td>
         <td>

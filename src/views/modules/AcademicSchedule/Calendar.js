@@ -89,8 +89,16 @@ class Calendar extends Component {
     return this.state.calendars.map(calendar => (
       <tr key={calendar._id}>
         <td>{calendar.nombre}</td>
-        <td>{moment(calendar.fechaInicio).format('l')}</td>
-        <td>{moment(calendar.fechaFin).format('l')}</td>
+        <td>
+          {moment(calendar.fechaInicio)
+            .utc()
+            .format('l')}
+        </td>
+        <td>
+          {moment(calendar.fechaFin)
+            .utc()
+            .format('l')}
+        </td>
         <td>
           <Options
             handleDelete={() => this.handleDelete(calendar._id)}

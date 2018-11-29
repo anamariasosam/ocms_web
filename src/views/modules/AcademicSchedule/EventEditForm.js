@@ -68,7 +68,9 @@ class EventEditForm extends Component {
       .then(res => {
         const { data } = res
 
-        this.fecha.current.value = moment(data.fecha).format('YYYY-MM-DDThh:mm')
+        this.fecha.current.value = moment(data.fecha)
+          .utc()
+          .format(moment.HTML5_FMT.DATETIME_LOCAL)
         this.aforo.current.value = data.aforo
         this.asignatura.current.value = data.asignatura
         this.encargado.current.value = data.encargado

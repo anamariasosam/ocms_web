@@ -133,8 +133,16 @@ class Agenda extends Component {
       <tr key={schedule._id}>
         <td>{schedule.nombre}</td>
         <td>{schedule.tipo}</td>
-        <td>{moment(schedule.fechaInicio).format('l')}</td>
-        <td>{moment(schedule.fechaFin).format('l')}</td>
+        <td>
+          {moment(schedule.fechaInicio)
+            .utc()
+            .format('l')}
+        </td>
+        <td>
+          {moment(schedule.fechaFin)
+            .utc()
+            .format('l')}
+        </td>
         <td>
           <Options
             handleDelete={() => this.handleDelete(schedule._id)}

@@ -17,7 +17,6 @@ class AgendaCreateForm extends Component {
       tipos: ['Parcial', 'Final', 'Foro'],
     }
 
-    this.nombre = React.createRef()
     this.fechaInicio = React.createRef()
     this.fechaFin = React.createRef()
     this.tipo = React.createRef()
@@ -27,25 +26,24 @@ class AgendaCreateForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const nombre = this.nombre.current.value
     const fechaInicio = this.fechaInicio.current.value
     const fechaFin = this.fechaFin.current.value
     const tipo = this.tipo.current.value
     const calendarioId = this.props.location.state.calendar._id
+    const calendarioNombre = this.props.location.state.calendar.nombre
 
     axios
       .post(`${API_URL}/programaciones`, {
         data: {
-          nombre,
           fechaInicio,
           fechaFin,
           tipo,
           calendarioId,
+          calendarioNombre,
         },
       })
       .then(res => {
         if (res.status === 200) {
-          this.nombre.current.value = ''
           this.fechaInicio.current.value = ''
           this.fechaFin.current.value = ''
           this.toggleAlert()
@@ -79,11 +77,6 @@ class AgendaCreateForm extends Component {
         <div className="form--container">
           <h3 className="form--title">Crear Programación</h3>
           <form onSubmit={this.handleSubmit}>
-            <label htmlFor="nombre" className="required label">
-              Nombre:
-            </label>
-            <input type="text" id="nombre" className="input" ref={this.nombre} required />
-
             <label htmlFor="tipo" className="required label">
               Tipo de Evento:
             </label>
