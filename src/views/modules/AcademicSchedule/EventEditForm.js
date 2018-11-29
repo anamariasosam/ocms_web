@@ -22,7 +22,6 @@ class EventEditForm extends Component {
       selectedGroups: [],
     }
 
-    this.nombre = React.createRef()
     this.asignatura = React.createRef()
     this.encargado = React.createRef()
     this.fecha = React.createRef()
@@ -68,7 +67,6 @@ class EventEditForm extends Component {
       .then(res => {
         const { data } = res
 
-        this.nombre.current.value = data.nombre
         this.fecha.current.value = data.fecha.split('.')[0]
         this.aforo.current.value = data.aforo
         this.asignatura.current.value = data.asignatura
@@ -83,7 +81,6 @@ class EventEditForm extends Component {
   handleSubmit(e) {
     e.preventDefault()
 
-    const nombre = this.nombre.current.value
     const fecha = this.fecha.current.value
     const aforo = this.aforo.current.value
     const asignatura = this.asignatura.current.value
@@ -98,7 +95,6 @@ class EventEditForm extends Component {
           eventoAcademicoId,
         },
         data: {
-          nombre,
           fecha,
           aforo,
           asignatura,
@@ -165,11 +161,6 @@ class EventEditForm extends Component {
         <div className="form--container">
           <h3 className="form--title">Crear Evento</h3>
           <form onSubmit={this.handleSubmit}>
-            <label htmlFor="nombre" className="required label">
-              Nombre:
-            </label>
-            <input type="text" id="nombre" className="input" ref={this.nombre} required />
-
             <label htmlFor="asignatura" className="required label">
               Asignatura:
             </label>

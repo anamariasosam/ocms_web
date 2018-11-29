@@ -17,7 +17,6 @@ class AgendaEditForm extends Component {
       tipos: ['Parciales', 'Finales', 'Foros'],
     }
 
-    this.nombre = React.createRef()
     this.fechaInicio = React.createRef()
     this.fechaFin = React.createRef()
     this.tipo = React.createRef()
@@ -40,7 +39,6 @@ class AgendaEditForm extends Component {
       })
       .then(res => {
         const { data } = res
-        this.nombre.current.value = data.nombre
         this.tipo.current.value = data.tipo
         this.fechaInicio.current.value = data.fechaInicio.split('T')[0]
         this.fechaFin.current.value = data.fechaFin.split('T')[0]
@@ -49,7 +47,6 @@ class AgendaEditForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const nombre = this.nombre.current.value
     const fechaInicio = this.fechaInicio.current.value
     const fechaFin = this.fechaFin.current.value
     const tipo = this.tipo.current.value
@@ -66,7 +63,6 @@ class AgendaEditForm extends Component {
           programacionId,
         },
         data: {
-          nombre,
           tipo,
           fechaInicio,
           fechaFin,
@@ -106,11 +102,6 @@ class AgendaEditForm extends Component {
         <div className="form--container">
           <h3 className="form--title">Editar Programación</h3>
           <form onSubmit={this.handleSubmit}>
-            <label htmlFor="nombre" className="required label">
-              Nombre:
-            </label>
-            <input type="text" id="nombre" className="input" ref={this.nombre} required />
-
             <label htmlFor="tipo" className="required label">
               Tipo de Evento:
             </label>

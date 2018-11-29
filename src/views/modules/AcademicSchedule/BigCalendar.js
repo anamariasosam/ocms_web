@@ -87,6 +87,8 @@ class BigCalendar extends Component {
             defaultView="month"
             events={this.state.events}
             style={{ height: '100vh' }}
+            startAccessor="start"
+            endAccessor="end"
           />
         </div>
       </Fragment>
