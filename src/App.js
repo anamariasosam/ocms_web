@@ -12,6 +12,7 @@ import Module from './views/modules/Module'
 import AcademicSchedule from './views/modules/AcademicSchedule/AcademicSchedule'
 
 import './styles/App.css'
+import 'moment/locale/es'
 
 const App = () => (
   <Router>

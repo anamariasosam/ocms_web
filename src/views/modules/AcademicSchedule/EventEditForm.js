@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import moment from 'moment'
 import axios from 'axios'
 import { attendants } from '../../../data/data'
 import Success from '../../../components/Success'
@@ -67,7 +68,7 @@ class EventEditForm extends Component {
       .then(res => {
         const { data } = res
 
-        this.fecha.current.value = data.fecha.split('.')[0]
+        this.fecha.current.value = moment(data.fecha).format('YYYY-MM-DDThh:mm')
         this.aforo.current.value = data.aforo
         this.asignatura.current.value = data.asignatura
         this.encargado.current.value = data.encargado

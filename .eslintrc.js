@@ -11,6 +11,7 @@ module.exports = {
         },
       },
     ],
+    'eslint linebreak-style': [0, 'error', 'windows'],
   },
   env: {
     browser: true,

@@ -1,6 +1,7 @@
 import React, { Fragment, Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import moment from 'moment'
 import Options from '../../../components/Options'
 import AditionalInfo from '../../../components/AditionalInfo'
 import PACKAGE from '../../../../package.json'
@@ -92,8 +93,8 @@ class Event extends Component {
         <td>{event.nombre}</td>
         <td>{event.asignatura}</td>
         <td>{event.encargado}</td>
-        <td>{event.fecha.split('T')[0]}</td>
-        <td>{event.fecha.split('T')[1].split('.')[0]}</td>
+        <td>{moment(event.fecha).format('l')}</td>
+        <td>{moment(event.fecha).format('h:mm a')}</td>
         <td>{event.aforo}</td>
         <td>
           <Options

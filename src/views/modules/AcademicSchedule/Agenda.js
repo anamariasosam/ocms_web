@@ -1,5 +1,6 @@
 import React, { Fragment, Component } from 'react'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 import axios from 'axios'
 import Options from '../../../components/Options'
 import AditionalInfo from '../../../components/AditionalInfo'
@@ -128,16 +129,16 @@ class Agenda extends Component {
   }
 
   renderEvents() {
-    return this.state.schedules.map(event => (
-      <tr key={event._id}>
-        <td>{event.nombre}</td>
-        <td>{event.tipo}</td>
-        <td>{event.fechaInicio.split('T')[0]}</td>
-        <td>{event.fechaFin.split('T')[0]}</td>
+    return this.state.schedules.map(schedule => (
+      <tr key={schedule._id}>
+        <td>{schedule.nombre}</td>
+        <td>{schedule.tipo}</td>
+        <td>{moment(schedule.fechaInicio).format('l')}</td>
+        <td>{moment(schedule.fechaFin).format('l')}</td>
         <td>
           <Options
-            handleDelete={() => this.handleDelete(event._id)}
-            urls={this.handleUrls(event.nombre)}
+            handleDelete={() => this.handleDelete(schedule._id)}
+            urls={this.handleUrls(schedule.nombre)}
           />
         </td>
       </tr>
