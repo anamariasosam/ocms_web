@@ -36,8 +36,9 @@ class BigCalendar extends Component {
       .then(res => {
         const { data } = res
 
+        const currentDate = moment(data.fecha).format()
         this.setState({
-          currentDate: new Date(data.fecha),
+          currentDate,
         })
       })
   }
@@ -65,8 +66,8 @@ class BigCalendar extends Component {
             const { data } = res
 
             const bigCalendarEvents = data.map(event => ({
-              start: new Date(event.fecha.split('.')[0]),
-              end: moment(event.fecha.split('.')[0]).add(2, 'hours'),
+              start: moment(event.fecha).format('YYYY-MM-DD[T]hh:mm'),
+              end: moment(event.fecha).add(2, 'hours'),
               title: event.asignatura,
             }))
 
@@ -78,20 +79,25 @@ class BigCalendar extends Component {
   }
 
   render() {
+    const { currentDate, events } = this.state
+    const defaultDate = new Date(currentDate)
+
     return (
       <Fragment>
         <h2>Calendario</h2>
 
         <div className="module--container">
-          {this.state.currentDate && (
+          {currentDate && (
             <Calendar
               localizer={localizer}
-              defaultDate={this.state.currentDate}
               defaultView="month"
-              events={this.state.events}
+              events={events}
               style={{ height: '100vh' }}
               startAccessor="start"
               endAccessor="end"
+              popup={true}
+              defaultDate={defaultDate}
+              views={['month', 'agenda']}
             />
           )}
         </div>
