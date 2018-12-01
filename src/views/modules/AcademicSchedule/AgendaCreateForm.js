@@ -14,7 +14,7 @@ class AgendaCreateForm extends Component {
       error: false,
       success: false,
       message: 'Creado con éxito',
-      tipos: ['Parciales', 'Finales', 'Foros'],
+      tipos: [],
     }
 
     this.fechaInicio = React.createRef()
@@ -22,6 +22,19 @@ class AgendaCreateForm extends Component {
     this.tipo = React.createRef()
 
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentDidMount() {
+    this.getTipoProgramaciones()
+  }
+
+  getTipoProgramaciones() {
+    axios.get(`${API_URL}/tipoProgramaciones`).then(res => {
+      const { data } = res
+      this.setState({
+        tipos: data,
+      })
+    })
   }
 
   handleSubmit(e) {
@@ -82,7 +95,7 @@ class AgendaCreateForm extends Component {
             </label>
             <select id="tipo" ref={this.tipo} className="input select--input">
               {this.state.tipos.map(tipo => (
-                <option key={tipo}>{tipo}</option>
+                <option key={tipo._id}>{tipo.nombre}</option>
               ))}
             </select>
 

@@ -384,7 +384,7 @@ body {
 /* Box */
 .box {
   padding: 0.3rem;
-  padding-right: 4.5rem;
+  padding-right: 1rem;
   color: #8c8c8c;
   text-align: left;
   text-transform: uppercase;

@@ -14,7 +14,7 @@ class AgendaEditForm extends Component {
       error: false,
       success: false,
       message: 'Editado con éxito',
-      tipos: ['Parciales', 'Finales', 'Foros'],
+      tipos: [],
     }
 
     this.fechaInicio = React.createRef()
@@ -25,7 +25,17 @@ class AgendaEditForm extends Component {
   }
 
   componentDidMount() {
+    this.getTipoProgramaciones()
     this.getSchedulesValues()
+  }
+
+  getTipoProgramaciones() {
+    axios.get(`${API_URL}/tipoProgramaciones`).then(res => {
+      const { data } = res
+      this.setState({
+        tipos: data,
+      })
+    })
   }
 
   getSchedulesValues() {
@@ -108,7 +118,7 @@ class AgendaEditForm extends Component {
             </label>
             <select id="tipo" ref={this.tipo} className="input select--input">
               {this.state.tipos.map(tipo => (
-                <option key={tipo}>{tipo}</option>
+                <option key={tipo._id}>{tipo.nombre}</option>
               ))}
             </select>
             <label htmlFor="fechaInicio" className="required label">
