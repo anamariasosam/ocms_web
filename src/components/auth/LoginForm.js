@@ -13,9 +13,6 @@ class LoginForm extends Component {
   constructor(props) {
     super(props)
 
-    this.correo = React.createRef()
-    this.password = React.createRef()
-
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
 

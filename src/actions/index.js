@@ -4,7 +4,7 @@ import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, PROTECTED_TEST } from './types'
 import PACKAGE from '../../package.json'
 
 const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
-const CLIENT_ROOT_URL = 'http://localhost:3000/'
+const CLIENT_ROOT_URL = 'http://localhost:3000'
 
 export function errorHandler(dispatch, error, type) {
   let errorMessage = ''
@@ -20,7 +20,7 @@ export function errorHandler(dispatch, error, type) {
   if (error.status === 401) {
     dispatch({
       type: type,
-      payload: 'You are not authorized to do this. Please login and try again.',
+      payload: 'No se pudo realizar la acción. Verifica la información',
     })
     logoutUser()
   } else {
@@ -37,8 +37,9 @@ export function loginUser({ correo, password }) {
       .post(`${API_URL}/auth/login`, { correo, password })
       .then(response => {
         cookie.save('token', response.data.token, { path: '/' })
+        cookie.save('user', response.data.usuario, { path: '/' })
         dispatch({ type: AUTH_USER })
-        window.location.href = CLIENT_ROOT_URL + 'calendarioAcademico/gestionarCalendario'
+        window.location.href = CLIENT_ROOT_URL + '/calendarioAcademico/gestionarCalendario'
       })
       .catch(error => {
         errorHandler(dispatch, error.response, AUTH_ERROR)
@@ -46,12 +47,12 @@ export function loginUser({ correo, password }) {
   }
 }
 
-export function logoutUser() {
+export function logoutUser(error) {
   return dispatch => {
-    dispatch({ type: UNAUTH_USER })
+    dispatch({ type: UNAUTH_USER, payload: error || '' })
     cookie.remove('token', { path: '/' })
-
-    window.location.href = CLIENT_ROOT_URL + 'login'
+    cookie.remove('user', { path: '/' })
+    window.location.href = CLIENT_ROOT_URL
   }
 }
 
