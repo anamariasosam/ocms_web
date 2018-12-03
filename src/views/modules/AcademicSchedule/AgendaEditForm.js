@@ -84,6 +84,13 @@ class AgendaEditForm extends Component {
           this.toggleAlert()
         }
       })
+      .catch(error => {
+        const message = error.response.statusText
+        this.setState({
+          error: true,
+          message,
+        })
+      })
   }
 
   toggleAlert() {

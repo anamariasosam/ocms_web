@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import axios from 'axios'
+import cookie from 'react-cookies'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
 import PACKAGE from '../../../../package.json'
@@ -30,13 +31,19 @@ class CalendarCreateForm extends Component {
     const semestre = this.semestre.current.value
 
     axios
-      .post(`${API_URL}/calendarios`, {
-        data: {
-          semestre,
-          fechaInicio,
-          fechaFin,
+      .post(
+        `${API_URL}/calendarios`,
+        {
+          data: {
+            semestre,
+            fechaInicio,
+            fechaFin,
+          },
         },
-      })
+        {
+          headers: { Authorization: cookie.load('token') },
+        },
+      )
       .then(res => {
         if (res.status === 200) {
           this.semestre.current.value = ''
@@ -44,6 +51,13 @@ class CalendarCreateForm extends Component {
           this.fechaFin.current.value = ''
           this.toggleAlert()
         }
+      })
+      .catch(error => {
+        const message = error.response.statusText
+        this.setState({
+          error: true,
+          message,
+        })
       })
   }
 

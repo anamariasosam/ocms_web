@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom'
 
 import ModuleLayout from '../../../layouts/ModuleLayout'
 
+import RequireAuth from '../../../components/auth/RequireAuth'
+
 import Calendar from './Calendar'
 import Agenda from './Agenda'
 import Event from './Event'
@@ -80,7 +82,12 @@ const AcademicSchedule = () => (
   <ModuleLayout menu={menu}>
     <Switch>
       {routes.map(element => (
-        <Route exact key={element.path} path={element.path} component={element.component} />
+        <Route
+          exact
+          key={element.path}
+          path={element.path}
+          component={RequireAuth(element.component)}
+        />
       ))}
     </Switch>
   </ModuleLayout>
