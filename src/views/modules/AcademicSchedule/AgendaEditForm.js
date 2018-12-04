@@ -49,7 +49,6 @@ class AgendaEditForm extends Component {
       })
       .then(res => {
         const { data } = res
-        console.log(res)
         this.tipo.current.value = data.tipo
         this.fechaInicio.current.value = data.fechaInicio.split('T')[0]
         this.fechaFin.current.value = data.fechaFin.split('T')[0]

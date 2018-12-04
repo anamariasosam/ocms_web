@@ -1,21 +1,12 @@
 import React, { Component, Fragment } from 'react'
-import axios from 'axios'
-import cookie from 'react-cookies'
+import { connect } from 'react-redux'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
-import PACKAGE from '../../../../package.json'
-
-const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
+import { createCalendar } from '../../../actions/calendar'
 
 class CalendarCreateForm extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      error: false,
-      success: false,
-      message: 'Creado con éxito',
-    }
 
     this.fechaInicio = React.createRef()
     this.fechaFin = React.createRef()
@@ -30,39 +21,18 @@ class CalendarCreateForm extends Component {
     const fechaFin = this.fechaFin.current.value
     const semestre = this.semestre.current.value
 
-    axios
-      .post(
-        `${API_URL}/calendarios`,
-        {
-          data: {
-            semestre,
-            fechaInicio,
-            fechaFin,
-          },
-        },
-        {
-          headers: { Authorization: cookie.load('token') },
-        },
-      )
-      .then(res => {
-        if (res.status === 200) {
-          this.semestre.current.value = ''
-          this.fechaInicio.current.value = ''
-          this.fechaFin.current.value = ''
-          this.toggleAlert()
-        }
-      })
-      .catch(error => {
-        const message = error.response.statusText
-        this.setState({
-          error: true,
-          message,
-        })
-      })
+    const data = {
+      fechaInicio,
+      fechaFin,
+      semestre,
+    }
+
+    this.props.createCalendar(data)
   }
 
   toggleAlert() {
     const { history } = this.props
+
     this.setState(
       {
         success: true,
@@ -73,13 +43,12 @@ class CalendarCreateForm extends Component {
             success: false,
           })
           history.goBack()
-        }, 1000)
+        }, 5000)
       },
     )
   }
 
   render() {
-    const { error, success, message } = this.state
     return (
       <Fragment>
         <h2>Gestionar Calendario</h2>
@@ -114,12 +83,33 @@ class CalendarCreateForm extends Component {
             </div>
           </form>
 
-          {error && <Error description={message} />}
-          {success && <Success description={message} />}
+          {this.renderAlert()}
         </div>
       </Fragment>
     )
   }
+
+  renderAlert() {
+    const { errorMessage, successMessage } = this.props
+
+    if (errorMessage) {
+      return <Error description={errorMessage} />
+    } else if (successMessage) {
+      return <Success description={successMessage} />
+    }
+  }
 }
 
-export default CalendarCreateForm
+function mapStateToProps(state) {
+  const { errorMessage, successMessage } = state.calendar
+
+  return {
+    errorMessage,
+    successMessage,
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { createCalendar },
+)(CalendarCreateForm)

@@ -322,7 +322,7 @@ body {
 
 /* SideBar */
 .sidebar--container {
-  height: 100vh;
+  min-height: 100vh;
   padding-right: 30px;
   margin-right: 30px;
   border-right: 1px solid #ccc;
