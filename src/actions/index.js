@@ -6,10 +6,15 @@ const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
 const CLIENT_ROOT_URL = 'http://localhost:3000'
 
 export function errorHandler(dispatch, error, type) {
-  console.log('Error type: ', type)
-  console.log(error)
+  let errorMessage = 'Ocurrió un error'
 
-  const errorMessage = error.data ? error.data.error : 'Ocurrió un error'
+  if (error.data.error) {
+    errorMessage = error.data.error
+  } else if (error.statusText) {
+    errorMessage = error.statusText
+  } else {
+    errorMessage = error
+  }
 
   const payload = {
     errorMessage,

@@ -1,21 +1,12 @@
 import React, { Component, Fragment } from 'react'
-import axios from 'axios'
+import { connect } from 'react-redux'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
-import PACKAGE from '../../../../package.json'
-
-const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
+import { createAgenda, fetchEventTypes } from '../../../actions/agenda'
 
 class AgendaCreateForm extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      error: false,
-      success: false,
-      message: 'Creado con éxito',
-      tipos: [],
-    }
 
     this.fechaInicio = React.createRef()
     this.fechaFin = React.createRef()
@@ -25,16 +16,7 @@ class AgendaCreateForm extends Component {
   }
 
   componentDidMount() {
-    this.getTipoProgramaciones()
-  }
-
-  getTipoProgramaciones() {
-    axios.get(`${API_URL}/tipoProgramaciones`).then(res => {
-      const { data } = res
-      this.setState({
-        tipos: data,
-      })
-    })
+    this.props.fetchEventTypes()
   }
 
   handleSubmit(e) {
@@ -45,51 +27,18 @@ class AgendaCreateForm extends Component {
     const calendarioId = this.props.location.state.calendar._id
     const calendarioSemestre = this.props.location.state.calendar.semestre
 
-    axios
-      .post(`${API_URL}/programaciones`, {
-        data: {
-          fechaInicio,
-          fechaFin,
-          tipo,
-          calendarioId,
-          calendarioSemestre,
-        },
-      })
-      .then(res => {
-        if (res.status === 200) {
-          this.fechaInicio.current.value = ''
-          this.fechaFin.current.value = ''
-          this.toggleAlert()
-        }
-      })
-      .catch(error => {
-        const message = error.response.statusText
-        this.setState({
-          error: true,
-          message,
-        })
-      })
-  }
+    const data = {
+      fechaInicio,
+      fechaFin,
+      tipo,
+      calendarioId,
+      calendarioSemestre,
+    }
 
-  toggleAlert() {
-    this.setState(
-      {
-        success: true,
-      },
-      () => {
-        setTimeout(() => {
-          this.setState({
-            success: false,
-          })
-
-          this.props.history.goBack()
-        }, 1000)
-      },
-    )
+    this.props.createAgenda(data)
   }
 
   render() {
-    const { error, success, message } = this.state
     return (
       <Fragment>
         <h2>Gestionar Programación</h2>
@@ -101,7 +50,7 @@ class AgendaCreateForm extends Component {
               Tipo de Evento:
             </label>
             <select id="tipo" ref={this.tipo} className="input select--input">
-              {this.state.tipos.map(tipo => (
+              {this.props.tipoProgramacion.map(tipo => (
                 <option key={tipo._id}>{tipo.nombre}</option>
               ))}
             </select>
@@ -121,12 +70,34 @@ class AgendaCreateForm extends Component {
             </div>
           </form>
 
-          {error && <Error description={message} />}
-          {success && <Success description={message} />}
+          {this.renderAlert()}
         </div>
       </Fragment>
     )
   }
+
+  renderAlert() {
+    const { errorMessage, successMessage } = this.props
+
+    if (errorMessage) {
+      return <Error description={errorMessage} />
+    } else if (successMessage) {
+      return <Success description={successMessage} />
+    }
+  }
 }
 
-export default AgendaCreateForm
+function mapStateToProps(state) {
+  const { errorMessage, successMessage, tipoProgramacion } = state.agenda
+
+  return {
+    errorMessage,
+    successMessage,
+    tipoProgramacion,
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { createAgenda, fetchEventTypes },
+)(AgendaCreateForm)

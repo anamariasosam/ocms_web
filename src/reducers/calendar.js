@@ -6,7 +6,6 @@ export default function(state = INITIAL_STATE, action) {
     case CREATE_CALENDAR:
       return {
         ...state,
-        calendars: [action.payload.data],
         successMessage: action.payload.successMessage,
       }
     case CALENDAR_ERROR:

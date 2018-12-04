@@ -30,24 +30,6 @@ class CalendarCreateForm extends Component {
     this.props.createCalendar(data)
   }
 
-  toggleAlert() {
-    const { history } = this.props
-
-    this.setState(
-      {
-        success: true,
-      },
-      () => {
-        setTimeout(() => {
-          this.setState({
-            success: false,
-          })
-          history.goBack()
-        }, 5000)
-      },
-    )
-  }
-
   render() {
     return (
       <Fragment>

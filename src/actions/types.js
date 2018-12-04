@@ -5,3 +5,17 @@ export const AUTH_USER = 'auth_user',
 
 export const CREATE_CALENDAR = 'create_calendar',
   CALENDAR_ERROR = 'calendar_error'
+
+export const CREATE_AGENDA = 'create_agenda',
+  AGENDA_ERROR = 'agenda_error'
+
+export const FETCH_EVENT_TYPES = 'fetch_event_types',
+  EVENT_TYPE_ERROR = 'event_type_error'
+
+export const CREATE_EVENT = 'create_event',
+  EVENT_ERROR = 'event_error',
+  FETCH_SUBJECTS = 'fetch_subjects',
+  SUBJECTS_ERROR = 'subjects_error'
+
+export const FETCH_GROUPS = 'fetch_groups',
+  GROUPS_ERROR = 'groups_error'
