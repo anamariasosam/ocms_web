@@ -1,6 +1,9 @@
 import { getData, postData, putData, deleteData } from './index'
 import {
   CREATE_EVENT,
+  DELETE_EVENT,
+  FETCH_EVENT,
+  UPDATE_EVENT,
   EVENT_ERROR,
   FETCH_SUBJECTS,
   SUBJECTS_ERROR,
@@ -8,10 +11,20 @@ import {
   GROUPS_ERROR,
 } from './types'
 
+const EVENT_ENDPOINT = '/eventosAcademicos'
+
 export function createEvent(data) {
-  const url = '/eventosAcademicos'
   const redirect = `/calendarioAcademico/programarEvento/show/${data.programacionNombre}`
-  return dispatch => postData(CREATE_EVENT, EVENT_ERROR, true, url, dispatch, data, redirect)
+  return dispatch =>
+    postData(CREATE_EVENT, EVENT_ERROR, true, EVENT_ENDPOINT, dispatch, data, redirect)
+}
+
+export function deleteEvent(params) {
+  return dispatch => deleteData(DELETE_EVENT, EVENT_ERROR, true, EVENT_ENDPOINT, dispatch, params)
+}
+
+export function fetchEvent(params) {
+  return dispatch => getData(FETCH_EVENT, EVENT_ERROR, false, EVENT_ENDPOINT, dispatch, params)
 }
 
 export function fetchAsignaturas() {

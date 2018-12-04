@@ -1,20 +1,17 @@
 import React, { Fragment, Component } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
+import { connect } from 'react-redux'
 import moment from 'moment'
 import Options from '../../../components/Options'
 import AditionalInfo from '../../../components/AditionalInfo'
-import PACKAGE from '../../../../package.json'
-
-const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
+import { deleteEvent, fetchEvent } from '../../../actions/event'
+import { fetchAgenda } from '../../../actions/agenda'
 
 class Event extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      events: [],
-      schedule: {},
       titles: ['tipo', 'fecha Inicio', 'fecha Fin'],
       urls: ['/calendarioAcademico/ver/', '/calendarioAcademico/programarEvento/edit/'],
     }
@@ -29,37 +26,14 @@ class Event extends Component {
   getEvents() {
     const { nombre } = this.props.match.params
 
-    axios
-      .get(`${API_URL}/programaciones`, {
-        params: {
-          nombre,
-        },
-      })
-      .then(res => {
-        const { data } = res
-        const programacion = data
-        const programacionId = programacion._id
-
-        axios
-          .get(`${API_URL}/eventosAcademicos`, {
-            params: {
-              programacionId,
-            },
-          })
-          .then(res => {
-            const { data } = res
-            this.setState({
-              events: data,
-              schedule: programacion,
-            })
-          })
-      })
+    this.props.fetchAgenda({ nombre })
+    this.props.fetchEvent({ programacionNombre: nombre })
   }
 
   handleUrls(id) {
     return this.state.urls.map((url, index) => {
       if (index === 0) {
-        return url.concat(`${this.state.schedule.nombre}/${id}`)
+        return url.concat(`${this.props.schedules.nombre}/${id}`)
       }
       return url.concat(id)
     })
@@ -68,27 +42,18 @@ class Event extends Component {
   handleDelete(id) {
     const confirmDelete = window.confirm('Estas seguro que deseas eliminar?')
     if (confirmDelete) {
-      const programacionId = this.state.schedule._id
+      const programacionId = this.props.schedules._id
       const eventoAcademicoId = id
 
-      axios
-        .delete(`${API_URL}/eventosAcademicos`, {
-          params: {
-            programacionId,
-            eventoAcademicoId,
-          },
-        })
-        .then(res => {
-          const { data } = res
-          this.setState({
-            events: data,
-          })
-        })
+      this.props.deleteEvent({
+        programacionId,
+        eventoAcademicoId,
+      })
     }
   }
 
   renderEvents() {
-    return this.state.events.map(event => (
+    return this.props.events.map(event => (
       <tr key={event._id}>
         <td>{event.nombre}</td>
         <td>{event.asignatura}</td>
@@ -111,12 +76,13 @@ class Event extends Component {
   }
 
   render() {
-    const { schedule } = this.state
+    const { schedules } = this.props
+
     return (
       <Fragment>
         <h2>Programar Evento</h2>
 
-        <AditionalInfo data={schedule} titles={this.state.titles} />
+        <AditionalInfo data={schedules} titles={this.state.titles} />
 
         <div className="module--container">
           <h3>Eventos</h3>
@@ -138,7 +104,7 @@ class Event extends Component {
           <Link
             to={{
               pathname: '/calendarioAcademico/programarEvento/create',
-              state: { schedule },
+              state: { schedule: schedules },
             }}
             className="reset--link button"
           >
@@ -150,4 +116,18 @@ class Event extends Component {
   }
 }
 
-export default Event
+function mapStateToProps(state) {
+  const { errorMessage, events } = state.event
+  const { schedules } = state.agenda
+
+  return {
+    errorMessage,
+    schedules,
+    events,
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { deleteEvent, fetchEvent, fetchAgenda },
+)(Event)

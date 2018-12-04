@@ -8,12 +8,14 @@ const CLIENT_ROOT_URL = 'http://localhost:3000'
 export function errorHandler(dispatch, error, type) {
   let errorMessage = 'Ocurrió un error'
 
-  if (error.data.error) {
-    errorMessage = error.data.error
-  } else if (error.statusText) {
-    errorMessage = error.statusText
-  } else {
-    errorMessage = error
+  if (error) {
+    if (error.data) {
+      errorMessage = error.data.error
+    } else if (error.statusText) {
+      errorMessage = error.statusText
+    } else {
+      errorMessage = error
+    }
   }
 
   const payload = {
