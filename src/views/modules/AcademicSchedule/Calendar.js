@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom'
 import Options from '../../../components/Options'
 import PACKAGE from '../../../../package.json'
 
+import { connect } from 'react-redux'
+import { deleteCalendar } from '../../../actions/calendar'
+
 const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
 
 class Calendar extends Component {
@@ -43,18 +46,11 @@ class Calendar extends Component {
   handleDelete(calendarioId) {
     const confirmDelete = window.confirm('Estas seguro que deseas eliminar?')
     if (confirmDelete) {
-      axios
-        .delete(`${API_URL}/calendarios`, {
-          params: {
-            calendarioId,
-          },
-        })
-        .then(res => {
-          const { data } = res
-          this.setState({
-            calendars: data,
-          })
-        })
+      const params = {
+        calendarioId,
+      }
+
+      this.props.deleteCalendar(params)
     }
   }
 
@@ -109,5 +105,16 @@ class Calendar extends Component {
     ))
   }
 }
+function mapStateToProps(state) {
+  const { errorMessage, calendars } = state.calendar
 
-export default Calendar
+  return {
+    errorMessage,
+    calendars,
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  { deleteCalendar },
+)(Calendar)

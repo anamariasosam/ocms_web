@@ -102,7 +102,7 @@ export function putData(action, errorType, isAuthReq, url, dispatch, data) {
 }
 
 // Delete Request
-export function deleteData(action, errorType, isAuthReq, url, dispatch) {
+export function deleteData(action, errorType, isAuthReq, url, dispatch, params) {
   const requestUrl = API_URL + url
   let headers = {}
 
@@ -111,7 +111,7 @@ export function deleteData(action, errorType, isAuthReq, url, dispatch) {
   }
 
   axios
-    .delete(requestUrl, headers)
+    .delete(requestUrl, { headers, params })
     .then(response => {
       dispatch({
         type: action,

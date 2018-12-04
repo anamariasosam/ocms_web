@@ -4,7 +4,8 @@ export const AUTH_USER = 'auth_user',
   PROTECTED_TEST = 'protected_test'
 
 export const CREATE_CALENDAR = 'create_calendar',
-  CALENDAR_ERROR = 'calendar_error'
+  CALENDAR_ERROR = 'calendar_error',
+  DELETE_CALENDAR = 'delete_calendar'
 
 export const CREATE_AGENDA = 'create_agenda',
   AGENDA_ERROR = 'agenda_error'
