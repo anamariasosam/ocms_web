@@ -1,21 +1,15 @@
 import React, { Fragment, Component } from 'react'
-import axios from 'axios'
+import { connect } from 'react-redux'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import Options from '../../../components/Options'
-import PACKAGE from '../../../../package.json'
-
-import { connect } from 'react-redux'
-import { deleteCalendar } from '../../../actions/calendar'
-
-const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
+import { deleteCalendar, fetchCalendars } from '../../../actions/calendar'
 
 class Calendar extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      calendars: [],
       urls: [
         '/calendarioAcademico/realizarProgramacion/show/',
         '/calendarioAcademico/gestionarCalendario/edit/',
@@ -26,17 +20,7 @@ class Calendar extends Component {
   }
 
   componentDidMount() {
-    this.getCalendars()
-  }
-
-  getCalendars() {
-    axios.get(`${API_URL}/calendarios/`).then(res => {
-      const { data } = res
-
-      this.setState({
-        calendars: data,
-      })
-    })
+    this.props.fetchCalendars()
   }
 
   handleUrls(id) {
@@ -82,27 +66,31 @@ class Calendar extends Component {
   }
 
   renderCalendars() {
-    return this.state.calendars.map(calendar => (
-      <tr key={calendar._id}>
-        <td>{calendar.semestre}</td>
-        <td>
-          {moment(calendar.fechaInicio)
-            .utc()
-            .format('l')}
-        </td>
-        <td>
-          {moment(calendar.fechaFin)
-            .utc()
-            .format('l')}
-        </td>
-        <td>
-          <Options
-            handleDelete={() => this.handleDelete(calendar._id)}
-            urls={this.handleUrls(calendar.semestre)}
-          />
-        </td>
-      </tr>
-    ))
+    const { calendars } = this.props
+
+    if (calendars.length > 0) {
+      return calendars.map(calendar => (
+        <tr key={calendar._id}>
+          <td>{calendar.semestre}</td>
+          <td>
+            {moment(calendar.fechaInicio)
+              .utc()
+              .format('l')}
+          </td>
+          <td>
+            {moment(calendar.fechaFin)
+              .utc()
+              .format('l')}
+          </td>
+          <td>
+            <Options
+              handleDelete={() => this.handleDelete(calendar._id)}
+              urls={this.handleUrls(calendar.semestre)}
+            />
+          </td>
+        </tr>
+      ))
+    }
   }
 }
 function mapStateToProps(state) {
@@ -116,5 +104,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { deleteCalendar },
+  { deleteCalendar, fetchCalendars },
 )(Calendar)

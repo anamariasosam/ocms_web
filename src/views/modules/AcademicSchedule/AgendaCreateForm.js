@@ -20,6 +20,7 @@ class AgendaCreateForm extends Component {
   }
 
   handleSubmit(e) {
+    console.log(this.props.location.state)
     e.preventDefault()
     const fechaInicio = this.fechaInicio.current.value
     const fechaFin = this.fechaFin.current.value

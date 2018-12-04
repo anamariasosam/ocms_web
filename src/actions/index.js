@@ -58,7 +58,7 @@ export function postData(action, errorType, isAuthReq, url, dispatch, data, redi
 }
 
 // Get Request
-export function getData(action, errorType, isAuthReq, url, dispatch) {
+export function getData(action, errorType, isAuthReq, url, dispatch, params = {}) {
   const requestUrl = API_URL + url
   let headers = {}
 
@@ -67,7 +67,7 @@ export function getData(action, errorType, isAuthReq, url, dispatch) {
   }
 
   axios
-    .get(requestUrl, headers)
+    .get(requestUrl, { headers, params })
     .then(response => {
       dispatch({
         type: action,
