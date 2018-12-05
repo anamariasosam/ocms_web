@@ -29,6 +29,7 @@ class AgendaEditForm extends Component {
     const fechaFin = this.fechaFin.current.value
     const tipo = this.tipo.current.value
     const { nombre } = this.props.match.params
+    const calendarioSemestre = this.props.location.state.calendar.semestre
 
     const data = {
       params: {
@@ -38,6 +39,7 @@ class AgendaEditForm extends Component {
         tipo,
         fechaInicio,
         fechaFin,
+        calendarioSemestre,
       },
     }
 

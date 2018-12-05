@@ -111,6 +111,7 @@ class Agenda extends Component {
           <Options
             handleDelete={() => this.handleDelete(schedule._id)}
             urls={this.handleUrls(schedule.nombre)}
+            state={{ calendar: this.props.calendars }}
           />
         </td>
       </tr>

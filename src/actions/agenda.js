@@ -32,7 +32,7 @@ export function fetchEventTypes() {
 }
 
 export function updateAgenda(data) {
-  const redirect = `/calendarioAcademico/realizarProgramacion/show/${data.calendarioSemestre}`
+  const redirect = `/calendarioAcademico/realizarProgramacion/show/${data.data.calendarioSemestre}`
 
   return dispatch =>
     putData(UPDATE_AGENDA, AGENDA_ERROR, true, AGENDA_ENDPOINT, dispatch, data, redirect)

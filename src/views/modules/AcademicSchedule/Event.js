@@ -69,6 +69,7 @@ class Event extends Component {
           <Options
             handleDelete={() => this.handleDelete(event._id)}
             urls={this.handleUrls(event.nombre)}
+            state={{ schedule: this.props.schedules }}
           />
         </td>
       </tr>

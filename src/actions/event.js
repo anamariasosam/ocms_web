@@ -28,7 +28,9 @@ export function fetchEvent(params) {
 }
 
 export function updateEvent(data) {
-  const redirect = `/calendarioAcademico/programarEvento/show/${data.programacionNombre}`
+  console.log(data)
+
+  const redirect = `/calendarioAcademico/programarEvento/show/${data.data.programacionNombre}`
 
   return dispatch =>
     putData(UPDATE_EVENT, EVENT_ERROR, true, EVENT_ENDPOINT, dispatch, data, redirect)

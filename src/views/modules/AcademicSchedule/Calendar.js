@@ -86,6 +86,7 @@ class Calendar extends Component {
             <Options
               handleDelete={() => this.handleDelete(calendar._id)}
               urls={this.handleUrls(calendar.semestre)}
+              state={{ calendar: calendar }}
             />
           </td>
         </tr>
