@@ -31,6 +31,7 @@ class AgendaEditForm extends Component {
     const { nombre } = this.props.match.params
     const calendarioSemestre = this.props.location.state.calendar.semestre
 
+    alert(tipo)
     const data = {
       params: {
         nombre,

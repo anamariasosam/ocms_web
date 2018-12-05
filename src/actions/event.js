@@ -28,8 +28,6 @@ export function fetchEvent(params) {
 }
 
 export function updateEvent(data) {
-  console.log(data)
-
   const redirect = `/calendarioAcademico/programarEvento/show/${data.data.programacionNombre}`
 
   return dispatch =>

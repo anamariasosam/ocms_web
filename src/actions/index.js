@@ -52,7 +52,7 @@ export function postData(action, errorType, isAuthReq, url, dispatch, data, redi
 
       setTimeout(() => {
         window.location.href = CLIENT_ROOT_URL + redirect
-      }, 1000)
+      }, 500)
     })
     .catch(error => {
       errorHandler(dispatch, error.response, errorType)
@@ -105,7 +105,7 @@ export function putData(action, errorType, isAuthReq, url, dispatch, data, redir
 
       setTimeout(() => {
         window.location.href = CLIENT_ROOT_URL + redirect
-      }, 1000)
+      }, 500)
     })
     .catch(error => {
       errorHandler(dispatch, error.response, errorType)

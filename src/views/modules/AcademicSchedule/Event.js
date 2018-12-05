@@ -52,30 +52,6 @@ class Event extends Component {
     }
   }
 
-  renderEvents() {
-    return this.props.events.map(event => (
-      <tr key={event._id}>
-        <td>{event.nombre}</td>
-        <td>{event.asignatura}</td>
-        <td>{event.encargado}</td>
-        <td>
-          {moment(event.fecha)
-            .utc()
-            .format('l')}
-        </td>
-        <td>{moment(event.fecha).format('h:mm a')}</td>
-        <td>{event.aforo}</td>
-        <td>
-          <Options
-            handleDelete={() => this.handleDelete(event._id)}
-            urls={this.handleUrls(event.nombre)}
-            state={{ schedule: this.props.schedules }}
-          />
-        </td>
-      </tr>
-    ))
-  }
-
   render() {
     const { schedules } = this.props
 
@@ -114,6 +90,33 @@ class Event extends Component {
         </div>
       </Fragment>
     )
+  }
+
+  renderEvents() {
+    const { events } = this.props
+    if (events.length > 0) {
+      return events.map(event => (
+        <tr key={event._id}>
+          <td>{event.nombre}</td>
+          <td>{event.asignatura}</td>
+          <td>{event.encargado}</td>
+          <td>
+            {moment(event.fecha)
+              .utc()
+              .format('l')}
+          </td>
+          <td>{moment(event.fecha).format('h:mm a')}</td>
+          <td>{event.aforo}</td>
+          <td>
+            <Options
+              handleDelete={() => this.handleDelete(event._id)}
+              urls={this.handleUrls(event.nombre)}
+              state={{ schedule: this.props.schedules }}
+            />
+          </td>
+        </tr>
+      ))
+    }
   }
 }
 
