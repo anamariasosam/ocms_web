@@ -1,13 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios'
 import moment from 'moment'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
-import PACKAGE from '../../../../package.json'
 import { updateCalendar, fetchCalendars } from '../../../actions/calendar'
 
-const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
 class CalendarEditForm extends Component {
   constructor(props) {
     super(props)
@@ -23,7 +20,7 @@ class CalendarEditForm extends Component {
   }
 
   getCalendarValues() {
-    const semestre = this.props.match.params.semestre
+    const { semestre } = this.props.match.params
     this.props.fetchCalendars({ semestre })
   }
 
@@ -44,23 +41,6 @@ class CalendarEditForm extends Component {
     }
 
     this.props.updateCalendar(data)
-  }
-
-  renderCalendarValues() {
-    const { calendars } = this.props
-
-    const { fechaInicio, fechaFin } = calendars
-    if (fechaInicio) {
-      this.fechaInicio.current.value = moment(fechaInicio)
-        .utc()
-        .format(moment.HTML5_FMT.DATE)
-    }
-
-    if (fechaFin) {
-      this.fechaFin.current.value = moment(fechaFin)
-        .utc()
-        .format(moment.HTML5_FMT.DATE)
-    }
   }
 
   render() {
@@ -91,6 +71,23 @@ class CalendarEditForm extends Component {
         </div>
       </Fragment>
     )
+  }
+
+  renderCalendarValues() {
+    const { calendars } = this.props
+    const { fechaInicio, fechaFin } = calendars
+
+    if (fechaInicio) {
+      this.fechaInicio.current.value = moment(fechaInicio)
+        .utc()
+        .format(moment.HTML5_FMT.DATE)
+    }
+
+    if (fechaFin) {
+      this.fechaFin.current.value = moment(fechaFin)
+        .utc()
+        .format(moment.HTML5_FMT.DATE)
+    }
   }
 
   renderAlert() {
