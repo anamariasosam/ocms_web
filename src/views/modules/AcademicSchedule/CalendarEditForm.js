@@ -1,20 +1,16 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
 import axios from 'axios'
 import moment from 'moment'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
 import PACKAGE from '../../../../package.json'
+import { updateCalendar, fetchCalendars } from '../../../actions/calendar'
 
 const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
 class CalendarEditForm extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      error: false,
-      success: false,
-      message: 'Editado con éxito',
-    }
 
     this.fechaInicio = React.createRef()
     this.fechaFin = React.createRef()
@@ -28,77 +24,51 @@ class CalendarEditForm extends Component {
 
   getCalendarValues() {
     const semestre = this.props.match.params.semestre
-    axios
-      .get(`${API_URL}/calendarios`, {
-        params: {
-          semestre,
-        },
-      })
-      .then(res => {
-        const { data } = res
-        this.fechaInicio.current.value = moment(data.fechaInicio)
-          .utc()
-          .format(moment.HTML5_FMT.DATE)
-        this.fechaFin.current.value = moment(data.fechaFin)
-          .utc()
-          .format(moment.HTML5_FMT.DATE)
-      })
+    this.props.fetchCalendars({ semestre })
   }
 
   handleSubmit(e) {
     e.preventDefault()
-    const semestre = this.props.match.params.semestre
+    const { semestre } = this.props.match.params
     const fechaInicio = this.fechaInicio.current.value
     const fechaFin = this.fechaFin.current.value
 
-    axios
-      .put(`${API_URL}/calendarios`, {
-        params: {
-          semestre,
-        },
-        data: {
-          fechaInicio,
-          fechaFin,
-        },
-      })
-      .then(res => {
-        if (res.status === 200) {
-          this.toggleAlert()
-        }
-      })
-      .catch(error => {
-        const message = error.response.statusText
-        this.setState({
-          error: true,
-          message,
-        })
-      })
+    const data = {
+      params: {
+        semestre,
+      },
+      data: {
+        fechaInicio,
+        fechaFin,
+      },
+    }
+
+    this.props.updateCalendar(data)
   }
 
-  toggleAlert() {
-    this.setState(
-      {
-        success: true,
-      },
-      () => {
-        setTimeout(() => {
-          this.setState({
-            success: false,
-          })
+  renderCalendarValues() {
+    const { calendars } = this.props
 
-          this.props.history.goBack()
-        }, 1000)
-      },
-    )
+    const { fechaInicio, fechaFin } = calendars
+    if (fechaInicio) {
+      this.fechaInicio.current.value = moment(fechaInicio)
+        .utc()
+        .format(moment.HTML5_FMT.DATE)
+    }
+
+    if (fechaFin) {
+      this.fechaFin.current.value = moment(fechaFin)
+        .utc()
+        .format(moment.HTML5_FMT.DATE)
+    }
   }
 
   render() {
-    const { error, success, message } = this.state
+    this.renderCalendarValues()
 
     return (
       <Fragment>
         <h2>Gestionar Calendario</h2>
-
         <div className="form--container">
           <h3 className="form--title">Editar Calendario</h3>
           <form onSubmit={this.handleSubmit}>
@@ -117,12 +87,36 @@ class CalendarEditForm extends Component {
             </div>
           </form>
 
-          {error && <Error description={message} />}
-          {success && <Success description={message} />}
+          {this.renderAlert()}
         </div>
       </Fragment>
     )
   }
+
+  renderAlert() {
+    const { errorMessage, successMessage } = this.props
+
+    if (errorMessage) {
+      return <Error description={errorMessage} />
+    } else if (successMessage) {
+      return <Success description={successMessage} />
+    }
+  }
 }
 
-export default CalendarEditForm
+function mapStateToProps(state) {
+  const { errorMessage, successMessage, calendars } = state.calendar
+  return {
+    errorMessage,
+    successMessage,
+    calendars,
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  {
+    updateCalendar,
+    fetchCalendars,
+  },
+)(CalendarEditForm)

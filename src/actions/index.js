@@ -82,7 +82,7 @@ export function getData(action, errorType, isAuthReq, url, dispatch, params = {}
 }
 
 // Put Request
-export function putData(action, errorType, isAuthReq, url, dispatch, data) {
+export function putData(action, errorType, isAuthReq, url, dispatch, data, redirect) {
   const requestUrl = API_URL + url
   let headers = {}
 
@@ -93,10 +93,19 @@ export function putData(action, errorType, isAuthReq, url, dispatch, data) {
   axios
     .put(requestUrl, data, headers)
     .then(response => {
+      const payload = {
+        data: response.data,
+        successMessage: 'Editado con exito',
+      }
+
       dispatch({
         type: action,
-        payload: response.data,
+        payload,
       })
+
+      setTimeout(() => {
+        window.location.href = CLIENT_ROOT_URL + redirect
+      }, 1000)
     })
     .catch(error => {
       errorHandler(dispatch, error.response, errorType)
