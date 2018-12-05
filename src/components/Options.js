@@ -7,9 +7,14 @@ const Options = ({ handleDelete, urls, state }) => {
     state,
   }
 
+  const showUrl = {
+    pathname: urls[0],
+    state,
+  }
+
   return (
     <Fragment>
-      <Link className="reset--link" to={urls[0]}>
+      <Link className="reset--link" to={showUrl}>
         <img src={require('../images/show.png')} alt="show" className="action--image" />
       </Link>
       <Link className="reset--link" to={editUrl}>
