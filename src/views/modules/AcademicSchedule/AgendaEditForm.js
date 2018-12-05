@@ -1,21 +1,13 @@
 import React, { Component, Fragment } from 'react'
-import axios from 'axios'
+import { connect } from 'react-redux'
+import moment from 'moment'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
-import PACKAGE from '../../../../package.json'
-
-const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
+import { updateAgenda, fetchAgenda, fetchEventTypes } from '../../../actions/agenda'
 
 class AgendaEditForm extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      error: false,
-      success: false,
-      message: 'Editado con éxito',
-      tipos: [],
-    }
 
     this.fechaInicio = React.createRef()
     this.fechaFin = React.createRef()
@@ -25,34 +17,10 @@ class AgendaEditForm extends Component {
   }
 
   componentDidMount() {
-    this.getTipoProgramaciones()
-    this.getSchedulesValues()
-  }
-
-  getTipoProgramaciones() {
-    axios.get(`${API_URL}/tipoProgramaciones`).then(res => {
-      const { data } = res
-      this.setState({
-        tipos: data,
-      })
-    })
-  }
-
-  getSchedulesValues() {
     const { nombre } = this.props.match.params
 
-    axios
-      .get(`${API_URL}/programaciones`, {
-        params: {
-          nombre,
-        },
-      })
-      .then(res => {
-        const { data } = res
-        this.tipo.current.value = data.tipo
-        this.fechaInicio.current.value = data.fechaInicio.split('T')[0]
-        this.fechaFin.current.value = data.fechaFin.split('T')[0]
-      })
+    this.props.fetchEventTypes()
+    this.props.fetchAgenda({ nombre })
   }
 
   handleSubmit(e) {
@@ -60,58 +28,24 @@ class AgendaEditForm extends Component {
     const fechaInicio = this.fechaInicio.current.value
     const fechaFin = this.fechaFin.current.value
     const tipo = this.tipo.current.value
+    const { nombre } = this.props.match.params
 
-    const nombre = this.props.match.params.nombre
-
-    this.setState({
-      success: true,
-    })
-
-    axios
-      .put(`${API_URL}/programaciones`, {
-        params: {
-          nombre,
-        },
-        data: {
-          tipo,
-          fechaInicio,
-          fechaFin,
-        },
-      })
-      .then(res => {
-        if (res.status === 200) {
-          this.toggleAlert()
-        }
-      })
-      .catch(error => {
-        const message = error.response.statusText
-        this.setState({
-          error: true,
-          message,
-        })
-      })
-  }
-
-  toggleAlert() {
-    this.setState(
-      {
-        success: true,
+    const data = {
+      params: {
+        nombre,
       },
-      () => {
-        setTimeout(() => {
-          this.setState({
-            success: false,
-          })
-
-          this.props.history.goBack()
-        }, 1000)
+      data: {
+        tipo,
+        fechaInicio,
+        fechaFin,
       },
-    )
+    }
+
+    this.props.updateAgenda(data)
   }
 
   render() {
-    const { error, success, message } = this.state
-
+    this.renderAgendaValues()
     return (
       <Fragment>
         <h2>Gestionar Programación</h2>
@@ -123,7 +57,7 @@ class AgendaEditForm extends Component {
               Tipo de Evento:
             </label>
             <select id="tipo" ref={this.tipo} className="input select--input">
-              {this.state.tipos.map(tipo => (
+              {this.props.tipoProgramacion.map(tipo => (
                 <option key={tipo._id}>{tipo.nombre}</option>
               ))}
             </select>
@@ -142,12 +76,60 @@ class AgendaEditForm extends Component {
             </div>
           </form>
 
-          {error && <Error description={message} />}
-          {success && <Success description={message} />}
+          {this.renderAlert()}
         </div>
       </Fragment>
     )
   }
+
+  renderAlert() {
+    const { errorMessage, successMessage } = this.props
+
+    if (errorMessage) {
+      return <Error description={errorMessage} />
+    } else if (successMessage) {
+      return <Success description={successMessage} />
+    }
+  }
+
+  renderAgendaValues() {
+    const { schedules } = this.props
+    const { fechaInicio, fechaFin, tipo } = schedules
+
+    if (fechaInicio) {
+      this.fechaInicio.current.value = moment(fechaInicio)
+        .utc()
+        .format(moment.HTML5_FMT.DATE)
+    }
+
+    if (fechaFin) {
+      this.fechaFin.current.value = moment(fechaFin)
+        .utc()
+        .format(moment.HTML5_FMT.DATE)
+    }
+
+    if (tipo) {
+      this.tipo.current.value = tipo
+    }
+  }
 }
 
-export default AgendaEditForm
+function mapStateToProps(state) {
+  const { errorMessage, successMessage, schedules, tipoProgramacion } = state.agenda
+
+  return {
+    errorMessage,
+    successMessage,
+    schedules,
+    tipoProgramacion,
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  {
+    updateAgenda,
+    fetchAgenda,
+    fetchEventTypes,
+  },
+)(AgendaEditForm)

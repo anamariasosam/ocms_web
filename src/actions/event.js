@@ -27,6 +27,13 @@ export function fetchEvent(params) {
   return dispatch => getData(FETCH_EVENT, EVENT_ERROR, false, EVENT_ENDPOINT, dispatch, params)
 }
 
+export function updateEvent(data) {
+  const redirect = `/calendarioAcademico/programarEvento/show/${data.programacionNombre}`
+
+  return dispatch =>
+    putData(UPDATE_EVENT, EVENT_ERROR, true, EVENT_ENDPOINT, dispatch, data, redirect)
+}
+
 export function fetchAsignaturas() {
   const url = '/asignaturas'
   return dispatch => getData(FETCH_SUBJECTS, SUBJECTS_ERROR, false, url, dispatch)

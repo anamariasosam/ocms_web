@@ -30,3 +30,10 @@ export function fetchEventTypes() {
   const url = '/tipoProgramaciones'
   return dispatch => getData(FETCH_EVENT_TYPES, EVENT_TYPE_ERROR, false, url, dispatch)
 }
+
+export function updateAgenda(data) {
+  const redirect = `/calendarioAcademico/realizarProgramacion/show/${data.calendarioSemestre}`
+
+  return dispatch =>
+    putData(UPDATE_AGENDA, AGENDA_ERROR, true, AGENDA_ENDPOINT, dispatch, data, redirect)
+}

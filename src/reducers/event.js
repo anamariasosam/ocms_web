@@ -22,14 +22,13 @@ const INITIAL_STATE = {
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case CREATE_EVENT:
-      return {
-        ...state,
-        successMessage: action.payload.successMessage,
-      }
+      return { ...state, successMessage: action.payload.successMessage }
     case DELETE_EVENT:
       return { ...state, events: action.payload }
     case FETCH_EVENT:
       return { ...state, events: action.payload }
+    case UPDATE_EVENT:
+      return { ...state, successMessage: action.payload.successMessage }
     case FETCH_SUBJECTS:
       return { ...state, asignaturas: action.payload }
     case FETCH_GROUPS:

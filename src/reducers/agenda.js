@@ -18,6 +18,8 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, schedules: action.payload }
     case FETCH_AGENDA:
       return { ...state, schedules: action.payload }
+    case UPDATE_AGENDA:
+      return { ...state, successMessage: action.payload.successMessage }
     case AGENDA_ERROR:
       return { ...state, errorMessage: action.payload.errorMessage }
     case FETCH_EVENT_TYPES:
