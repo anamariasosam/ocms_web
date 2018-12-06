@@ -23,15 +23,15 @@ const currentYear = new Date().getFullYear()
 const menu = [
   {
     path: '/calendarioAcademico/gestionarCalendario',
-    name: 'Gestionar Calendario',
+    name: 'Calendarios',
   },
   {
     path: `/calendarioAcademico/realizarProgramacion/show/${currentYear}-1`,
-    name: 'Realizar programación',
+    name: 'Programaciones',
   },
   {
     path: `/calendarioAcademico/programarEvento/show/${currentYear}-1-1`,
-    name: 'Programar evento',
+    name: 'Eventos',
   },
 ]
 
@@ -41,36 +41,36 @@ const routes = [
     component: Calendar,
   },
   {
-    path: '/calendarioAcademico/realizarProgramacion/show/:semestre',
-    component: Agenda,
-  },
-  {
-    path: '/calendarioAcademico/programarEvento/show/:nombre',
-    component: Event,
+    path: '/calendarioAcademico/gestionarCalendario/create',
+    component: CalendarCreateForm,
   },
   {
     path: '/calendarioAcademico/gestionarCalendario/edit/:semestre',
     component: CalendarEditForm,
   },
   {
+    path: '/calendarioAcademico/realizarProgramacion/show/:semestre',
+    component: Agenda,
+  },
+  {
+    path: '/calendarioAcademico/realizarProgramacion/create',
+    component: AgendaCreateForm,
+  },
+  {
     path: '/calendarioAcademico/realizarProgramacion/edit/:nombre',
     component: AgendaEditForm,
   },
   {
-    path: '/calendarioAcademico/programarEvento/edit/:nombre/',
-    component: EventEditForm,
-  },
-  {
-    path: '/calendarioAcademico/gestionarCalendario/create',
-    component: CalendarCreateForm,
+    path: '/calendarioAcademico/programarEvento/show/:nombre',
+    component: Event,
   },
   {
     path: '/calendarioAcademico/programarEvento/create',
     component: EventCreateForm,
   },
   {
-    path: '/calendarioAcademico/realizarProgramacion/create',
-    component: AgendaCreateForm,
+    path: '/calendarioAcademico/programarEvento/edit/:nombre/',
+    component: EventEditForm,
   },
   {
     path: '/calendarioAcademico/ver/:programacionNombre/:eventoNombre',
