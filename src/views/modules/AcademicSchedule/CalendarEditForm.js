@@ -20,13 +20,16 @@ class CalendarEditForm extends Component {
   }
 
   getCalendarValues() {
-    const { semestre } = this.props.match.params
-    this.props.fetchCalendars({ semestre })
+    const { match, fetchCalendars } = this.props
+    const { semestre } = match.params
+    fetchCalendars({ semestre })
   }
 
   handleSubmit(e) {
     e.preventDefault()
-    const { semestre } = this.props.match.params
+
+    const { match, updateCalendar } = this.props
+    const { semestre } = match.params
     const fechaInicio = this.fechaInicio.current.value
     const fechaFin = this.fechaFin.current.value
 
@@ -40,7 +43,7 @@ class CalendarEditForm extends Component {
       },
     }
 
-    this.props.updateCalendar(data)
+    updateCalendar(data)
   }
 
   render() {
@@ -95,7 +98,9 @@ class CalendarEditForm extends Component {
 
     if (errorMessage) {
       return <Error description={errorMessage} />
-    } else if (successMessage) {
+    }
+
+    if (successMessage) {
       return <Success description={successMessage} />
     }
   }

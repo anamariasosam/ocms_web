@@ -20,11 +20,13 @@ class Calendar extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchCalendars()
+    const { fetchCalendars } = this.props
+    fetchCalendars()
   }
 
   handleUrls(id) {
-    return this.state.urls.map(url => url.concat(id))
+    const { urls } = this.state
+    return urls.map(url => url.concat(id))
   }
 
   handleDelete(calendarioId) {
@@ -34,7 +36,8 @@ class Calendar extends Component {
         calendarioId,
       }
 
-      this.props.deleteCalendar(params)
+      const { deleteCalendar } = this.props
+      deleteCalendar(params)
     }
   }
 
@@ -86,7 +89,7 @@ class Calendar extends Component {
             <Options
               handleDelete={() => this.handleDelete(calendar._id)}
               urls={this.handleUrls(calendar.semestre)}
-              state={{ calendar: calendar }}
+              state={{ calendar }}
             />
           </td>
         </tr>

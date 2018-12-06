@@ -27,7 +27,8 @@ class CalendarCreateForm extends Component {
       semestre,
     }
 
-    this.props.createCalendar(data)
+    const { createCalendar } = this.props
+    createCalendar(data)
   }
 
   render() {
@@ -76,7 +77,9 @@ class CalendarCreateForm extends Component {
 
     if (errorMessage) {
       return <Error description={errorMessage} />
-    } else if (successMessage) {
+    }
+
+    if (successMessage) {
       return <Success description={successMessage} />
     }
   }

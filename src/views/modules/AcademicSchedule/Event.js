@@ -24,16 +24,19 @@ class Event extends Component {
   }
 
   getEvents() {
-    const { nombre } = this.props.match.params
+    const { match, fetchAgenda, fetchEvent } = this.props
+    const { nombre } = match.params
 
-    this.props.fetchAgenda({ nombre })
-    this.props.fetchEvent({ programacionNombre: nombre })
+    fetchAgenda({ nombre })
+    fetchEvent({ programacionNombre: nombre })
   }
 
   handleUrls(id) {
-    return this.state.urls.map((url, index) => {
+    const { urls } = this.state
+    const { schedules } = this.props
+    return urls.map((url, index) => {
       if (index === 0) {
-        return url.concat(`${this.props.schedules.nombre}/${id}`)
+        return url.concat(`${schedules.nombre}/${id}`)
       }
       return url.concat(id)
     })
@@ -42,10 +45,11 @@ class Event extends Component {
   handleDelete(id) {
     const confirmDelete = window.confirm('Estas seguro que deseas eliminar?')
     if (confirmDelete) {
-      const programacionId = this.props.schedules._id
+      const { schedules, deleteEvent } = this.props
+      const programacionId = schedules._id
       const eventoAcademicoId = id
 
-      this.props.deleteEvent({
+      deleteEvent({
         programacionId,
         eventoAcademicoId,
       })
@@ -54,12 +58,12 @@ class Event extends Component {
 
   render() {
     const { schedules } = this.props
-
+    const { titles } = this.state
     return (
       <Fragment>
         <h2>Programar Evento</h2>
 
-        <AditionalInfo data={schedules} titles={this.state.titles} />
+        <AditionalInfo data={schedules} titles={titles} />
 
         <div className="module--container">
           <h3>Eventos</h3>
@@ -93,7 +97,7 @@ class Event extends Component {
   }
 
   renderEvents() {
-    const { events } = this.props
+    const { events, schedules } = this.props
     if (events.length > 0) {
       return events.map(event => (
         <tr key={event._id}>
@@ -111,7 +115,7 @@ class Event extends Component {
             <Options
               handleDelete={() => this.handleDelete(event._id)}
               urls={this.handleUrls(event.nombre)}
-              state={{ schedule: this.props.schedules, event }}
+              state={{ schedule: schedules, event }}
             />
           </td>
         </tr>

@@ -93,7 +93,8 @@ class Agenda extends Component {
   }
 
   renderEvents() {
-    return this.props.schedules.map(schedule => (
+    const { schedules, calendars } = this.props
+    return schedules.map(schedule => (
       <tr key={schedule._id}>
         <td>{schedule.nombre}</td>
         <td>{schedule.tipo}</td>
@@ -111,7 +112,7 @@ class Agenda extends Component {
           <Options
             handleDelete={() => this.handleDelete(schedule._id)}
             urls={this.handleUrls(schedule.nombre)}
-            state={{ calendar: this.props.calendars }}
+            state={{ calendar: calendars }}
           />
         </td>
       </tr>

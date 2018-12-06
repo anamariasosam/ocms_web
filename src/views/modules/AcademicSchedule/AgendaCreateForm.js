@@ -16,16 +16,20 @@ class AgendaCreateForm extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchEventTypes()
+    const { fetchEventTypes } = this.props
+    fetchEventTypes()
   }
 
   handleSubmit(e) {
     e.preventDefault()
+    console.log('hiiii')
+    const { location, createAgenda } = this.props
+
     const fechaInicio = this.fechaInicio.current.value
     const fechaFin = this.fechaFin.current.value
     const tipo = this.tipo.current.value
-    const calendarioId = this.props.location.state.calendar._id
-    const calendarioSemestre = this.props.location.state.calendar.semestre
+
+    const { _id: calendarioId, semestre: calendarioSemestre } = location.state.calendar
 
     const data = {
       fechaInicio,
@@ -35,10 +39,11 @@ class AgendaCreateForm extends Component {
       calendarioSemestre,
     }
 
-    this.props.createAgenda(data)
+    createAgenda(data)
   }
 
   render() {
+    const { tipoProgramacion } = this.props
     return (
       <Fragment>
         <h2>Gestionar Programación</h2>
@@ -50,7 +55,7 @@ class AgendaCreateForm extends Component {
               Tipo de Evento:
             </label>
             <select id="tipo" ref={this.tipo} className="input select--input">
-              {this.props.tipoProgramacion.map(tipo => (
+              {tipoProgramacion.map(tipo => (
                 <option key={tipo._id}>{tipo.nombre}</option>
               ))}
             </select>
@@ -81,7 +86,9 @@ class AgendaCreateForm extends Component {
 
     if (errorMessage) {
       return <Error description={errorMessage} />
-    } else if (successMessage) {
+    }
+
+    if (successMessage) {
       return <Success description={successMessage} />
     }
   }

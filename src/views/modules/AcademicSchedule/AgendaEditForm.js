@@ -17,10 +17,11 @@ class AgendaEditForm extends Component {
   }
 
   componentDidMount() {
-    const { nombre } = this.props.match.params
+    const { match, fetchAgenda, fetchEventTypes } = this.props
+    const { nombre } = match.params
 
-    this.props.fetchEventTypes()
-    this.props.fetchAgenda({ nombre })
+    fetchEventTypes()
+    fetchAgenda({ nombre })
   }
 
   handleSubmit(e) {
@@ -28,8 +29,10 @@ class AgendaEditForm extends Component {
     const fechaInicio = this.fechaInicio.current.value
     const fechaFin = this.fechaFin.current.value
     const tipo = this.tipo.current.value
-    const { nombre } = this.props.match.params
-    const calendarioSemestre = this.props.location.state.calendar.semestre
+
+    const { match, location, updateAgenda } = this.props
+    const { nombre } = match.params
+    const calendarioSemestre = location.state.calendar.semestre
 
     const data = {
       params: {
@@ -43,10 +46,11 @@ class AgendaEditForm extends Component {
       },
     }
 
-    this.props.updateAgenda(data)
+    updateAgenda(data)
   }
 
   render() {
+    const { tipoProgramacion } = this.props
     this.renderAgendaValues()
     return (
       <Fragment>
@@ -59,7 +63,7 @@ class AgendaEditForm extends Component {
               Tipo de Evento:
             </label>
             <select id="tipo" ref={this.tipo} className="input select--input">
-              {this.props.tipoProgramacion.map(tipo => (
+              {tipoProgramacion.map(tipo => (
                 <option key={tipo._id}>{tipo.nombre}</option>
               ))}
             </select>
@@ -89,7 +93,9 @@ class AgendaEditForm extends Component {
 
     if (errorMessage) {
       return <Error description={errorMessage} />
-    } else if (successMessage) {
+    }
+
+    if (successMessage) {
       return <Success description={successMessage} />
     }
   }

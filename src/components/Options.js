@@ -20,7 +20,7 @@ const Options = ({ handleDelete, urls, state }) => {
       <Link className="reset--link" to={editUrl}>
         <img src={require('../images/edit.png')} alt="edit" className="action--image" />
       </Link>
-      <button className="reset--button" onClick={handleDelete}>
+      <button className="reset--button" onClick={handleDelete} type="button">
         <img src={require('../images/delete.png')} alt="remove" className="action--image" />
       </button>
     </Fragment>

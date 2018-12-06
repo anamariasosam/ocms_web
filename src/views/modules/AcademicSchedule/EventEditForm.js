@@ -24,29 +24,32 @@ class EventEditForm extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchAsignaturas()
-    this.props.fetchGrupos()
+    const { fetchAsignaturas, fetchGrupos } = this.props
+    fetchAsignaturas()
+    fetchGrupos()
     this.getEventValues()
   }
 
   getEventValues() {
-    const { nombre } = this.props.match.params
+    const { match, fetchEvent } = this.props
+    const { nombre } = match.params
 
-    this.props.fetchEvent({ nombre })
+    fetchEvent({ nombre })
   }
 
   handleSubmit(e) {
     e.preventDefault()
 
+    const { match, location, updateEvent } = this.props
+    const { selectedGroups: grupos } = this.state
     const fecha = this.fecha.current.value
     const aforo = this.aforo.current.value
     const asignatura = this.asignatura.current.value
-    const grupos = this.state.selectedGroups
     const encargado = this.encargado.current.value
 
-    const nombre = this.props.match.params.nombre
+    const { nombre } = match.params
 
-    const programacionNombre = this.props.location.state.schedule.nombre
+    const programacionNombre = location.state.schedule.nombre
 
     const data = {
       params: {
@@ -62,12 +65,12 @@ class EventEditForm extends Component {
       },
     }
 
-    this.props.updateEvent(data)
+    updateEvent(data)
   }
 
   addGroup(e) {
     const name = e.target.name
-    let selectedGroups = this.state.selectedGroups
+    let { selectedGroups } = this.state
 
     if (e.target.checked) {
       selectedGroups = selectedGroups.concat(name)
@@ -90,6 +93,7 @@ class EventEditForm extends Component {
   }
 
   render() {
+    const { asignaturas, grupos } = this.props
     this.renderEventValues()
     return (
       <Fragment>
@@ -102,7 +106,7 @@ class EventEditForm extends Component {
               Asignatura:
             </label>
             <select id="asignatura" ref={this.asignatura} className="input select--input">
-              {this.props.asignaturas.map(asignatura => (
+              {asignaturas.map(asignatura => (
                 <option key={asignatura.nombre}>{asignatura.nombre}</option>
               ))}
             </select>
@@ -129,7 +133,7 @@ class EventEditForm extends Component {
             <label htmlFor="grupos" className="required label">
               Grupos:
             </label>
-            {this.props.grupos.map(grupo => (
+            {grupos.map(grupo => (
               <label key={grupo.nombre} className="checkbox">
                 <input
                   type="checkbox"

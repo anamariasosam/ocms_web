@@ -12,6 +12,7 @@ module.exports = {
       },
     ],
     'eslint linebreak-style': [0, 'error', 'windows'],
+    'no-underscore-dangle': [2, { allow: ['_id'] }],
   },
   env: {
     browser: true,

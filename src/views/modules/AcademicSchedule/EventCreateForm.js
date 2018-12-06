@@ -11,7 +11,7 @@ class EventCreateForm extends Component {
     super(props)
 
     this.state = {
-      schedule: this.props.location.state.schedule,
+      schedule: {},
       titles: ['tipo', 'fecha Inicio', 'fecha Fin'],
       selectedGroups: [],
     }
@@ -27,8 +27,9 @@ class EventCreateForm extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchAsignaturas()
-    this.props.fetchGrupos()
+    const { fetchAsignaturas, fetchGrupos } = this.props
+    fetchAsignaturas()
+    fetchGrupos()
   }
 
   handleSubmit(e) {
@@ -38,10 +39,9 @@ class EventCreateForm extends Component {
     const fecha = this.fecha.current.value
     const aforo = this.aforo.current.value
     const asignatura = this.asignatura.current.value
-    const grupos = this.state.selectedGroups
     const encargado = this.encargado.current.value
-    const programacionId = this.state.schedule._id
-    const programacionNombre = this.state.schedule.nombre
+    const { selectedGroups: grupos, schedule } = this.state
+    const { _id: programacionId, nombre: programacionNombre } = schedule
 
     const data = {
       nombre,
@@ -54,12 +54,13 @@ class EventCreateForm extends Component {
       programacionNombre,
     }
 
-    this.props.createEvent(data)
+    const { createEvent } = this.props
+    createEvent(data)
   }
 
   addGroup(e) {
     const name = e.target.name
-    let selectedGroups = this.state.selectedGroups
+    let { selectedGroups } = this.state
 
     if (e.target.checked) {
       selectedGroups = selectedGroups.concat(name)
@@ -73,15 +74,18 @@ class EventCreateForm extends Component {
   }
 
   grupoExist(grupo) {
-    return this.state.selectedGroups.includes(grupo)
+    const { selectedGroups } = this.state
+    return selectedGroups.includes(grupo)
   }
 
   render() {
+    const { schedule, titles } = this.state
+    const { asignaturas, grupos } = this.props
     return (
       <Fragment>
         <h2>Programar Evento</h2>
 
-        <AditionalInfo data={this.state.schedule} titles={this.state.titles} />
+        <AditionalInfo data={schedule} titles={titles} />
 
         <div className="form--container">
           <h3 className="form--title">Crear Evento</h3>
@@ -95,7 +99,7 @@ class EventCreateForm extends Component {
               Asignatura:
             </label>
             <select id="asignatura" ref={this.asignatura} className="input select--input">
-              {this.props.asignaturas.map(asignatura => (
+              {asignaturas.map(asignatura => (
                 <option key={asignatura.nombre}>{asignatura.nombre}</option>
               ))}
             </select>
@@ -122,7 +126,7 @@ class EventCreateForm extends Component {
             <label htmlFor="grupos" className="required label">
               Grupos:
             </label>
-            {this.props.grupos.map(grupo => (
+            {grupos.map(grupo => (
               <label key={grupo.nombre} className="checkbox">
                 <input
                   type="checkbox"
@@ -150,7 +154,9 @@ class EventCreateForm extends Component {
 
     if (errorMessage) {
       return <Error description={errorMessage} />
-    } else if (successMessage) {
+    }
+
+    if (successMessage) {
       return <Success description={successMessage} />
     }
   }

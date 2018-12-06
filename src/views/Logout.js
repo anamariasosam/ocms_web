@@ -4,7 +4,8 @@ import * as actions from '../actions/auth'
 
 class Logout extends Component {
   componentWillMount() {
-    this.props.logoutUser()
+    const { logoutUser } = this.props
+    logoutUser()
   }
 
   render() {

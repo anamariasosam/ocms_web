@@ -15,9 +15,10 @@ class BigCalendar extends Component {
   }
 
   getEvents() {
-    const { programacionNombre } = this.props.match.params
+    const { match, fetchEvent } = this.props
+    const { programacionNombre } = match.params
 
-    this.props.fetchEvent({ programacionNombre })
+    fetchEvent({ programacionNombre })
   }
 
   render() {
@@ -31,7 +32,7 @@ class BigCalendar extends Component {
   }
 
   renderCalendar() {
-    const { events } = this.props
+    const { events, location } = this.props
     if (events.length > 0) {
       const bigCalendarEvents = events.map(event => ({
         start: moment(event.fecha).format('YYYY-MM-DD[T]hh:mm'),
@@ -39,7 +40,7 @@ class BigCalendar extends Component {
         title: event.asignatura,
       }))
 
-      const { fecha } = this.props.location.state.event
+      const { fecha } = location.state.event
       const currentDate = new Date(moment(fecha).format())
 
       return (
@@ -50,7 +51,7 @@ class BigCalendar extends Component {
           style={{ height: '100vh' }}
           startAccessor="start"
           endAccessor="end"
-          popup={true}
+          popup
           defaultDate={currentDate}
           views={['month', 'agenda']}
         />
