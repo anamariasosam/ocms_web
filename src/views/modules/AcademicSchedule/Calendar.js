@@ -1,4 +1,5 @@
 import React, { Fragment, Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
@@ -97,6 +98,14 @@ class Calendar extends Component {
     }
   }
 }
+
+Calendar.propTypes = {
+  match: PropTypes.object.isRequired,
+  calendars: PropTypes.any.isRequired,
+  fetchCalendars: PropTypes.func.isRequired,
+  deleteCalendar: PropTypes.func.isRequired,
+}
+
 function mapStateToProps(state) {
   const { errorMessage, calendars } = state.calendar
 

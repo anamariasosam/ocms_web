@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import SideBarElement from './SideBarElement'
 
 const renderElements = menu =>
@@ -12,5 +13,9 @@ const SideBar = ({ menu }) => (
     </nav>
   </div>
 )
+
+SideBar.propTypes = {
+  menu: PropTypes.array.isRequired,
+}
 
 export default SideBar

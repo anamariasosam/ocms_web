@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
 import ModulesList from '../components/ModulesList'
 
 const MainLayout = ({ children }) => (
@@ -7,5 +8,9 @@ const MainLayout = ({ children }) => (
     <ModulesList />
   </Fragment>
 )
+
+MainLayout.propTypes = {
+  children: PropTypes.object.isRequired,
+}
 
 export default MainLayout

@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const Options = ({ handleDelete, urls, state }) => {
   const editUrl = {
@@ -25,6 +26,12 @@ const Options = ({ handleDelete, urls, state }) => {
       </button>
     </Fragment>
   )
+}
+
+Options.propTypes = {
+  state: PropTypes.object.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+  urls: PropTypes.array.isRequired,
 }
 
 export default Options

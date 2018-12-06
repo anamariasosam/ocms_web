@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import moment from 'moment'
 
 const AditionalInfo = ({ data, titles }) => {
@@ -19,6 +20,11 @@ const AditionalInfo = ({ data, titles }) => {
       </ul>
     </nav>
   )
+}
+
+AditionalInfo.propTypes = {
+  data: PropTypes.any.isRequired,
+  titles: PropTypes.any.isRequired,
 }
 
 export default AditionalInfo

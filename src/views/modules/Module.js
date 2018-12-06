@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { modules } from '../../data/data'
 
 const moduleData = moduleName => modules.filter(modulo => modulo.slug === moduleName)[0]
@@ -12,6 +13,10 @@ const Module = ({ match }) => {
       <p>Módulo en proceso...</p>
     </div>
   )
+}
+
+Module.propTypes = {
+  match: PropTypes.object.isRequired,
 }
 
 export default Module

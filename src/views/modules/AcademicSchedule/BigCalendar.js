@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Calendar from 'react-big-calendar'
 import moment from 'moment'
@@ -58,6 +59,13 @@ class BigCalendar extends Component {
       )
     }
   }
+}
+
+BigCalendar.propTypes = {
+  location: PropTypes.object.isRequired,
+  events: PropTypes.array.isRequired,
+  match: PropTypes.object.isRequired,
+  fetchEvent: PropTypes.func.isRequired,
 }
 
 function mapStateToProps(state) {

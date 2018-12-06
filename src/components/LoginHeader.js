@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import cookie from 'react-cookies'
+import PropTypes from 'prop-types'
 
 const setAuthenticationLink = authenticated => {
   if (authenticated) {
@@ -41,6 +42,10 @@ function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
   }
+}
+
+LoginHeader.propTypes = {
+  authenticated: PropTypes.bool.isRequired,
 }
 
 export default connect(mapStateToProps)(LoginHeader)

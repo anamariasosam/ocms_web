@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { attendants } from '../../../data/data'
@@ -69,7 +70,7 @@ class EventEditForm extends Component {
   }
 
   addGroup(e) {
-    const name = e.target.name
+    const { name } = e.target
     let { selectedGroups } = this.state
 
     if (e.target.checked) {
@@ -161,7 +162,8 @@ class EventEditForm extends Component {
 
     if (errorMessage) {
       return <Error description={errorMessage} />
-    } else if (successMessage) {
+    }
+    if (successMessage) {
       return <Success description={successMessage} />
     }
   }
@@ -186,6 +188,20 @@ class EventEditForm extends Component {
       this.encargado.current.value = encargado
     }
   }
+}
+
+EventEditForm.propTypes = {
+  fetchAsignaturas: PropTypes.func.isRequired,
+  updateEvent: PropTypes.func.isRequired,
+  fetchGrupos: PropTypes.func.isRequired,
+  asignaturas: PropTypes.array.isRequired,
+  events: PropTypes.any.isRequired,
+  grupos: PropTypes.any.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  successMessage: PropTypes.string.isRequired,
+  fetchEvent: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 }
 
 function mapStateToProps(state) {

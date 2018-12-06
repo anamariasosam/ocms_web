@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom'
@@ -17,7 +18,8 @@ class LoginForm extends Component {
   }
 
   handleFormSubmit(formProps) {
-    this.props.loginUser(formProps)
+    const { loginUser } = this.props
+    loginUser(formProps)
   }
 
   render() {
@@ -48,6 +50,12 @@ class LoginForm extends Component {
       </div>
     )
   }
+}
+
+LoginForm.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 }
 
 function mapStateToProps(state) {

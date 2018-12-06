@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Error = ({ description }) => (
   <div className="alert--container alert--danger">
@@ -8,5 +9,9 @@ const Error = ({ description }) => (
     <p>{description}</p>
   </div>
 )
+
+Error.propTypes = {
+  description: PropTypes.string.isRequired,
+}
 
 export default Error

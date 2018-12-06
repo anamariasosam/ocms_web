@@ -1,4 +1,5 @@
 import React, { Fragment, Component } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import moment from 'moment'
@@ -23,9 +24,10 @@ class Agenda extends Component {
   }
 
   componentDidMount() {
-    const { semestre } = this.props.match.params
-    this.props.fetchCalendars({ semestre })
-    this.props.fetchAgenda({ semestre })
+    const { match, fetchCalendars, fetchAgenda } = this.props
+    const { semestre } = match.params
+    fetchCalendars({ semestre })
+    fetchAgenda({ semestre })
   }
 
   handleUrls(id) {
@@ -35,7 +37,8 @@ class Agenda extends Component {
   handleDelete(id) {
     const confirmDelete = window.confirm('Estas seguro que deseas eliminar?')
     if (confirmDelete) {
-      const calendarioId = this.props.calendars._id
+      const { calendars, deleteAgenda } = this.props
+      const calendarioId = calendars._id
       const programacionId = id
 
       const params = {
@@ -43,7 +46,7 @@ class Agenda extends Component {
         programacionId,
       }
 
-      this.props.deleteAgenda(params)
+      deleteAgenda(params)
     }
   }
 
@@ -118,6 +121,15 @@ class Agenda extends Component {
       </tr>
     ))
   }
+}
+
+Agenda.propTypes = {
+  match: PropTypes.object.isRequired,
+  calendars: PropTypes.any.isRequired,
+  fetchCalendars: PropTypes.func.isRequired,
+  fetchAgenda: PropTypes.func.isRequired,
+  deleteAgenda: PropTypes.func.isRequired,
+  schedules: PropTypes.any.isRequired,
 }
 
 function mapStateToProps(state) {

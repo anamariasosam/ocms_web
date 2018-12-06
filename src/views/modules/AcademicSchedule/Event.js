@@ -1,4 +1,5 @@
 import React, { Fragment, Component } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import moment from 'moment'
@@ -122,6 +123,15 @@ class Event extends Component {
       ))
     }
   }
+}
+
+Event.propTypes = {
+  fetchAgenda: PropTypes.func.isRequired,
+  fetchEvent: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
+  events: PropTypes.any.isRequired,
+  schedules: PropTypes.any.isRequired,
+  deleteEvent: PropTypes.func.isRequired,
 }
 
 function mapStateToProps(state) {

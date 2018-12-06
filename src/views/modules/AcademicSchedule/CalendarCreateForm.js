@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
@@ -83,6 +84,12 @@ class CalendarCreateForm extends Component {
       return <Success description={successMessage} />
     }
   }
+}
+
+CalendarCreateForm.propTypes = {
+  createCalendar: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  successMessage: PropTypes.string.isRequired,
 }
 
 function mapStateToProps(state) {

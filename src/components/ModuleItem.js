@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-const ProjectsList = ({ module }) => {
+const ModuleItem = ({ module }) => {
   const { name, image, slug } = module
   return (
     <Link to={`/${slug}`} className="reset--link">
@@ -15,4 +16,8 @@ const ProjectsList = ({ module }) => {
   )
 }
 
-export default ProjectsList
+ModuleItem.propTypes = {
+  module: PropTypes.object.isRequired,
+}
+
+export default ModuleItem

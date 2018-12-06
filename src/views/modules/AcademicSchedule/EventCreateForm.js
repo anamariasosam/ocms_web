@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import AditionalInfo from '../../../components/AditionalInfo'
 import { attendants } from '../../../data/data'
@@ -59,7 +60,7 @@ class EventCreateForm extends Component {
   }
 
   addGroup(e) {
-    const name = e.target.name
+    const { name } = e.target
     let { selectedGroups } = this.state
 
     if (e.target.checked) {
@@ -160,6 +161,16 @@ class EventCreateForm extends Component {
       return <Success description={successMessage} />
     }
   }
+}
+
+EventCreateForm.propTypes = {
+  fetchAsignaturas: PropTypes.func.isRequired,
+  createEvent: PropTypes.func.isRequired,
+  fetchGrupos: PropTypes.func.isRequired,
+  asignaturas: PropTypes.array.isRequired,
+  grupos: PropTypes.any.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  successMessage: PropTypes.string.isRequired,
 }
 
 function mapStateToProps(state) {

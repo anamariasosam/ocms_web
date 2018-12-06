@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import Success from '../../../components/Success'
@@ -120,6 +121,18 @@ class AgendaEditForm extends Component {
       this.tipo.current.value = tipo
     }
   }
+}
+
+AgendaEditForm.propTypes = {
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  schedules: PropTypes.any.isRequired,
+  fetchEventTypes: PropTypes.func.isRequired,
+  fetchAgenda: PropTypes.func.isRequired,
+  updateAgenda: PropTypes.func.isRequired,
+  tipoProgramacion: PropTypes.array.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  successMessage: PropTypes.string.isRequired,
 }
 
 function mapStateToProps(state) {

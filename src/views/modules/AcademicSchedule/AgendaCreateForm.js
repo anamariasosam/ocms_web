@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
@@ -22,7 +23,6 @@ class AgendaCreateForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log('hiiii')
     const { location, createAgenda } = this.props
 
     const fechaInicio = this.fechaInicio.current.value
@@ -92,6 +92,15 @@ class AgendaCreateForm extends Component {
       return <Success description={successMessage} />
     }
   }
+}
+
+AgendaCreateForm.propTypes = {
+  location: PropTypes.object.isRequired,
+  fetchEventTypes: PropTypes.func.isRequired,
+  createAgenda: PropTypes.func.isRequired,
+  tipoProgramacion: PropTypes.array.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  successMessage: PropTypes.string.isRequired,
 }
 
 function mapStateToProps(state) {
