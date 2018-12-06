@@ -242,6 +242,7 @@ body {
   box-shadow: 0 0 8px #8c8c8c;
   border: none;
   border-radius: 3px;
+  cursor: pointer;
 
   -moz-box-shadow: 0 0 8px #8c8c8c;
 }

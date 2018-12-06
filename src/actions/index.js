@@ -5,7 +5,7 @@ import PACKAGE from '../../package.json'
 const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
 const CLIENT_ROOT_URL = 'http://localhost:3000'
 
-export function errorHandler(dispatch, error, type) {
+export const errorHandler = (dispatch, error, type) => {
   let errorMessage = 'Ocurrió un error'
 
   if (error) {
@@ -29,7 +29,7 @@ export function errorHandler(dispatch, error, type) {
 }
 
 // Post Request
-export function postData(action, errorType, isAuthReq, url, dispatch, data, redirect) {
+export const postData = (action, errorType, isAuthReq, url, dispatch, data, redirect) => {
   const requestUrl = API_URL + url
   let headers = {}
 
@@ -60,7 +60,7 @@ export function postData(action, errorType, isAuthReq, url, dispatch, data, redi
 }
 
 // Get Request
-export function getData(action, errorType, isAuthReq, url, dispatch, params = {}) {
+export const getData = (action, errorType, isAuthReq, url, dispatch, params = {}) => {
   const requestUrl = API_URL + url
   let headers = {}
 
@@ -82,7 +82,7 @@ export function getData(action, errorType, isAuthReq, url, dispatch, params = {}
 }
 
 // Put Request
-export function putData(action, errorType, isAuthReq, url, dispatch, data, redirect) {
+export const putData = (action, errorType, isAuthReq, url, dispatch, data, redirect) => {
   const requestUrl = API_URL + url
   let headers = {}
 
@@ -113,7 +113,7 @@ export function putData(action, errorType, isAuthReq, url, dispatch, data, redir
 }
 
 // Delete Request
-export function deleteData(action, errorType, isAuthReq, url, dispatch, params) {
+export const deleteData = (action, errorType, isAuthReq, url, dispatch, params) => {
   const requestUrl = API_URL + url
   let headers = {}
 

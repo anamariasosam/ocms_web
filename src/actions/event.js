@@ -13,33 +13,33 @@ import {
 
 const EVENT_ENDPOINT = '/eventosAcademicos'
 
-export function createEvent(data) {
+export const createEvent = data => {
   const redirect = `/calendarioAcademico/programarEvento/show/${data.programacionNombre}`
   return dispatch =>
     postData(CREATE_EVENT, EVENT_ERROR, true, EVENT_ENDPOINT, dispatch, data, redirect)
 }
 
-export function deleteEvent(params) {
+export const deleteEvent = params => {
   return dispatch => deleteData(DELETE_EVENT, EVENT_ERROR, true, EVENT_ENDPOINT, dispatch, params)
 }
 
-export function fetchEvent(params) {
+export const fetchEvent = params => {
   return dispatch => getData(FETCH_EVENT, EVENT_ERROR, false, EVENT_ENDPOINT, dispatch, params)
 }
 
-export function updateEvent(data) {
+export const updateEvent = data => {
   const redirect = `/calendarioAcademico/programarEvento/show/${data.data.programacionNombre}`
 
   return dispatch =>
     putData(UPDATE_EVENT, EVENT_ERROR, true, EVENT_ENDPOINT, dispatch, data, redirect)
 }
 
-export function fetchAsignaturas() {
+export const fetchAsignaturas = () => {
   const url = '/asignaturas'
   return dispatch => getData(FETCH_SUBJECTS, SUBJECTS_ERROR, false, url, dispatch)
 }
 
-export function fetchGrupos() {
+export const fetchGrupos = () => {
   const url = '/grupos'
   return dispatch => getData(FETCH_GROUPS, GROUPS_ERROR, false, url, dispatch)
 }

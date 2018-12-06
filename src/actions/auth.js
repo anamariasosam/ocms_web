@@ -6,7 +6,7 @@ import PACKAGE from '../../package.json'
 const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
 const CLIENT_ROOT_URL = 'http://localhost:3000'
 
-export function errorHandler(dispatch, error, type) {
+export const errorHandler = (dispatch, error, type) => {
   let errorMessage = ''
 
   if (error.data.error) {
@@ -31,7 +31,7 @@ export function errorHandler(dispatch, error, type) {
   }
 }
 
-export function loginUser({ correo, password }) {
+export const loginUser = ({ correo, password }) => {
   return dispatch => {
     axios
       .post(`${API_URL}/auth/login`, { correo, password })
@@ -47,7 +47,7 @@ export function loginUser({ correo, password }) {
   }
 }
 
-export function logoutUser(error) {
+export const logoutUser = error => {
   return dispatch => {
     dispatch({ type: UNAUTH_USER, payload: error || '' })
     cookie.remove('token', { path: '/' })
@@ -56,7 +56,7 @@ export function logoutUser(error) {
   }
 }
 
-export function protectedTest() {
+export const protectedTest = () => {
   return dispatch => {
     axios
       .get(`${API_URL}/protected`, {
