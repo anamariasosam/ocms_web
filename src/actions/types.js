@@ -24,7 +24,8 @@ export const CREATE_EVENT = 'create_event',
   SUBJECTS_ERROR = 'subjects_error',
   FETCH_EVENT = 'fetch_event',
   DELETE_EVENT = 'delete_event',
-  UPDATE_EVENT = 'update_event'
+  UPDATE_EVENT = 'update_event',
+  FETCH_ATTENDANTS = 'fetch_attendants'
 
 export const FETCH_GROUPS = 'fetch_groups',
   GROUPS_ERROR = 'groups_error'

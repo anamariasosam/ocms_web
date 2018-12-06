@@ -10,7 +10,7 @@ const MainLayout = ({ children }) => (
 )
 
 MainLayout.propTypes = {
-  children: PropTypes.object.isRequired,
+  children: PropTypes.object,
 }
 
 export default MainLayout

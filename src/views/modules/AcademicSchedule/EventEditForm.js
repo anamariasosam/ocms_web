@@ -2,10 +2,16 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { attendants } from '../../../data/data'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
-import { fetchAsignaturas, fetchGrupos, fetchEvent, updateEvent } from '../../../actions/event'
+import AditionalInfo from '../../../components/AditionalInfo'
+import {
+  fetchAsignaturas,
+  fetchGrupos,
+  fetchEvent,
+  updateEvent,
+  fetchAttendats,
+} from '../../../actions/event'
 
 class EventEditForm extends Component {
   constructor(props) {
@@ -25,9 +31,10 @@ class EventEditForm extends Component {
   }
 
   componentDidMount() {
-    const { fetchAsignaturas, fetchGrupos } = this.props
+    const { fetchAsignaturas, fetchGrupos, fetchAttendats } = this.props
     fetchAsignaturas()
     fetchGrupos()
+    fetchAttendats()
     this.getEventValues()
   }
 
@@ -50,7 +57,8 @@ class EventEditForm extends Component {
 
     const { nombre } = match.params
 
-    const programacionNombre = location.state.schedule.nombre
+    const { schedule } = location.state
+    const { nombre: programacionNombre } = schedule
 
     const data = {
       params: {
@@ -94,11 +102,16 @@ class EventEditForm extends Component {
   }
 
   render() {
-    const { asignaturas, grupos } = this.props
+    const { asignaturas, grupos, profesores, location } = this.props
+    const titles = ['tipo', 'fecha Inicio', 'fecha Fin']
+    const { schedule } = location.state
+
     this.renderEventValues()
     return (
       <Fragment>
         <h2>Gestionar Evento</h2>
+
+        <AditionalInfo data={schedule} titles={titles} />
 
         <div className="form--container">
           <h3 className="form--title">Crear Evento</h3>
@@ -116,8 +129,8 @@ class EventEditForm extends Component {
               Encargado:
             </label>
             <select id="encargado" className="input select--input" ref={this.encargado}>
-              {attendants.map(encargado => (
-                <option key={encargado}>{encargado}</option>
+              {profesores.map(encargado => (
+                <option key={encargado._id}>{encargado.nombreCompleto}</option>
               ))}
             </select>
 
@@ -194,7 +207,9 @@ EventEditForm.propTypes = {
   fetchAsignaturas: PropTypes.func.isRequired,
   updateEvent: PropTypes.func.isRequired,
   fetchGrupos: PropTypes.func.isRequired,
+  fetchAttendats: PropTypes.func.isRequired,
   asignaturas: PropTypes.array.isRequired,
+  profesores: PropTypes.array.isRequired,
   events: PropTypes.any.isRequired,
   grupos: PropTypes.any.isRequired,
   errorMessage: PropTypes.string.isRequired,
@@ -205,7 +220,7 @@ EventEditForm.propTypes = {
 }
 
 function mapStateToProps(state) {
-  const { errorMessage, successMessage, asignaturas, grupos, events } = state.event
+  const { errorMessage, successMessage, asignaturas, grupos, events, profesores } = state.event
 
   return {
     errorMessage,
@@ -213,10 +228,11 @@ function mapStateToProps(state) {
     asignaturas,
     grupos,
     events,
+    profesores,
   }
 }
 
 export default connect(
   mapStateToProps,
-  { fetchAsignaturas, fetchGrupos, fetchEvent, updateEvent },
+  { fetchAsignaturas, fetchGrupos, fetchEvent, updateEvent, fetchAttendats },
 )(EventEditForm)

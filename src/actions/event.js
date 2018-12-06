@@ -9,6 +9,7 @@ import {
   SUBJECTS_ERROR,
   FETCH_GROUPS,
   GROUPS_ERROR,
+  FETCH_ATTENDANTS,
 } from './types'
 
 const EVENT_ENDPOINT = '/eventosAcademicos'
@@ -42,4 +43,9 @@ export const fetchAsignaturas = () => {
 export const fetchGrupos = () => {
   const url = '/grupos'
   return dispatch => getData(FETCH_GROUPS, GROUPS_ERROR, false, url, dispatch)
+}
+
+export const fetchAttendats = () => {
+  const url = '/usuarios/profesores'
+  return dispatch => getData(FETCH_ATTENDANTS, EVENT_ERROR, false, url, dispatch)
 }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
+import AditionalInfo from '../../../components/AditionalInfo'
 import { createAgenda, fetchEventTypes } from '../../../actions/agenda'
 
 class AgendaCreateForm extends Component {
@@ -43,10 +44,14 @@ class AgendaCreateForm extends Component {
   }
 
   render() {
-    const { tipoProgramacion } = this.props
+    const { tipoProgramacion, location } = this.props
+    const titles = ['semestre', 'fecha Inicio', 'fecha Fin']
+    const { calendar } = location.state
     return (
       <Fragment>
         <h2>Gestionar Programación</h2>
+
+        <AditionalInfo data={calendar} titles={titles} />
 
         <div className="form--container">
           <h3 className="form--title">Crear Programación</h3>

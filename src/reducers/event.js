@@ -8,6 +8,7 @@ import {
   SUBJECTS_ERROR,
   FETCH_GROUPS,
   GROUPS_ERROR,
+  FETCH_ATTENDANTS,
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -17,6 +18,7 @@ const INITIAL_STATE = {
   asignaturas: [],
   grupos: [],
   events: [],
+  profesores: [],
 }
 
 export default function(state = INITIAL_STATE, action) {
@@ -33,6 +35,8 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, asignaturas: action.payload }
     case FETCH_GROUPS:
       return { ...state, grupos: action.payload }
+    case FETCH_ATTENDANTS:
+      return { ...state, profesores: action.payload }
     case SUBJECTS_ERROR:
       return { ...state, errorMessage: action.payload.errorMessage }
     case GROUPS_ERROR:

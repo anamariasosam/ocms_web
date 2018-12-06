@@ -31,14 +31,16 @@ export const errorHandler = (dispatch, error, type) => {
   }
 }
 
-export const loginUser = ({ correo, password }) => {
+export const loginUser = data => {
   return dispatch => {
     axios
-      .post(`${API_URL}/auth/login`, { correo, password })
+      .post(`${API_URL}/auth/login`, data)
       .then(response => {
         cookie.save('token', response.data.token, { path: '/' })
         cookie.save('user', response.data.usuario, { path: '/' })
         dispatch({ type: AUTH_USER })
+        console.log(response.data.usuario)
+
         window.location.href = CLIENT_ROOT_URL + '/calendarioAcademico/gestionarCalendario'
       })
       .catch(error => {

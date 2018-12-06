@@ -2,10 +2,9 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import AditionalInfo from '../../../components/AditionalInfo'
-import { attendants } from '../../../data/data'
 import Success from '../../../components/Success'
 import Error from '../../../components/Error'
-import { fetchAsignaturas, fetchGrupos, createEvent } from '../../../actions/event'
+import { fetchAsignaturas, fetchGrupos, createEvent, fetchAttendats } from '../../../actions/event'
 
 class EventCreateForm extends Component {
   constructor(props) {
@@ -13,7 +12,6 @@ class EventCreateForm extends Component {
 
     this.state = {
       schedule: {},
-      titles: ['tipo', 'fecha Inicio', 'fecha Fin'],
       selectedGroups: [],
     }
 
@@ -28,9 +26,10 @@ class EventCreateForm extends Component {
   }
 
   componentDidMount() {
-    const { fetchAsignaturas, fetchGrupos } = this.props
+    const { fetchAsignaturas, fetchGrupos, fetchAttendats } = this.props
     fetchAsignaturas()
     fetchGrupos()
+    fetchAttendats()
   }
 
   handleSubmit(e) {
@@ -41,7 +40,10 @@ class EventCreateForm extends Component {
     const aforo = this.aforo.current.value
     const asignatura = this.asignatura.current.value
     const encargado = this.encargado.current.value
-    const { selectedGroups: grupos, schedule } = this.state
+    const { selectedGroups: grupos } = this.state
+    const { createEvent, location } = this.props
+    const { schedule } = location.state
+
     const { _id: programacionId, nombre: programacionNombre } = schedule
 
     const data = {
@@ -55,7 +57,6 @@ class EventCreateForm extends Component {
       programacionNombre,
     }
 
-    const { createEvent } = this.props
     createEvent(data)
   }
 
@@ -80,8 +81,9 @@ class EventCreateForm extends Component {
   }
 
   render() {
-    const { schedule, titles } = this.state
-    const { asignaturas, grupos } = this.props
+    const titles = ['tipo', 'fecha Inicio', 'fecha Fin']
+    const { asignaturas, grupos, profesores, location } = this.props
+    const { schedule } = location.state
     return (
       <Fragment>
         <h2>Programar Evento</h2>
@@ -109,8 +111,8 @@ class EventCreateForm extends Component {
               Encargado:
             </label>
             <select id="encargado" className="input select--input" ref={this.encargado}>
-              {attendants.map(encargado => (
-                <option key={encargado}>{encargado}</option>
+              {profesores.map(encargado => (
+                <option key={encargado._id}>{encargado.nombreCompleto}</option>
               ))}
             </select>
 
@@ -167,24 +169,28 @@ EventCreateForm.propTypes = {
   fetchAsignaturas: PropTypes.func.isRequired,
   createEvent: PropTypes.func.isRequired,
   fetchGrupos: PropTypes.func.isRequired,
+  fetchAttendats: PropTypes.func.isRequired,
   asignaturas: PropTypes.array.isRequired,
   grupos: PropTypes.any.isRequired,
-  errorMessage: PropTypes.string.isRequired,
-  successMessage: PropTypes.string.isRequired,
+  errorMessage: PropTypes.string,
+  successMessage: PropTypes.string,
+  profesores: PropTypes.array.isRequired,
+  location: PropTypes.object.isRequired,
 }
 
 function mapStateToProps(state) {
-  const { errorMessage, successMessage, asignaturas, grupos } = state.event
+  const { errorMessage, successMessage, asignaturas, grupos, profesores } = state.event
 
   return {
     errorMessage,
     successMessage,
     asignaturas,
     grupos,
+    profesores,
   }
 }
 
 export default connect(
   mapStateToProps,
-  { fetchAsignaturas, fetchGrupos, createEvent },
+  { fetchAsignaturas, fetchGrupos, createEvent, fetchAttendats },
 )(EventCreateForm)
