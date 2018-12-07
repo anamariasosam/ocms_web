@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 const ModuleItem = ({ module }) => {
   const { name, image, slug } = module
   return (
-    <Link to={`/${slug}`} className="reset--link">
+    <Link to={`${slug}`} className="reset--link">
       <figure className="module--item">
         <img src={image} alt={name} className="module--image" />
         <figcaption className="module--name">

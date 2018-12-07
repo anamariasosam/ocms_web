@@ -1,69 +1,56 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Success from '../../../components/Success'
-import Error from '../../../components/Error'
-import AditionalInfo from '../../../components/AditionalInfo'
-import { createAgenda, fetchEventTypes } from '../../../actions/agenda'
+import Success from '../../../../components/Success'
+import Error from '../../../../components/Error'
+import { createCalendar } from '../../../../actions/calendar'
 
-class AgendaCreateForm extends Component {
+class CalendarCreateForm extends Component {
   constructor(props) {
     super(props)
 
     this.fechaInicio = React.createRef()
     this.fechaFin = React.createRef()
-    this.tipo = React.createRef()
+    this.semestre = React.createRef()
 
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidMount() {
-    const { fetchEventTypes } = this.props
-    fetchEventTypes()
-  }
-
   handleSubmit(e) {
     e.preventDefault()
-    const { location, createAgenda } = this.props
-
     const fechaInicio = this.fechaInicio.current.value
     const fechaFin = this.fechaFin.current.value
-    const tipo = this.tipo.current.value
-
-    const { _id: calendarioId, semestre: calendarioSemestre } = location.state.calendar
+    const semestre = this.semestre.current.value
 
     const data = {
       fechaInicio,
       fechaFin,
-      tipo,
-      calendarioId,
-      calendarioSemestre,
+      semestre,
     }
 
-    createAgenda(data)
+    const { createCalendar } = this.props
+    createCalendar(data)
   }
 
   render() {
-    const { tipoProgramacion, location } = this.props
-    const titles = ['semestre', 'fecha Inicio', 'fecha Fin']
-    const { calendar } = location.state
     return (
       <Fragment>
-        <h2>Gestionar Programación</h2>
-
-        <AditionalInfo data={calendar} titles={titles} />
+        <h2>Gestionar Calendario</h2>
 
         <div className="form--container">
-          <h3 className="form--title">Crear Programación</h3>
+          <h3 className="form--title">Crear Calendario</h3>
           <form onSubmit={this.handleSubmit}>
-            <label htmlFor="tipo" className="required label">
-              Tipo de Evento:
+            <label htmlFor="semestre" className="required label">
+              Semestre:
             </label>
-            <select id="tipo" ref={this.tipo} className="input select--input">
-              {tipoProgramacion.map(tipo => (
-                <option key={tipo._id}>{tipo.nombre}</option>
-              ))}
-            </select>
+            <input
+              type="text"
+              id="semestre"
+              className="input"
+              ref={this.semestre}
+              required
+              placeholder="Ejemplo: 2019-1"
+            />
 
             <label htmlFor="fechaInicio" className="required label">
               Fecha Inicio:
@@ -99,26 +86,22 @@ class AgendaCreateForm extends Component {
   }
 }
 
-AgendaCreateForm.propTypes = {
-  location: PropTypes.object.isRequired,
-  fetchEventTypes: PropTypes.func.isRequired,
-  createAgenda: PropTypes.func.isRequired,
-  tipoProgramacion: PropTypes.array.isRequired,
+CalendarCreateForm.propTypes = {
+  createCalendar: PropTypes.func.isRequired,
   errorMessage: PropTypes.string.isRequired,
   successMessage: PropTypes.string.isRequired,
 }
 
 function mapStateToProps(state) {
-  const { errorMessage, successMessage, tipoProgramacion } = state.agenda
+  const { errorMessage, successMessage } = state.calendar
 
   return {
     errorMessage,
     successMessage,
-    tipoProgramacion,
   }
 }
 
 export default connect(
   mapStateToProps,
-  { createAgenda, fetchEventTypes },
-)(AgendaCreateForm)
+  { createCalendar },
+)(CalendarCreateForm)

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Calendar from 'react-big-calendar'
 import moment from 'moment'
-import { fetchEvent } from '../../../actions/event'
-import { fetchAgenda } from '../../../actions/agenda'
+import { fetchEvent } from '../../actions/event'
+import { fetchAgenda } from '../../actions/agenda'
 
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 

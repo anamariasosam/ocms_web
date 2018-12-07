@@ -1,10 +1,15 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import AditionalInfo from '../../../components/AditionalInfo'
-import Success from '../../../components/Success'
-import Error from '../../../components/Error'
-import { fetchAsignaturas, fetchGrupos, createEvent, fetchAttendats } from '../../../actions/event'
+import AditionalInfo from '../../../../components/AditionalInfo'
+import Success from '../../../../components/Success'
+import Error from '../../../../components/Error'
+import {
+  fetchAsignaturas,
+  fetchGrupos,
+  createEvent,
+  fetchAttendats,
+} from '../../../../actions/event'
 
 class EventCreateForm extends Component {
   constructor(props) {

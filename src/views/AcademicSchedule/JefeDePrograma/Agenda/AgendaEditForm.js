@@ -2,10 +2,10 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import Success from '../../../components/Success'
-import Error from '../../../components/Error'
-import AditionalInfo from '../../../components/AditionalInfo'
-import { updateAgenda, fetchAgenda, fetchEventTypes } from '../../../actions/agenda'
+import Success from '../../../../components/Success'
+import Error from '../../../../components/Error'
+import AditionalInfo from '../../../../components/AditionalInfo'
+import { updateAgenda, fetchAgenda, fetchEventTypes } from '../../../../actions/agenda'
 
 class AgendaEditForm extends Component {
   constructor(props) {

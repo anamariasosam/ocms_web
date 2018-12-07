@@ -1,61 +1,70 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import moment from 'moment'
-import Success from '../../../components/Success'
-import Error from '../../../components/Error'
-import { updateCalendar, fetchCalendars } from '../../../actions/calendar'
+import Success from '../../../../components/Success'
+import Error from '../../../../components/Error'
+import AditionalInfo from '../../../../components/AditionalInfo'
+import { createAgenda, fetchEventTypes } from '../../../../actions/agenda'
 
-class CalendarEditForm extends Component {
+class AgendaCreateForm extends Component {
   constructor(props) {
     super(props)
 
     this.fechaInicio = React.createRef()
     this.fechaFin = React.createRef()
+    this.tipo = React.createRef()
 
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
-    this.getCalendarValues()
-  }
-
-  getCalendarValues() {
-    const { match, fetchCalendars } = this.props
-    const { semestre } = match.params
-    fetchCalendars({ semestre })
+    const { fetchEventTypes } = this.props
+    fetchEventTypes()
   }
 
   handleSubmit(e) {
     e.preventDefault()
+    const { location, createAgenda } = this.props
 
-    const { match, updateCalendar } = this.props
-    const { semestre } = match.params
     const fechaInicio = this.fechaInicio.current.value
     const fechaFin = this.fechaFin.current.value
+    const tipo = this.tipo.current.value
+
+    const { _id: calendarioId, semestre: calendarioSemestre } = location.state.calendar
 
     const data = {
-      params: {
-        semestre,
-      },
-      data: {
-        fechaInicio,
-        fechaFin,
-      },
+      fechaInicio,
+      fechaFin,
+      tipo,
+      calendarioId,
+      calendarioSemestre,
     }
 
-    updateCalendar(data)
+    createAgenda(data)
   }
 
   render() {
-    this.renderCalendarValues()
-
+    const { tipoProgramacion, location } = this.props
+    const titles = ['semestre', 'fecha Inicio', 'fecha Fin']
+    const { calendar } = location.state
     return (
       <Fragment>
-        <h2>Gestionar Calendario</h2>
+        <h2>Gestionar Programación</h2>
+
+        <AditionalInfo data={calendar} titles={titles} />
+
         <div className="form--container">
-          <h3 className="form--title">Editar Calendario</h3>
+          <h3 className="form--title">Crear Programación</h3>
           <form onSubmit={this.handleSubmit}>
+            <label htmlFor="tipo" className="required label">
+              Tipo de Evento:
+            </label>
+            <select id="tipo" ref={this.tipo} className="input select--input">
+              {tipoProgramacion.map(tipo => (
+                <option key={tipo._id}>{tipo.nombre}</option>
+              ))}
+            </select>
+
             <label htmlFor="fechaInicio" className="required label">
               Fecha Inicio:
             </label>
@@ -77,23 +86,6 @@ class CalendarEditForm extends Component {
     )
   }
 
-  renderCalendarValues() {
-    const { calendars } = this.props
-    const { fechaInicio, fechaFin } = calendars
-
-    if (fechaInicio) {
-      this.fechaInicio.current.value = moment(fechaInicio)
-        .utc()
-        .format(moment.HTML5_FMT.DATE)
-    }
-
-    if (fechaFin) {
-      this.fechaFin.current.value = moment(fechaFin)
-        .utc()
-        .format(moment.HTML5_FMT.DATE)
-    }
-  }
-
   renderAlert() {
     const { errorMessage, successMessage } = this.props
 
@@ -107,28 +99,26 @@ class CalendarEditForm extends Component {
   }
 }
 
-CalendarEditForm.propTypes = {
-  fetchCalendars: PropTypes.func.isRequired,
-  match: PropTypes.object.isRequired,
-  calendars: PropTypes.any.isRequired,
+AgendaCreateForm.propTypes = {
+  location: PropTypes.object.isRequired,
+  fetchEventTypes: PropTypes.func.isRequired,
+  createAgenda: PropTypes.func.isRequired,
+  tipoProgramacion: PropTypes.array.isRequired,
   errorMessage: PropTypes.string.isRequired,
   successMessage: PropTypes.string.isRequired,
-  updateCalendar: PropTypes.func.isRequired,
 }
 
 function mapStateToProps(state) {
-  const { errorMessage, successMessage, calendars } = state.calendar
+  const { errorMessage, successMessage, tipoProgramacion } = state.agenda
+
   return {
     errorMessage,
     successMessage,
-    calendars,
+    tipoProgramacion,
   }
 }
 
 export default connect(
   mapStateToProps,
-  {
-    updateCalendar,
-    fetchCalendars,
-  },
-)(CalendarEditForm)
+  { createAgenda, fetchEventTypes },
+)(AgendaCreateForm)

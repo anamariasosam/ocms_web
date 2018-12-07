@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import Options from '../../../components/Options'
-import AditionalInfo from '../../../components/AditionalInfo'
-import { deleteEvent, fetchEvent } from '../../../actions/event'
-import { fetchAgenda } from '../../../actions/agenda'
+import Options from '../../../../components/Options'
+import AditionalInfo from '../../../../components/AditionalInfo'
+import { deleteEvent, fetchEvent } from '../../../../actions/event'
+import { fetchAgenda } from '../../../../actions/agenda'
 
 class Event extends Component {
   constructor(props) {

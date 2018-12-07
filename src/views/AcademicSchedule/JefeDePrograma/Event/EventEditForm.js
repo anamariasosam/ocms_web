@@ -2,16 +2,16 @@ import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import Success from '../../../components/Success'
-import Error from '../../../components/Error'
-import AditionalInfo from '../../../components/AditionalInfo'
+import Success from '../../../../components/Success'
+import Error from '../../../../components/Error'
+import AditionalInfo from '../../../../components/AditionalInfo'
 import {
   fetchAsignaturas,
   fetchGrupos,
   fetchEvent,
   updateEvent,
   fetchAttendats,
-} from '../../../actions/event'
+} from '../../../../actions/event'
 
 class EventEditForm extends Component {
   constructor(props) {

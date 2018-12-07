@@ -2,12 +2,15 @@ import axios from 'axios'
 import cookie from 'react-cookies'
 import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, PROTECTED_TEST } from './types'
 import PACKAGE from '../../package.json'
+import setPath from '../utils/role'
 
 const API_URL = PACKAGE.config.api[process.env.NODE_ENV]
 const CLIENT_ROOT_URL = 'http://localhost:3000'
 
 export const errorHandler = (dispatch, error, type) => {
   let errorMessage = ''
+
+  console.log(error)
 
   if (error.data.error) {
     errorMessage = error.data.error
@@ -19,13 +22,14 @@ export const errorHandler = (dispatch, error, type) => {
 
   if (error.status === 401) {
     dispatch({
-      type: type,
+      type,
       payload: 'No se pudo realizar la acción. Verifica la información',
     })
+
     logoutUser()
   } else {
     dispatch({
-      type: type,
+      type,
       payload: errorMessage,
     })
   }
@@ -39,9 +43,8 @@ export const loginUser = data => {
         cookie.save('token', response.data.token, { path: '/' })
         cookie.save('user', response.data.usuario, { path: '/' })
         dispatch({ type: AUTH_USER })
-        console.log(response.data.usuario)
 
-        window.location.href = CLIENT_ROOT_URL + '/calendarioAcademico/gestionarCalendario'
+        window.location.href = CLIENT_ROOT_URL + setPath()
       })
       .catch(error => {
         errorHandler(dispatch, error.response, AUTH_ERROR)
