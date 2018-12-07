@@ -13,18 +13,15 @@ const INITIAL_STATE = { errorMessage: '', schedules: [], successMessage: '', tip
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case CREATE_AGENDA:
-      return { ...state, successMessage: action.payload.successMessage }
-    case DELETE_AGENDA:
-      return { ...state, schedules: action.payload }
-    case FETCH_AGENDA:
-      return { ...state, schedules: action.payload }
     case UPDATE_AGENDA:
       return { ...state, successMessage: action.payload.successMessage }
-    case AGENDA_ERROR:
-      return { ...state, errorMessage: action.payload.errorMessage }
+    case DELETE_AGENDA:
+    case FETCH_AGENDA:
+      return { ...state, schedules: action.payload }
     case FETCH_EVENT_TYPES:
       return { ...state, tipoProgramacion: action.payload }
     case EVENT_TYPE_ERROR:
+    case AGENDA_ERROR:
       return { ...state, errorMessage: action.payload.errorMessage }
     default:
       return state

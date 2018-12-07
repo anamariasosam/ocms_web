@@ -26,7 +26,6 @@ export default function(state = INITIAL_STATE, action) {
     case CREATE_EVENT:
       return { ...state, successMessage: action.payload.successMessage }
     case DELETE_EVENT:
-      return { ...state, events: action.payload }
     case FETCH_EVENT:
       return { ...state, events: action.payload }
     case UPDATE_EVENT:
@@ -37,11 +36,9 @@ export default function(state = INITIAL_STATE, action) {
       return { ...state, grupos: action.payload }
     case FETCH_ATTENDANTS:
       return { ...state, profesores: action.payload }
-    case SUBJECTS_ERROR:
-      return { ...state, errorMessage: action.payload.errorMessage }
-    case GROUPS_ERROR:
-      return { ...state, errorMessage: action.payload.errorMessage }
     case EVENT_ERROR:
+    case GROUPS_ERROR:
+    case SUBJECTS_ERROR:
       return { ...state, errorMessage: action.payload.errorMessage }
     default:
       return state
