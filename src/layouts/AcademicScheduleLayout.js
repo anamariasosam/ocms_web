@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Route, Switch } from 'react-router-dom'
 
 import ModuleLayout from './ModuleLayout'
-import NotFound from '../views/modules/NotFound'
+import NotFound from '../pages/modules/NotFound'
 import RequireAuth from '../components/auth/RequireAuth'
 
 const AcademicScheduleLayout = ({ menu, routes }) => (
