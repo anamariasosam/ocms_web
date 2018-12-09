@@ -15,54 +15,54 @@ const currentYear = new Date().getFullYear()
 
 export const adminMenu = [
   {
-    path: '/calendarioAcademico/gestionarCalendario',
+    path: '/calendarioAcademico/calendario',
     name: 'Calendarios',
   },
   {
-    path: `/calendarioAcademico/realizarProgramacion/show/${currentYear}-1`,
+    path: `/calendarioAcademico/programacion/show/${currentYear}-1`,
     name: 'Programaciones',
   },
   {
-    path: `/calendarioAcademico/programarEvento/show/${currentYear}-1-1`,
+    path: `/calendarioAcademico/evento/show/${currentYear}-1-1`,
     name: 'Eventos',
   },
 ]
 
 export const adminRoutes = [
   {
-    path: '/calendarioAcademico/gestionarCalendario',
+    path: '/calendarioAcademico/calendario',
     component: Calendar,
   },
   {
-    path: '/calendarioAcademico/gestionarCalendario/create',
+    path: '/calendarioAcademico/calendario/create',
     component: CalendarCreateForm,
   },
   {
-    path: '/calendarioAcademico/gestionarCalendario/edit/:semestre',
+    path: '/calendarioAcademico/calendario/edit/:semestre',
     component: CalendarEditForm,
   },
   {
-    path: '/calendarioAcademico/realizarProgramacion/show/:semestre',
+    path: '/calendarioAcademico/programacion/show/:semestre',
     component: Agenda,
   },
   {
-    path: '/calendarioAcademico/realizarProgramacion/create',
+    path: '/calendarioAcademico/programacion/create',
     component: AgendaCreateForm,
   },
   {
-    path: '/calendarioAcademico/realizarProgramacion/edit/:nombre',
+    path: '/calendarioAcademico/programacion/edit/:nombre',
     component: AgendaEditForm,
   },
   {
-    path: '/calendarioAcademico/programarEvento/show/:nombre',
+    path: '/calendarioAcademico/evento/show/:nombre',
     component: Event,
   },
   {
-    path: '/calendarioAcademico/programarEvento/create',
+    path: '/calendarioAcademico/evento/create',
     component: EventCreateForm,
   },
   {
-    path: '/calendarioAcademico/programarEvento/edit/:nombre/',
+    path: '/calendarioAcademico/evento/edit/:nombre/',
     component: EventEditForm,
   },
   {

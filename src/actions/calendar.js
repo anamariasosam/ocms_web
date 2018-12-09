@@ -8,7 +8,7 @@ import {
 } from './types'
 
 const CALENDAR_ENDPOINT = '/calendarios'
-const REDIRECT_URL = '/calendarioAcademico/gestionarCalendario'
+const REDIRECT_URL = '/calendarioAcademico/calendario'
 
 export const createCalendar = data => {
   return dispatch =>

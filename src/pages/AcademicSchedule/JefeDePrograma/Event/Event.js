@@ -14,7 +14,7 @@ class Event extends Component {
 
     this.state = {
       titles: ['tipo', 'fecha Inicio', 'fecha Fin'],
-      urls: ['/calendarioAcademico/ver/', '/calendarioAcademico/programarEvento/edit/'],
+      urls: ['/calendarioAcademico/ver/', '/calendarioAcademico/evento/edit/'],
     }
 
     this.handleDelete = this.handleDelete.bind(this)
@@ -85,7 +85,7 @@ class Event extends Component {
 
           <Link
             to={{
-              pathname: '/calendarioAcademico/programarEvento/create',
+              pathname: '/calendarioAcademico/evento/create',
               state: { schedule: schedules },
             }}
             className="reset--link button"

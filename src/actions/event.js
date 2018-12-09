@@ -15,7 +15,7 @@ import {
 const EVENT_ENDPOINT = '/eventosAcademicos'
 
 export const createEvent = data => {
-  const redirect = `/calendarioAcademico/programarEvento/show/${data.programacionNombre}`
+  const redirect = `/calendarioAcademico/evento/show/${data.programacionNombre}`
   return dispatch =>
     postData(CREATE_EVENT, EVENT_ERROR, true, EVENT_ENDPOINT, dispatch, data, redirect)
 }
@@ -29,7 +29,7 @@ export const fetchEvent = params => {
 }
 
 export const updateEvent = data => {
-  const redirect = `/calendarioAcademico/programarEvento/show/${data.data.programacionNombre}`
+  const redirect = `/calendarioAcademico/evento/show/${data.data.programacionNombre}`
 
   return dispatch =>
     putData(UPDATE_EVENT, EVENT_ERROR, true, EVENT_ENDPOINT, dispatch, data, redirect)

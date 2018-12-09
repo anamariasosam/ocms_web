@@ -12,7 +12,7 @@ import {
 const AGENDA_ENDPOINT = '/programaciones'
 
 export const createAgenda = data => {
-  const redirect = `/calendarioAcademico/realizarProgramacion/show/${data.calendarioSemestre}`
+  const redirect = `/calendarioAcademico/programacion/show/${data.calendarioSemestre}`
   return dispatch =>
     postData(CREATE_AGENDA, AGENDA_ERROR, true, AGENDA_ENDPOINT, dispatch, data, redirect)
 }
@@ -31,7 +31,7 @@ export const fetchEventTypes = () => {
 }
 
 export const updateAgenda = data => {
-  const redirect = `/calendarioAcademico/realizarProgramacion/show/${data.data.calendarioSemestre}`
+  const redirect = `/calendarioAcademico/programacion/show/${data.data.calendarioSemestre}`
 
   return dispatch =>
     putData(UPDATE_AGENDA, AGENDA_ERROR, true, AGENDA_ENDPOINT, dispatch, data, redirect)

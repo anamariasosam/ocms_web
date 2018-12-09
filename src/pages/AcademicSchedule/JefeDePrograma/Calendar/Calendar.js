@@ -11,10 +11,7 @@ class Calendar extends Component {
     super(props)
 
     this.state = {
-      urls: [
-        '/calendarioAcademico/realizarProgramacion/show/',
-        '/calendarioAcademico/gestionarCalendario/edit/',
-      ],
+      urls: ['/calendarioAcademico/programacion/show/', '/calendarioAcademico/calendario/edit/'],
     }
 
     this.handleDelete = this.handleDelete.bind(this)
@@ -61,7 +58,7 @@ class Calendar extends Component {
             <tbody>{this.renderCalendars()}</tbody>
           </table>
 
-          <Link to="/calendarioAcademico/gestionarCalendario/create" className="reset--link button">
+          <Link to="/calendarioAcademico/calendario/create" className="reset--link button">
             + Calendario
           </Link>
         </div>

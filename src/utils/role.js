@@ -1,13 +1,15 @@
 import cookie from 'react-cookies'
+import { adminMenu } from '../pages/AcademicSchedule/routes/admin'
+import { estudianteMenu } from '../pages/AcademicSchedule/routes/estudiante'
 
 const setPath = () => {
   const { rol } = cookie.load('user') || ''
 
   switch (rol) {
     case 'Jefe de Programa':
-      return '/calendarioAcademico/gestionarCalendario'
+      return adminMenu[0].path
     case 'Estudiante':
-      return '/calendarioAcademico/dashboard'
+      return estudianteMenu[0].path
     default:
       return '/login'
   }

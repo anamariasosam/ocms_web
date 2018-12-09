@@ -14,10 +14,7 @@ class Agenda extends Component {
 
     this.state = {
       titles: ['semestre', 'fecha Inicio', 'fecha Fin'],
-      urls: [
-        '/calendarioAcademico/programarEvento/show/',
-        '/calendarioAcademico/realizarProgramacion/edit/',
-      ],
+      urls: ['/calendarioAcademico/evento/show/', '/calendarioAcademico/programacion/edit/'],
     }
 
     this.handleDelete = this.handleDelete.bind(this)
@@ -83,7 +80,7 @@ class Agenda extends Component {
 
           <Link
             to={{
-              pathname: '/calendarioAcademico/realizarProgramacion/create',
+              pathname: '/calendarioAcademico/programacion/create',
               state: { calendar: calendars },
             }}
             className="reset--link button"
