@@ -103,8 +103,8 @@ class Event extends Component {
       return events.map(event => (
         <tr key={event._id}>
           <td>{event.nombre}</td>
-          <td>{event.asignatura}</td>
-          <td>{event.encargado}</td>
+          <td>{event.grupos.map(grupo => grupo.asignatura.nombre).join(', ')}</td>
+          <td>{event.encargado.nombre}</td>
           <td>
             {moment(event.fecha)
               .utc()
