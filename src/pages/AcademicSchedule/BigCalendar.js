@@ -37,8 +37,11 @@ class BigCalendar extends Component {
     if (events.length > 0) {
       const bigCalendarEvents = events.map(event => ({
         start: moment(event.fecha).format('YYYY-MM-DD[T]hh:mm'),
-        end: moment(event.fecha).add(2, 'hours'),
+        end: moment(event.fecha)
+          .add(2, 'hours')
+          .format('YYYY-MM-DD[T]hh:mm'),
         title: event.grupos.map(grupo => grupo.asignatura.nombre).join(', '),
+        resource: event.programacion.tipo,
       }))
 
       const { fecha } = location.state.event
@@ -55,6 +58,7 @@ class BigCalendar extends Component {
           popup
           defaultDate={currentDate}
           views={['month', 'agenda']}
+          onSelectEvent={e => alert(`${e.resource}: ${e.title}`)}
         />
       )
     }
