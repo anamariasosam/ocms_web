@@ -44,22 +44,22 @@ class EventCreateForm extends Component {
     const nombre = this.nombre.current.value
     const fecha = this.fecha.current.value
     const aforo = this.aforo.current.value
-    const encargadoId = this.encargado.current.value
+    const encargado = this.encargado.current.value
     const { selectedGroups } = this.state
     const { createEvent, location } = this.props
     const { schedule } = location.state
 
-    const gruposIds = selectedGroups.map(grupo => grupo.id)
+    const grupos = selectedGroups.map(grupo => grupo.id)
 
-    const { _id: programacionId, nombre: programacionNombre } = schedule
+    const { _id: programacion, nombre: programacionNombre } = schedule
 
     const data = {
       nombre,
       fecha,
       aforo,
-      gruposIds,
-      encargadoId,
-      programacionId,
+      grupos,
+      encargado,
+      programacion,
       programacionNombre,
     }
 
