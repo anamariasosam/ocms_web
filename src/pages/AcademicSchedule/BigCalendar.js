@@ -38,7 +38,7 @@ class BigCalendar extends Component {
       const bigCalendarEvents = events.map(event => ({
         start: moment(event.fecha).format('YYYY-MM-DD[T]hh:mm'),
         end: moment(event.fecha).add(2, 'hours'),
-        title: event.asignatura,
+        title: event.grupos.map(grupo => grupo.asignatura.nombre).join(', '),
       }))
 
       const { fecha } = location.state.event
