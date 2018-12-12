@@ -28,12 +28,13 @@ class EventCreateForm extends Component {
 
     this.addGroup = this.addGroup.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleGroups = this.handleGroups.bind(this)
   }
 
   componentDidMount() {
     const { fetchAsignaturas, fetchGrupos, fetchAttendats } = this.props
     fetchAsignaturas()
-    fetchGrupos()
+    fetchGrupos({ asignaturaId: '5c0fd9d24c54863124653571' })
     fetchAttendats()
   }
 
@@ -43,11 +44,12 @@ class EventCreateForm extends Component {
     const nombre = this.nombre.current.value
     const fecha = this.fecha.current.value
     const aforo = this.aforo.current.value
-    const asignatura = this.asignatura.current.value
-    const encargado = this.encargado.current.value
-    const { selectedGroups: grupos } = this.state
+    const encargadoId = this.encargado.current.value
+    const { selectedGroups } = this.state
     const { createEvent, location } = this.props
     const { schedule } = location.state
+
+    const gruposIds = selectedGroups.map(grupo => grupo.id)
 
     const { _id: programacionId, nombre: programacionNombre } = schedule
 
@@ -55,9 +57,8 @@ class EventCreateForm extends Component {
       nombre,
       fecha,
       aforo,
-      asignatura,
-      grupos,
-      encargado,
+      gruposIds,
+      encargadoId,
       programacionId,
       programacionNombre,
     }
@@ -66,13 +67,13 @@ class EventCreateForm extends Component {
   }
 
   addGroup(e) {
-    const { name } = e.target
+    const { name, value } = e.target
     let { selectedGroups } = this.state
 
     if (e.target.checked) {
-      selectedGroups = selectedGroups.concat(name)
+      selectedGroups = selectedGroups.concat({ name, id: value })
     } else {
-      selectedGroups = selectedGroups.filter(i => i !== name)
+      selectedGroups = selectedGroups.filter(i => i.name !== name)
     }
 
     this.setState({
@@ -82,7 +83,16 @@ class EventCreateForm extends Component {
 
   grupoExist(grupo) {
     const { selectedGroups } = this.state
-    return selectedGroups.includes(grupo)
+
+    return selectedGroups.some(e => e.name === grupo.name)
+  }
+
+  handleGroups() {
+    const asignaturaId = this.asignatura.current.value
+
+    const { fetchGrupos } = this.props
+
+    fetchGrupos({ asignaturaId })
   }
 
   render() {
@@ -103,21 +113,14 @@ class EventCreateForm extends Component {
             </label>
             <input type="text" id="nombre" className="input" ref={this.nombre} required />
 
-            <label htmlFor="asignatura" className="required label">
-              Asignatura:
-            </label>
-            <select id="asignatura" ref={this.asignatura} className="input select--input">
-              {asignaturas.map(asignatura => (
-                <option key={asignatura.nombre}>{asignatura.nombre}</option>
-              ))}
-            </select>
-
             <label htmlFor="encargado" className="required label">
               Encargado:
             </label>
             <select id="encargado" className="input select--input" ref={this.encargado}>
               {profesores.map(encargado => (
-                <option key={encargado._id}>{encargado.nombreCompleto}</option>
+                <option key={encargado._id} value={encargado._id}>
+                  {encargado.nombre}
+                </option>
               ))}
             </select>
 
@@ -131,6 +134,22 @@ class EventCreateForm extends Component {
             </label>
             <input type="datetime-local" id="fecha" className="input" ref={this.fecha} required />
 
+            <label htmlFor="asignatura" className="required label">
+              Asignatura:
+            </label>
+            <select
+              id="asignatura"
+              ref={this.asignatura}
+              className="input select--input"
+              onChange={this.handleGroups}
+            >
+              {asignaturas.map(asignatura => (
+                <option key={asignatura.nombre} value={asignatura._id}>
+                  {asignatura.nombre}
+                </option>
+              ))}
+            </select>
+
             <label htmlFor="grupos" className="required label">
               Grupos:
             </label>
@@ -140,7 +159,11 @@ class EventCreateForm extends Component {
                   type="checkbox"
                   name={grupo.nombre}
                   onChange={this.addGroup}
-                  checked={this.grupoExist(grupo.nombre)}
+                  checked={this.grupoExist({
+                    name: grupo.nombre,
+                    id: grupo._id,
+                  })}
+                  value={grupo._id}
                 />
                 {grupo.nombre}
               </label>

@@ -19,8 +19,8 @@ const setAuthenticationLink = authenticated => {
 }
 
 const welcomeText = authenticated => {
-  const { nombre, apellido } = cookie.load('user') || ''
-  const userName = authenticated ? `${nombre} ${apellido}` : 'Bienvenido'
+  const { nombre } = cookie.load('user') || ''
+  const userName = authenticated ? nombre : 'Bienvenido'
 
   return userName
 }

@@ -71,7 +71,6 @@ class Event extends Component {
           <table className="table">
             <thead className="thead">
               <tr>
-                <th>NOMBRE</th>
                 <th>ASIGNATURA</th>
                 <th>ENCARGADO</th>
                 <th>FECHA</th>
@@ -102,8 +101,13 @@ class Event extends Component {
     if (events.length > 0) {
       return events.map(event => (
         <tr key={event._id}>
-          <td>{event.nombre}</td>
-          <td>{event.grupos.map(grupo => grupo.asignatura.nombre).join(', ')}</td>
+          <td>
+            <ul>
+              {event.grupos.map(grupo => (
+                <li key={grupo.asignatura.nombre}>{grupo.asignatura.nombre}</li>
+              ))}
+            </ul>
+          </td>
           <td>{event.encargado.nombre}</td>
           <td>
             {moment(event.fecha)

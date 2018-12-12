@@ -65,7 +65,7 @@ export const getData = (action, errorType, isAuthReq, url, dispatch, params = {}
   let headers = {}
 
   if (isAuthReq) {
-    headers = { headers: { Authorization: cookie.load('token') } }
+    headers = { Authorization: cookie.load('token') }
   }
 
   axios
@@ -118,7 +118,7 @@ export const deleteData = (action, errorType, isAuthReq, url, dispatch, params) 
   let headers = {}
 
   if (isAuthReq) {
-    headers = { headers: { Authorization: cookie.load('token') } }
+    headers = { Authorization: cookie.load('token') }
   }
 
   axios

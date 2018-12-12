@@ -19,11 +19,11 @@ export const adminMenu = [
     name: 'Calendarios',
   },
   {
-    path: `/calendarioAcademico/programacion/show/${currentYear}-1`,
+    path: `/calendarioAcademico/programacion/show/${currentYear}-2`,
     name: 'Programaciones',
   },
   {
-    path: `/calendarioAcademico/evento/show/${currentYear}-1-1`,
+    path: `/calendarioAcademico/evento/show/${currentYear}-2-1`,
     name: 'Eventos',
   },
 ]

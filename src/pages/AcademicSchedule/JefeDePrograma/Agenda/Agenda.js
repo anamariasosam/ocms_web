@@ -69,7 +69,7 @@ class Agenda extends Component {
                   <th>ACCIONES</th>
                 </tr>
               </thead>
-              <tbody>{this.renderEvents()}</tbody>
+              <tbody>{this.renderSchedule()}</tbody>
             </table>
           ) : (
             <div>
@@ -92,7 +92,7 @@ class Agenda extends Component {
     )
   }
 
-  renderEvents() {
+  renderSchedule() {
     const { schedules, calendars } = this.props
     return schedules.map(schedule => (
       <tr key={schedule._id}>

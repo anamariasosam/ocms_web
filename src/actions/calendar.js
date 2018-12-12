@@ -22,7 +22,7 @@ export const deleteCalendar = data => {
 
 export const fetchCalendars = data => {
   return dispatch =>
-    getData(FETCH_CALENDARS, CALENDAR_ERROR, false, CALENDAR_ENDPOINT, dispatch, data)
+    getData(FETCH_CALENDARS, CALENDAR_ERROR, true, CALENDAR_ENDPOINT, dispatch, data)
 }
 
 export const updateCalendar = data => {

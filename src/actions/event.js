@@ -40,9 +40,9 @@ export const fetchAsignaturas = () => {
   return dispatch => getData(FETCH_SUBJECTS, SUBJECTS_ERROR, false, url, dispatch)
 }
 
-export const fetchGrupos = () => {
-  const url = '/grupos'
-  return dispatch => getData(FETCH_GROUPS, GROUPS_ERROR, false, url, dispatch)
+export const fetchGrupos = params => {
+  const url = '/asignaturas/grupos'
+  return dispatch => getData(FETCH_GROUPS, GROUPS_ERROR, false, url, dispatch, params)
 }
 
 export const fetchAttendats = () => {
