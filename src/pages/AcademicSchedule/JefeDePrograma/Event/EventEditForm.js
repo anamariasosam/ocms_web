@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { MultiSelect } from 'react-selectize'
 import moment from 'moment'
 import Success from '../../../../components/Success'
 import Error from '../../../../components/Error'
@@ -17,16 +18,11 @@ class EventEditForm extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      selectedGroups: [],
-    }
-
-    this.asignatura = React.createRef()
     this.encargado = React.createRef()
     this.fecha = React.createRef()
     this.aforo = React.createRef()
+    this.grupos = React.createRef()
 
-    this.addGroup = this.addGroup.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -49,11 +45,12 @@ class EventEditForm extends Component {
     e.preventDefault()
 
     const { match, location, updateEvent } = this.props
-    const { selectedGroups: grupos } = this.state
     const fecha = this.fecha.current.value
     const aforo = this.aforo.current.value
-    const asignatura = this.asignatura.current.value
     const encargado = this.encargado.current.value
+    const selectedGroups = this.grupos.current.state.values
+
+    const grupos = selectedGroups.map(grupo => grupo.value)
 
     const { nombre } = match.params
 
@@ -67,7 +64,6 @@ class EventEditForm extends Component {
       data: {
         fecha,
         aforo,
-        asignatura,
         grupos,
         encargado,
         programacionNombre,
@@ -102,7 +98,7 @@ class EventEditForm extends Component {
   }
 
   render() {
-    const { asignaturas, grupos, profesores, location } = this.props
+    const { profesores, location } = this.props
     const titles = ['tipo', 'fecha Inicio', 'fecha Fin']
     const { schedule } = location.state
 
@@ -116,21 +112,14 @@ class EventEditForm extends Component {
         <div className="form--container">
           <h3 className="form--title">Crear Evento</h3>
           <form onSubmit={this.handleSubmit}>
-            <label htmlFor="asignatura" className="required label">
-              Asignatura:
-            </label>
-            <select id="asignatura" ref={this.asignatura} className="input select--input">
-              {asignaturas.map(asignatura => (
-                <option key={asignatura.nombre}>{asignatura.nombre}</option>
-              ))}
-            </select>
-
             <label htmlFor="encargado" className="required label">
               Encargado:
             </label>
             <select id="encargado" className="input select--input" ref={this.encargado}>
               {profesores.map(encargado => (
-                <option key={encargado._id}>{encargado.nombre}</option>
+                <option key={encargado._id} value={encargado._id}>
+                  {encargado.nombre}
+                </option>
               ))}
             </select>
 
@@ -147,17 +136,7 @@ class EventEditForm extends Component {
             <label htmlFor="grupos" className="required label">
               Grupos:
             </label>
-            {grupos.map(grupo => (
-              <label key={grupo.nombre} className="checkbox">
-                <input
-                  type="checkbox"
-                  name={grupo.nombre}
-                  onChange={this.addGroup}
-                  checked={this.groupExist(grupo.nombre)}
-                />
-                {grupo.nombre}
-              </label>
-            ))}
+            {this.renderMultiSelect()}
 
             <div className="form--controls">
               <input type="submit" value="Guardar" className="reset--button button" />
@@ -168,6 +147,40 @@ class EventEditForm extends Component {
         </div>
       </Fragment>
     )
+  }
+
+  renderMultiSelect() {
+    const { asignaturas, grupos, events } = this.props
+
+    const asignaturasList = asignaturas.map(asignatura => ({
+      groupId: asignatura._id,
+      title: asignatura.nombre,
+    }))
+
+    const gruposList = grupos.map(grupo => ({
+      groupId: grupo.asignatura._id,
+      label: `${grupo.asignatura.nombre}: ${grupo.nombre}`,
+      value: grupo._id,
+    }))
+
+    if (Object.keys(events).length > 0 && events.grupos) {
+      const defaultValues = events.grupos.map(grupo => ({
+        groupId: grupo.asignatura._id,
+        label: `${grupo.asignatura.nombre}: ${grupo.nombre}`,
+        value: grupo._id,
+      }))
+
+      return (
+        <MultiSelect
+          groups={asignaturasList}
+          options={gruposList}
+          placeholder="Elige los grupos"
+          ref={this.grupos}
+          defaultValues={defaultValues}
+          anchor
+        />
+      )
+    }
   }
 
   renderAlert() {
@@ -183,7 +196,7 @@ class EventEditForm extends Component {
 
   renderEventValues() {
     const { events } = this.props
-    const { fecha, aforo, asignatura, encargado } = events
+    const { fecha, aforo, encargado } = events
 
     if (fecha) {
       this.fecha.current.value = moment(fecha).format('YYYY-MM-DD[T]hh:mm')
@@ -193,12 +206,8 @@ class EventEditForm extends Component {
       this.aforo.current.value = aforo
     }
 
-    if (asignatura) {
-      this.asignatura.current.value = asignatura
-    }
-
     if (encargado) {
-      this.encargado.current.value = encargado.nombre
+      this.encargado.current.value = encargado._id
     }
   }
 }

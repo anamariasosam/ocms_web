@@ -104,7 +104,9 @@ class Event extends Component {
           <td>
             <ul>
               {event.grupos.map(grupo => (
-                <li key={grupo.asignatura.nombre}>{grupo.asignatura.nombre}</li>
+                <li key={grupo.asignatura.nombre}>
+                  {`${grupo.asignatura.nombre} (Grupo: ${grupo.nombre})`}
+                </li>
               ))}
             </ul>
           </td>

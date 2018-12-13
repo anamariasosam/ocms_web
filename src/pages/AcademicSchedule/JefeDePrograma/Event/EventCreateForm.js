@@ -18,11 +18,6 @@ class EventCreateForm extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      schedule: {},
-      selectedGroups: [],
-    }
-
     this.nombre = React.createRef()
     this.asignatura = React.createRef()
     this.encargado = React.createRef()
@@ -30,7 +25,6 @@ class EventCreateForm extends Component {
     this.aforo = React.createRef()
     this.grupos = React.createRef()
 
-    this.addGroup = this.addGroup.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -68,27 +62,6 @@ class EventCreateForm extends Component {
     }
 
     createEvent(data)
-  }
-
-  addGroup(e) {
-    const { name, value } = e.target
-    let { selectedGroups } = this.state
-
-    if (e.target.checked) {
-      selectedGroups = selectedGroups.concat({ name, id: value })
-    } else {
-      selectedGroups = selectedGroups.filter(i => i.name !== name)
-    }
-
-    this.setState({
-      selectedGroups,
-    })
-  }
-
-  grupoExist(grupo) {
-    const { selectedGroups } = this.state
-
-    return selectedGroups.some(e => e.name === grupo.name)
   }
 
   render() {
