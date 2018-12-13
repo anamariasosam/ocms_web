@@ -73,30 +73,6 @@ class EventEditForm extends Component {
     updateEvent(data)
   }
 
-  addGroup(e) {
-    const { name } = e.target
-    let { selectedGroups } = this.state
-
-    if (e.target.checked) {
-      selectedGroups = selectedGroups.concat(name)
-    } else {
-      selectedGroups = selectedGroups.filter(i => i !== name)
-    }
-
-    this.setState({
-      selectedGroups,
-    })
-  }
-
-  groupExist(group) {
-    const { events } = this.props
-    const { grupos } = events
-    if (grupos) {
-      return grupos.includes(group)
-    }
-    return false
-  }
-
   render() {
     const { profesores, location } = this.props
     const titles = ['tipo', 'fecha Inicio', 'fecha Fin']
