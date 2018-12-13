@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { MultiSelect } from 'react-selectize'
 import AditionalInfo from '../../../../components/AditionalInfo'
 import Success from '../../../../components/Success'
 import Error from '../../../../components/Error'
@@ -10,6 +11,8 @@ import {
   createEvent,
   fetchAttendats,
 } from '../../../../actions/event'
+
+import 'react-selectize/themes/index.css'
 
 class EventCreateForm extends Component {
   constructor(props) {
@@ -25,16 +28,16 @@ class EventCreateForm extends Component {
     this.encargado = React.createRef()
     this.fecha = React.createRef()
     this.aforo = React.createRef()
+    this.grupos = React.createRef()
 
     this.addGroup = this.addGroup.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleGroups = this.handleGroups.bind(this)
   }
 
   componentDidMount() {
     const { fetchAsignaturas, fetchGrupos, fetchAttendats } = this.props
     fetchAsignaturas()
-    fetchGrupos({ asignaturaId: '5c0fd9d24c54863124653571' })
+    fetchGrupos()
     fetchAttendats()
   }
 
@@ -45,11 +48,12 @@ class EventCreateForm extends Component {
     const fecha = this.fecha.current.value
     const aforo = this.aforo.current.value
     const encargado = this.encargado.current.value
-    const { selectedGroups } = this.state
     const { createEvent, location } = this.props
     const { schedule } = location.state
 
-    const grupos = selectedGroups.map(grupo => grupo.id)
+    const selectedGroups = this.grupos.current.state.values
+
+    const grupos = selectedGroups.map(grupo => grupo.value)
 
     const { _id: programacion, nombre: programacionNombre } = schedule
 
@@ -87,17 +91,9 @@ class EventCreateForm extends Component {
     return selectedGroups.some(e => e.name === grupo.name)
   }
 
-  handleGroups() {
-    const asignaturaId = this.asignatura.current.value
-
-    const { fetchGrupos } = this.props
-
-    fetchGrupos({ asignaturaId })
-  }
-
   render() {
     const titles = ['tipo', 'fecha Inicio', 'fecha Fin']
-    const { asignaturas, grupos, profesores, location } = this.props
+    const { profesores, location } = this.props
     const { schedule } = location.state
     return (
       <Fragment>
@@ -134,40 +130,10 @@ class EventCreateForm extends Component {
             </label>
             <input type="datetime-local" id="fecha" className="input" ref={this.fecha} required />
 
-            <label htmlFor="asignatura" className="required label">
-              Asignatura:
-            </label>
-            <select
-              id="asignatura"
-              ref={this.asignatura}
-              className="input select--input"
-              onChange={this.handleGroups}
-            >
-              {asignaturas.map(asignatura => (
-                <option key={asignatura.nombre} value={asignatura._id}>
-                  {asignatura.nombre}
-                </option>
-              ))}
-            </select>
-
             <label htmlFor="grupos" className="required label">
               Grupos:
             </label>
-            {grupos.map(grupo => (
-              <label key={grupo.nombre} className="checkbox">
-                <input
-                  type="checkbox"
-                  name={grupo.nombre}
-                  onChange={this.addGroup}
-                  checked={this.grupoExist({
-                    name: grupo.nombre,
-                    id: grupo._id,
-                  })}
-                  value={grupo._id}
-                />
-                {grupo.nombre}
-              </label>
-            ))}
+            {this.renderMultiSelect()}
 
             <div className="form--controls">
               <input type="submit" value="Guardar" className="reset--button button" />
@@ -177,6 +143,30 @@ class EventCreateForm extends Component {
           {this.renderAlert()}
         </div>
       </Fragment>
+    )
+  }
+
+  renderMultiSelect() {
+    const { asignaturas, grupos } = this.props
+
+    const asignaturasList = asignaturas.map(asignatura => ({
+      groupId: asignatura._id,
+      title: asignatura.nombre,
+    }))
+
+    const gruposList = grupos.map(grupo => ({
+      groupId: grupo.asignatura._id,
+      label: `${grupo.asignatura.nombre}: ${grupo.nombre}`,
+      value: grupo._id,
+    }))
+
+    return (
+      <MultiSelect
+        groups={asignaturasList}
+        options={gruposList}
+        placeholder="Elige los grupos"
+        ref={this.grupos}
+      />
     )
   }
 

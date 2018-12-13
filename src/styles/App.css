@@ -255,9 +255,9 @@ body {
 
 .select--input {
   height: 30px;
-  min-width: 107%;
+  min-width: 105%;
   border: 0;
-  outline: 1px solid #ccc;
+  outline: 1.5px solid #ccc;
   outline-offset: -1px;
 
   -webkit-border-radius: 0;
@@ -422,4 +422,18 @@ body {
 .page--container p,
 .page--container li {
   font-size: 16px;
+}
+
+.react-selectize-control {
+  border-radius: 0 !important;
+}
+
+.multi-select {
+  width: 105% !important;
+}
+
+.simple-value {
+  color: #2b6f7f !important;
+  background: #f2f9fc;
+  border: 1px solid #2b6f7f !important;
 }

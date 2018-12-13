@@ -41,7 +41,7 @@ export const fetchAsignaturas = () => {
 }
 
 export const fetchGrupos = params => {
-  const url = '/asignaturas/grupos'
+  const url = '/grupos'
   return dispatch => getData(FETCH_GROUPS, GROUPS_ERROR, false, url, dispatch, params)
 }
 

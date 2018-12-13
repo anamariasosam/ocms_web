@@ -130,7 +130,7 @@ class EventEditForm extends Component {
             </label>
             <select id="encargado" className="input select--input" ref={this.encargado}>
               {profesores.map(encargado => (
-                <option key={encargado._id}>{encargado.nombreCompleto}</option>
+                <option key={encargado._id}>{encargado.nombre}</option>
               ))}
             </select>
 
@@ -198,7 +198,7 @@ class EventEditForm extends Component {
     }
 
     if (encargado) {
-      this.encargado.current.value = encargado
+      this.encargado.current.value = encargado.nombre
     }
   }
 }
