@@ -1,7 +1,7 @@
 import Calendar from '../JefeDePrograma/Calendar/Calendar'
 import Agenda from '../JefeDePrograma/Agenda/Agenda'
 import Event from '../JefeDePrograma/Event/Event'
-import BigCalendar from '../BigCalendar'
+import JefeDeProgramaCalendar from '../JefeDePrograma/Calendar'
 
 import CalendarCreateForm from '../JefeDePrograma/Calendar/CalendarCreateForm'
 import AgendaCreateForm from '../JefeDePrograma/Agenda/AgendaCreateForm'
@@ -13,7 +13,7 @@ import EventEditForm from '../JefeDePrograma/Event/EventEditForm'
 
 const currentYear = new Date().getFullYear()
 
-export const adminMenu = [
+export const jefeDeProgramaMenu = [
   {
     path: '/calendarioAcademico/calendario',
     name: 'Calendarios',
@@ -28,7 +28,7 @@ export const adminMenu = [
   },
 ]
 
-export const adminRoutes = [
+export const jefeDeProgramaRoutes = [
   {
     path: '/calendarioAcademico/calendario',
     component: Calendar,
@@ -67,6 +67,6 @@ export const adminRoutes = [
   },
   {
     path: '/calendarioAcademico/ver/:programacionNombre/:eventoNombre',
-    component: BigCalendar,
+    component: JefeDeProgramaCalendar,
   },
 ]

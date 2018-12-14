@@ -1,5 +1,5 @@
 import cookie from 'react-cookies'
-import { adminMenu } from '../pages/AcademicSchedule/routes/admin'
+import { jefeDeProgramaMenu } from '../pages/AcademicSchedule/routes/jefeDePrograma'
 import { estudianteMenu } from '../pages/AcademicSchedule/routes/estudiante'
 
 const setPath = () => {
@@ -7,7 +7,7 @@ const setPath = () => {
 
   switch (rol) {
     case 'Jefe de Programa':
-      return adminMenu[0].path
+      return jefeDeProgramaMenu[0].path
     case 'Estudiante':
       return estudianteMenu[0].path
     default:

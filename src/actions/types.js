@@ -29,3 +29,6 @@ export const CREATE_EVENT = 'create_event',
 
 export const FETCH_GROUPS = 'fetch_groups',
   GROUPS_ERROR = 'groups_error'
+
+export const FETCH_STUDENT_EVENTS = 'fetch_student_events',
+  STUDENT_ERROR = 'student_error'

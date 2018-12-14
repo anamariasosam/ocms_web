@@ -437,3 +437,34 @@ body {
   background: #f2f9fc;
   border: 1px solid #2b6f7f !important;
 }
+
+.center {
+  text-align: center;
+}
+
+.event-block {
+  color: #fff;
+}
+
+.event--ceremonia-de-grados {
+  background-color: #f6511d;
+}
+.event--supletorios-parciales {
+  background-color: #ffb400;
+}
+.event--examenes-finales {
+  background-color: #00a6ed;
+}
+.event--programacion-académica {
+  background-color: #7fb800;
+}
+.event--examenes-parciales {
+  background-color: #0d2c54;
+}
+.event--supletorios-finales {
+  background-color: #339989;
+}
+
+.rbc-row-segment .rbc-event-content {
+  white-space: normal;
+}
