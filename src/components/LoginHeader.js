@@ -20,9 +20,15 @@ const setAuthenticationLink = authenticated => {
 
 const welcomeText = authenticated => {
   const { nombre } = cookie.load('user') || ''
-  const userName = authenticated ? nombre : 'Bienvenido'
-
-  return userName
+  if (authenticated) {
+    return (
+      <Link to="/perfil" className="profile--link">
+        {nombre}
+      </Link>
+    )
+  } else {
+    return 'Bienvenido'
+  }
 }
 
 const LoginHeader = ({ authenticated }) => {

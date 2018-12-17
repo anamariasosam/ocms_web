@@ -59,15 +59,25 @@ class BigCalendar extends Component {
     return (
       <Fragment>
         <div className="module--container">
-          <SemestreInput
-            handleSelectOption={this.handleSemestre}
-            defaultValue="2018-2"
-            type="semestre"
-          />
+          {this.renderSelectInput()}
           {this.renderCalendar()}
         </div>
       </Fragment>
     )
+  }
+
+  renderSelectInput() {
+    const { rol } = cookie.load('user') || ''
+
+    if (rol === 'Jefe de Programa') {
+      return (
+        <SemestreInput
+          handleSelectOption={this.handleSemestre}
+          defaultValue="2018-2"
+          type="semestre"
+        />
+      )
+    }
   }
 
   renderCalendar() {

@@ -499,6 +499,9 @@ body {
   color: black;
 }
 
+.profile--link {
+  color: #fff;
+}
 .semestre--input {
   width: auto;
   min-width: auto;

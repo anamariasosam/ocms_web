@@ -15,13 +15,13 @@ const Options = ({ handleDelete, urls, state }) => {
 
   return (
     <Fragment>
-      <Link className="reset--link" to={showUrl}>
+      <Link className="reset--link" to={showUrl} title="Ver">
         <img src={require('../images/show.png')} alt="show" className="action--image" />
       </Link>
-      <Link className="reset--link" to={editUrl}>
+      <Link className="reset--link" to={editUrl} title="Editar">
         <img src={require('../images/edit.png')} alt="edit" className="action--image" />
       </Link>
-      <button className="reset--button" onClick={handleDelete} type="button">
+      <button className="reset--button" onClick={handleDelete} type="button" title="Eliminar">
         <img src={require('../images/delete.png')} alt="remove" className="action--image" />
       </button>
     </Fragment>

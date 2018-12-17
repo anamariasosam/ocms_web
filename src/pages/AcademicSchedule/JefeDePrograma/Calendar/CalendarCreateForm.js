@@ -43,14 +43,11 @@ class CalendarCreateForm extends Component {
             <label htmlFor="semestre" className="required label">
               Semestre:
             </label>
-            <input
-              type="text"
-              id="semestre"
-              className="input"
-              ref={this.semestre}
-              required
-              placeholder="Ejemplo: 2019-1"
-            />
+            <select className="input select--input" ref={this.semestre} id="semestre">
+              <option value="2018-2">2018-2</option>
+              <option value="2019-1">2019-1</option>
+              <option value="2019-2">2019-2</option>
+            </select>
 
             <label htmlFor="fechaInicio" className="required label">
               Fecha Inicio:

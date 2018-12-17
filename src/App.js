@@ -9,9 +9,10 @@ import Logout from './pages/Logout'
 import Team from './pages/Team'
 import About from './pages/About'
 import Contact from './pages/Contact'
-import RecoverPassword from './pages/RecoverPassword'
+import EditProfile from './pages/EditProfile'
 import Module from './pages/modules/Module'
 import AcademicSchedule from './pages/AcademicSchedule/AcademicSchedule'
+import RequireAuth from './components/auth/RequireAuth'
 import './styles/App.css'
 import 'moment/locale/es'
 
@@ -26,7 +27,7 @@ const App = () => (
         <Route path="/equipo" component={Team} />
         <Route path="/about" component={About} />
         <Route path="/contactenos" component={Contact} />
-        <Route path="/recuperarClave" component={RecoverPassword} />
+        <Route path="/perfil" component={RequireAuth(EditProfile)} />
 
         <Route path="/calendarioAcademico" component={AcademicSchedule} />
         <Route path="/gestionCurricular" component={Module} />

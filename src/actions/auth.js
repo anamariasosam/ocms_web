@@ -1,6 +1,6 @@
 import axios from 'axios'
 import cookie from 'react-cookies'
-import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, PROTECTED_TEST } from './types'
+import { AUTH_USER, AUTH_ERROR, UNAUTH_USER } from './types'
 import PACKAGE from '../../package.json'
 import setPath from '../utils/role'
 
@@ -52,29 +52,30 @@ export const loginUser = data => {
   }
 }
 
+export const editUser = data => {
+  return dispatch => {
+    axios
+      .put(`${API_URL}/auth/editarPerfil`, data, {
+        headers: { Authorization: cookie.load('token') },
+      })
+      .then(response => {
+        cookie.save('token', response.data.token, { path: '/' })
+        cookie.save('user', response.data.usuario, { path: '/' })
+        dispatch({ type: AUTH_USER })
+
+        window.location.href = CLIENT_ROOT_URL + setPath()
+      })
+      .catch(error => {
+        errorHandler(dispatch, error.response, AUTH_ERROR)
+      })
+  }
+}
+
 export const logoutUser = error => {
   return dispatch => {
     dispatch({ type: UNAUTH_USER, payload: error || '' })
     cookie.remove('token', { path: '/' })
     cookie.remove('user', { path: '/' })
     window.location.href = CLIENT_ROOT_URL
-  }
-}
-
-export const protectedTest = () => {
-  return dispatch => {
-    axios
-      .get(`${API_URL}/protected`, {
-        headers: { Authorization: cookie.load('token') },
-      })
-      .then(response => {
-        dispatch({
-          type: PROTECTED_TEST,
-          payload: response.data.content,
-        })
-      })
-      .catch(error => {
-        errorHandler(dispatch, error.response, AUTH_ERROR)
-      })
   }
 }

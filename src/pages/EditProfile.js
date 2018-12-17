@@ -1,16 +1,16 @@
 import React from 'react'
-import PasswordForm from '../components/PasswordForm'
+import ProfileForm from '../components/ProfileForm'
 import MainLayout from '../layouts/MainLayout'
 
-const RecoverPassword = () => (
+const EditProfile = () => (
   <MainLayout>
     <div className="password--container">
       <div className="password--image">
-        <img src={require('../images/password.png')} alt="user card" />
+        <img src={require('../images/userCard.png')} alt="user card" />
       </div>
-      <PasswordForm />
+      <ProfileForm />
     </div>
   </MainLayout>
 )
 
-export default RecoverPassword
+export default EditProfile

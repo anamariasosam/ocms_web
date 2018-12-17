@@ -18,7 +18,6 @@ class EventCreateForm extends Component {
   constructor(props) {
     super(props)
 
-    this.nombre = React.createRef()
     this.asignatura = React.createRef()
     this.encargado = React.createRef()
     this.fecha = React.createRef()
@@ -38,7 +37,6 @@ class EventCreateForm extends Component {
   handleSubmit(e) {
     e.preventDefault()
 
-    const nombre = this.nombre.current.value
     const fecha = this.fecha.current.value
     const aforo = this.aforo.current.value
     const encargado = this.encargado.current.value
@@ -52,7 +50,6 @@ class EventCreateForm extends Component {
     const { _id: programacion, nombre: programacionNombre } = schedule
 
     const data = {
-      nombre,
       fecha,
       aforo,
       grupos,
@@ -77,11 +74,6 @@ class EventCreateForm extends Component {
         <div className="form--container">
           <h3 className="form--title">Crear Evento</h3>
           <form onSubmit={this.handleSubmit}>
-            <label htmlFor="nombre" className="required label">
-              Nombre:
-            </label>
-            <input type="text" id="nombre" className="input" ref={this.nombre} required />
-
             <label htmlFor="encargado" className="required label">
               Encargado:
             </label>
