@@ -2,6 +2,7 @@ import cookie from 'react-cookies'
 
 import { jefeDeProgramaMenu, jefeDeProgramaRoutes } from './jefeDePrograma'
 import { estudianteMenu, estudianteRoutes } from './estudiante'
+import { profesorMenu, profesorRoutes } from './profesor'
 
 const { rol } = cookie.load('user') || ''
 
@@ -16,6 +17,10 @@ switch (rol) {
   case 'Estudiante':
     menu = estudianteMenu
     routes = estudianteRoutes
+    break
+  case 'Profesor':
+    menu = profesorMenu
+    routes = profesorRoutes
     break
   default:
     menu = []

@@ -12,23 +12,25 @@ class Agenda extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      titles: ['semestre', 'fecha Inicio', 'fecha Fin'],
-      urls: ['/calendarioAcademico/evento/show/', '/calendarioAcademico/programacion/edit/'],
-    }
-
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleSemestre = this.handleSemestre.bind(this)
   }
 
   componentDidMount() {
-    const { match, fetchCalendars, fetchAgenda } = this.props
+    const { match } = this.props
     const { semestre } = match.params
+    this.handleAgenda(semestre)
+  }
+
+  handleAgenda(semestre) {
+    const { fetchCalendars, fetchAgenda } = this.props
     fetchCalendars({ semestre })
     fetchAgenda({ semestre })
   }
 
   handleUrls(id) {
-    return this.state.urls.map(url => url.concat(id))
+    const urls = ['/calendarioAcademico/evento/show/', '/calendarioAcademico/programacion/edit/']
+    return urls.map(url => url.concat(id))
   }
 
   handleDelete(id) {
@@ -47,14 +49,18 @@ class Agenda extends Component {
     }
   }
 
+  handleSemestre(semestre) {
+    this.handleAgenda(semestre)
+  }
+
   render() {
-    const { titles } = this.state
+    const titles = ['semestre', 'fecha Inicio', 'fecha Fin']
     const { schedules, calendars } = this.props
     return (
       <Fragment>
         <h2>Realizar programación</h2>
 
-        <AditionalInfo data={calendars} titles={titles} />
+        <AditionalInfo data={calendars} titles={titles} handleSelect={this.handleSemestre} />
 
         <div className="module--container">
           <h3>Programaciones</h3>

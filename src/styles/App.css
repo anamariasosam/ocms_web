@@ -384,7 +384,8 @@ body {
 
 /* Box */
 .box {
-  padding: 0.3rem;
+  display: inline-block;
+  padding: 0.4rem;
   padding-right: 1rem;
   color: #8c8c8c;
   text-align: left;
@@ -467,4 +468,38 @@ body {
 
 .rbc-row-segment .rbc-event-content {
   white-space: normal;
+}
+
+.calendarLabels--container {
+  margin: 20px 0;
+}
+
+.calendarLabels--list {
+  padding: 0;
+  margin: 0;
+  text-align: right;
+}
+
+.calendarLabels--item {
+  display: inline-block;
+  margin-left: 22px;
+}
+
+.calendarLabels--item p {
+  display: inline-block;
+  margin-left: 8px;
+}
+.calendarLabels--bullet {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+}
+
+.module-title--link {
+  color: black;
+}
+
+.semestre--input {
+  width: auto;
+  min-width: auto;
 }

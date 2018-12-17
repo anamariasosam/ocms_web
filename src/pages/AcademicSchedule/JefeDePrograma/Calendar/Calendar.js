@@ -10,10 +10,6 @@ class Calendar extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      urls: ['/calendarioAcademico/programacion/show/', '/calendarioAcademico/calendario/edit/'],
-    }
-
     this.handleDelete = this.handleDelete.bind(this)
   }
 
@@ -23,7 +19,10 @@ class Calendar extends Component {
   }
 
   handleUrls(id) {
-    const { urls } = this.state
+    const urls = [
+      '/calendarioAcademico/programacion/show/',
+      '/calendarioAcademico/calendario/edit/',
+    ]
     return urls.map(url => url.concat(id))
   }
 

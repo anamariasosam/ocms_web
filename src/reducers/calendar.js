@@ -13,7 +13,7 @@ export default function(state = INITIAL_STATE, action) {
     case UPDATE_CALENDAR:
       return { ...state, successMessage: action.payload.successMessage }
     case CALENDAR_ERROR:
-      return { ...state, errorMessage: action.payload.errorMessage }
+      return { ...state, calendars: [], errorMessage: action.payload.errorMessage }
     case DELETE_CALENDAR:
     case FETCH_CALENDARS:
       return { ...state, calendars: action.payload }

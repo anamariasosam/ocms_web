@@ -69,4 +69,8 @@ export const jefeDeProgramaRoutes = [
     path: '/calendarioAcademico/ver/:programacionNombre/:eventoNombre',
     component: JefeDeProgramaCalendar,
   },
+  {
+    path: '/calendarioAcademico',
+    component: JefeDeProgramaCalendar,
+  },
 ]

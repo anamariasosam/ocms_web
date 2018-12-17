@@ -32,3 +32,6 @@ export const FETCH_GROUPS = 'fetch_groups',
 
 export const FETCH_STUDENT_EVENTS = 'fetch_student_events',
   STUDENT_ERROR = 'student_error'
+
+export const FETCH_TEACHER_EVENTS = 'fetch_teacher_events',
+  TEACHER_ERROR = 'teacher_error'

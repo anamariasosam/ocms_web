@@ -39,7 +39,7 @@ export default function(state = INITIAL_STATE, action) {
     case EVENT_ERROR:
     case GROUPS_ERROR:
     case SUBJECTS_ERROR:
-      return { ...state, errorMessage: action.payload.errorMessage }
+      return { ...state, events: [], errorMessage: action.payload.errorMessage }
     default:
       return state
   }

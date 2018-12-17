@@ -12,12 +12,8 @@ class Event extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      titles: ['tipo', 'fecha Inicio', 'fecha Fin'],
-      urls: ['/calendarioAcademico/ver/', '/calendarioAcademico/evento/edit/'],
-    }
-
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleTipoEvento = this.handleTipoEvento.bind(this)
   }
 
   componentDidMount() {
@@ -25,15 +21,24 @@ class Event extends Component {
   }
 
   getEvents() {
-    const { match, fetchAgenda, fetchEvent } = this.props
+    const { match } = this.props
     const { nombre } = match.params
 
+    this.handleEvent(nombre)
+  }
+
+  handleEvent(nombre) {
+    const { fetchAgenda, fetchEvent } = this.props
     fetchAgenda({ nombre })
     fetchEvent({ programacionNombre: nombre })
   }
 
+  handleTipoEvento(nombre) {
+    console.log(nombre)
+  }
+
   handleUrls(id) {
-    const { urls } = this.state
+    const urls = ['/calendarioAcademico/ver/', '/calendarioAcademico/evento/edit/']
     const { schedules } = this.props
     return urls.map((url, index) => {
       if (index === 0) {
@@ -59,12 +64,12 @@ class Event extends Component {
 
   render() {
     const { schedules } = this.props
-    const { titles } = this.state
+    const titles = ['tipo', 'fecha Inicio', 'fecha Fin']
     return (
       <Fragment>
         <h2>Programar Evento</h2>
 
-        <AditionalInfo data={schedules} titles={titles} />
+        <AditionalInfo data={schedules} titles={titles} handleSelect={this.handleTipoEvento} />
 
         <div className="module--container">
           <h3>Eventos</h3>
