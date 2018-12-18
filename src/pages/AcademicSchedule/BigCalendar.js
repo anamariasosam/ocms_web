@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Calendar from 'react-big-calendar'
 import moment from 'moment'
 import cookie from 'react-cookies'
+import swal from 'sweetalert'
 import { fetchStudentEvents } from '../../actions/student'
 import { fetchTeacherEvents } from '../../actions/teacher'
 import { fetchEvent } from '../../actions/event'
@@ -110,7 +111,12 @@ class BigCalendar extends Component {
             startAccessor="start"
             endAccessor="end"
             popup
-            onSelectEvent={e => alert(`${e.category}: ${e.title}`)}
+            onSelectEvent={e =>
+              swal({
+                title: e.category,
+                text: e.title,
+              })
+            }
             eventPropGetter={event => ({
               className: 'event-block event--' + event.category.replace(/\s+/g, '-').toLowerCase(),
             })}
