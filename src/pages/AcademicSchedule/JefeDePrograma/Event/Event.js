@@ -38,7 +38,7 @@ class Event extends Component {
   }
 
   handleUrls(id) {
-    const urls = ['/calendarioAcademico/reserva/', '/calendarioAcademico/evento/edit/']
+    const urls = ['/calendarioAcademico/reserva/show/', '/calendarioAcademico/evento/edit/']
     return urls.map(url => {
       return url.concat(id)
     })
@@ -124,7 +124,7 @@ class Event extends Component {
               handleDelete={() => this.handleDelete(event._id)}
               urls={this.handleUrls(event.nombre)}
               state={{ schedule: schedules, event }}
-              showTitle={'Realizar Reserva'}
+              showTitle={'Ver Reservas'}
             />
           </td>
         </tr>

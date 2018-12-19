@@ -5,6 +5,7 @@ import agenda from './agenda'
 import event from './event'
 import student from './student'
 import teacher from './teacher'
+import booking from './booking'
 
 const rootReducer = combineReducers({
   auth,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   event,
   student,
   teacher,
+  booking,
 })
 
 export default rootReducer

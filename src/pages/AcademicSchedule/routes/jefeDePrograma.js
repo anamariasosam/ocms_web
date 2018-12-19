@@ -1,6 +1,7 @@
 import Calendar from '../JefeDePrograma/Calendar/Calendar'
 import Agenda from '../JefeDePrograma/Agenda/Agenda'
 import Event from '../JefeDePrograma/Event/Event'
+import Reserva from '../JefeDePrograma/Reserva/Reserva'
 import JefeDeProgramaCalendar from '../JefeDePrograma/Calendar'
 
 import CalendarCreateForm from '../JefeDePrograma/Calendar/CalendarCreateForm'
@@ -11,6 +12,7 @@ import ReservaCreateForm from '../JefeDePrograma/Reserva/ReservaCreateForm'
 import CalendarEditForm from '../JefeDePrograma/Calendar/CalendarEditForm'
 import AgendaEditForm from '../JefeDePrograma/Agenda/AgendaEditForm'
 import EventEditForm from '../JefeDePrograma/Event/EventEditForm'
+import ReservaEditForm from '../JefeDePrograma/Reserva/ReservaEditForm'
 
 const currentYear = new Date().getFullYear()
 
@@ -26,6 +28,10 @@ export const jefeDeProgramaMenu = [
   {
     path: `/calendarioAcademico/evento/show/${currentYear}-2-1`,
     name: 'Eventos',
+  },
+  {
+    path: `/calendarioAcademico/reserva/show/Super%20Evento`,
+    name: 'Reservas',
   },
 ]
 
@@ -67,8 +73,16 @@ export const jefeDeProgramaRoutes = [
     component: EventEditForm,
   },
   {
-    path: '/calendarioAcademico/reserva/:nombre',
+    path: '/calendarioAcademico/reserva/show/:nombre',
+    component: Reserva,
+  },
+  {
+    path: '/calendarioAcademico/reserva/create/:nombre',
     component: ReservaCreateForm,
+  },
+  {
+    path: '/calendarioAcademico/reserva/edit/:nombre',
+    component: ReservaEditForm,
   },
   {
     path: '/calendarioAcademico',

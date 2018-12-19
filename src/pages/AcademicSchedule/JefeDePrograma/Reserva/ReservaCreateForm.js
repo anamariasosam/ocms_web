@@ -1,16 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { MultiSelect } from 'react-selectize'
 import AditionalInfo from '../../../../components/AditionalInfo'
 import Success from '../../../../components/Success'
 import Error from '../../../../components/Error'
-import {
-  fetchAsignaturas,
-  fetchGrupos,
-  createEvent,
-  fetchAttendats,
-} from '../../../../actions/event'
+import { createReserva, fetchPlaces } from '../../../../actions/booking'
 
 import 'react-selectize/themes/index.css'
 
@@ -29,10 +23,8 @@ class ReservaCreateForm extends Component {
   }
 
   componentDidMount() {
-    const { fetchAsignaturas, fetchGrupos, fetchAttendats } = this.props
-    fetchAsignaturas()
-    fetchGrupos()
-    fetchAttendats()
+    const { fetchPlaces } = this.props
+    fetchPlaces()
   }
 
   handleSubmit(e) {
@@ -45,9 +37,9 @@ class ReservaCreateForm extends Component {
     const estado = this.estado.current.value
     const observaciones = this.observaciones.current.value
 
-    const { createEvent, location } = this.props
+    const { createReserva, location } = this.props
     const { _id: evento } = location.state.event
-    const { _id: programacion, nombre: programacionNombre } = location.state.schedule
+    const { nombre: programacionNombre } = location.state.schedule
 
     const data = {
       fechaInicio,
@@ -57,26 +49,23 @@ class ReservaCreateForm extends Component {
       estado,
       observaciones,
       evento,
-      programacion,
       programacionNombre,
     }
 
-    console.log(data)
-
-    //createEvent(data)
+    createReserva(data)
   }
 
   render() {
-    const titles = ['tipo', 'fecha Inicio', 'fecha Fin']
-    const { profesores, location } = this.props
-    const { schedule } = location.state
+    const titles = ['nombre', 'fecha', 'aforo']
+    const { lugares, location } = this.props
+    const { event } = location.state
+
     const estados = ['Pendiente', 'Reservado']
-    const lugares = ['Teatro', 'Reservado']
     return (
       <Fragment>
         <h2>Reserva</h2>
 
-        <AditionalInfo data={schedule} titles={titles} />
+        <AditionalInfo data={event} titles={titles} />
 
         <div className="form--container">
           <h3 className="form--title">Gestionar Reserva</h3>
@@ -119,8 +108,8 @@ class ReservaCreateForm extends Component {
             </label>
             <select id="lugar" className="input select--input" ref={this.lugar}>
               {lugares.map(lugar => (
-                <option key={lugar} value={lugar}>
-                  {lugar}
+                <option key={lugar._id} value={lugar._id}>
+                  {lugar.nombreCompleto}
                 </option>
               ))}
             </select>
@@ -166,31 +155,25 @@ class ReservaCreateForm extends Component {
 }
 
 ReservaCreateForm.propTypes = {
-  fetchAsignaturas: PropTypes.func.isRequired,
-  createEvent: PropTypes.func.isRequired,
-  fetchGrupos: PropTypes.func.isRequired,
-  fetchAttendats: PropTypes.func.isRequired,
-  asignaturas: PropTypes.array.isRequired,
-  grupos: PropTypes.any.isRequired,
+  fetchPlaces: PropTypes.func.isRequired,
+  createReserva: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
   successMessage: PropTypes.string,
-  profesores: PropTypes.array.isRequired,
+  lugares: PropTypes.array.isRequired,
   location: PropTypes.object.isRequired,
 }
 
 function mapStateToProps(state) {
-  const { errorMessage, successMessage, asignaturas, grupos, profesores } = state.event
+  const { errorMessage, successMessage, lugares } = state.booking
 
   return {
     errorMessage,
     successMessage,
-    asignaturas,
-    grupos,
-    profesores,
+    lugares,
   }
 }
 
 export default connect(
   mapStateToProps,
-  { fetchAsignaturas, fetchGrupos, createEvent, fetchAttendats },
+  { createReserva, fetchPlaces },
 )(ReservaCreateForm)
