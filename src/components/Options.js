@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-const Options = ({ handleDelete, urls, state }) => {
+const Options = ({ handleDelete, urls, state, showTitle }) => {
   const editUrl = {
     pathname: urls[1],
     state,
@@ -15,7 +15,7 @@ const Options = ({ handleDelete, urls, state }) => {
 
   return (
     <Fragment>
-      <Link className="reset--link" to={showUrl} title="Ver">
+      <Link className="reset--link" to={showUrl} title={showTitle}>
         <img src={require('../images/show.png')} alt="show" className="action--image" />
       </Link>
       <Link className="reset--link" to={editUrl} title="Editar">
@@ -32,6 +32,7 @@ Options.propTypes = {
   state: PropTypes.object.isRequired,
   handleDelete: PropTypes.func.isRequired,
   urls: PropTypes.array.isRequired,
+  showTitle: PropTypes.string.isRequired,
 }
 
 export default Options

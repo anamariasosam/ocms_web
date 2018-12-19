@@ -35,3 +35,5 @@ export const FETCH_STUDENT_EVENTS = 'fetch_student_events',
 
 export const FETCH_TEACHER_EVENTS = 'fetch_teacher_events',
   TEACHER_ERROR = 'teacher_error'
+
+export const CREATE_BOOKING = 'create_booking'

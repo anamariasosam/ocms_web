@@ -87,6 +87,7 @@ class Calendar extends Component {
               handleDelete={() => this.handleDelete(calendar._id)}
               urls={this.handleUrls(calendar.semestre)}
               state={{ calendar }}
+              showTitle={'Ver Programación'}
             />
           </td>
         </tr>

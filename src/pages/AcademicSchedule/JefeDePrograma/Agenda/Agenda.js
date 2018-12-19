@@ -119,6 +119,7 @@ class Agenda extends Component {
             handleDelete={() => this.handleDelete(schedule._id)}
             urls={this.handleUrls(schedule.nombre)}
             state={{ calendar: calendars }}
+            showTitle={'Ver Eventos'}
           />
         </td>
       </tr>

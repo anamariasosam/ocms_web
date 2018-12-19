@@ -38,12 +38,8 @@ class Event extends Component {
   }
 
   handleUrls(id) {
-    const urls = ['/calendarioAcademico/ver/', '/calendarioAcademico/evento/edit/']
-    const { schedules } = this.props
-    return urls.map((url, index) => {
-      if (index === 0) {
-        return url.concat(`${schedules.nombre}/${id}`)
-      }
+    const urls = ['/calendarioAcademico/reserva/', '/calendarioAcademico/evento/edit/']
+    return urls.map(url => {
       return url.concat(id)
     })
   }
@@ -128,6 +124,7 @@ class Event extends Component {
               handleDelete={() => this.handleDelete(event._id)}
               urls={this.handleUrls(event.nombre)}
               state={{ schedule: schedules, event }}
+              showTitle={'Realizar Reserva'}
             />
           </td>
         </tr>
