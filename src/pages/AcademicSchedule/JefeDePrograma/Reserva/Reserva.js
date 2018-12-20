@@ -6,7 +6,6 @@ import moment from 'moment'
 import Options from '../../../../components/Options'
 import AditionalInfo from '../../../../components/AditionalInfo'
 import { deleteReserva, fetchReserva } from '../../../../actions/booking'
-import { fetchAgenda } from '../../../../actions/agenda'
 import { fetchEvent } from '../../../../actions/event'
 
 class Reserva extends Component {
@@ -17,31 +16,25 @@ class Reserva extends Component {
   }
 
   componentDidMount() {
-    this.getReservas()
-  }
-
-  getReservas() {
-    const { match } = this.props
+    const { match, fetchEvent, fetchReserva } = this.props
     const { nombre } = match.params
 
-    this.handleReserva(nombre)
-  }
-
-  handleReserva(nombre) {
-    const { fetchReserva } = this.props
+    fetchEvent({ nombre })
     fetchReserva({ nombre })
   }
 
   handleUrls(id) {
-    const urls = ['/calendarioAcademico/reserva/', '/calendarioAcademico/evento/edit/']
-    return urls.map(url => url.concat(id))
+    const { match } = this.props
+    const { nombre } = match.params
+
+    return ['/calendarioAcademico', `/calendarioAcademico/reserva/edit/${nombre}`]
   }
 
   handleDelete(id) {
     const confirmDelete = window.confirm('Estas seguro que deseas eliminar?')
     if (confirmDelete) {
-      const { location, deleteReserva } = this.props
-      const { nombre } = location.event
+      const { match, deleteReserva } = this.props
+      const { nombre } = match.params
       const reservaId = id
 
       deleteReserva({
@@ -52,13 +45,14 @@ class Reserva extends Component {
   }
 
   render() {
-    const { schedules } = this.props
+    const { events } = this.props
     const titles = ['nombre', 'fecha', 'aforo']
+
     return (
       <Fragment>
-        <h2>Programar Reserva</h2>
+        <h2>Reservas</h2>
 
-        {/* <AditionalInfo data={event} titles={titles} /> */}
+        <AditionalInfo data={events} titles={titles} />
 
         <div className="module--container">
           <h3>Reservas</h3>
@@ -68,6 +62,7 @@ class Reserva extends Component {
                 <th>FECHA INICIO</th>
                 <th>FECHA FIN</th>
                 <th>LUGAR</th>
+                <th>ESTADO</th>
                 <th>ACCIONES</th>
               </tr>
             </thead>
@@ -77,7 +72,7 @@ class Reserva extends Component {
           <Link
             to={{
               pathname: '/calendarioAcademico/reserva/create',
-              // state: { event },
+              state: { event: events },
             }}
             className="reset--link button"
           >
@@ -89,28 +84,21 @@ class Reserva extends Component {
   }
 
   renderReservas() {
-    const { reservas } = this.props
+    const { reservas, events } = this.props
 
     if (reservas.length > 0) {
       return reservas.map(reserva => (
         <tr key={reserva._id}>
-          <td>
-            {moment(reserva.fechaInicio)
-              .utc()
-              .format('l')}
-          </td>
-          <td>
-            {moment(reserva.fechaFin)
-              .utc()
-              .format('l')}
-          </td>
+          <td>{moment(reserva.fechaInicio).format('MMMM D YYYY, h:mm a')}</td>
+          <td>{moment(reserva.fechaFin).format('MMMM D YYYY, h:mm a')}</td>
           <td>{reserva.lugar.nombreCompleto}</td>
+          <td>{reserva.estado}</td>
           <td>
             <Options
               handleDelete={() => this.handleDelete(reserva._id)}
               urls={this.handleUrls(reserva._id)}
-              state={{ reserva }}
-              showTitle={'Ver Calendario'}
+              state={{ reserva, event: events }}
+              showTitle="Ver Calendario"
             />
           </td>
         </tr>
@@ -123,17 +111,20 @@ Reserva.propTypes = {
   fetchReserva: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   deleteReserva: PropTypes.func.isRequired,
+  reservas: PropTypes.any.isRequired,
 }
 
 function mapStateToProps(state) {
   const { errorMessage, reservas } = state.booking
+  const { events } = state.event
   return {
     errorMessage,
     reservas,
+    events,
   }
 }
 
 export default connect(
   mapStateToProps,
-  { deleteReserva, fetchReserva },
+  { deleteReserva, fetchReserva, fetchEvent },
 )(Reserva)

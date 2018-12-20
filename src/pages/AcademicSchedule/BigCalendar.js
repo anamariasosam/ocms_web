@@ -16,30 +16,19 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 const localizer = Calendar.momentLocalizer(moment)
 
 class BigCalendar extends Component {
-  constructor(props) {
-    super(props)
-
-    this.handleSemestre = this.handleSemestre.bind(this)
-  }
-
   componentDidMount() {
-    this.getEvents('2018-2')
+    this.getEvents()
   }
 
-  paramsObject(semestre) {
-    const { programacionNombre, all } = this.props
-    return all ? { semestre } : { programacionNombre }
-  }
-
-  getEvents(semestre) {
+  getEvents() {
     const { fetchStudentEvents, fetchEvent, fetchTeacherEvents } = this.props
 
     const { rol, _id: usuario } = cookie.load('user') || ''
-    const params = { semestre, usuario }
+    const params = { usuario }
 
     switch (rol) {
       case 'Jefe de Programa':
-        fetchEvent(this.paramsObject(semestre))
+        fetchEvent()
         break
       case 'Estudiante':
         fetchStudentEvents(params)
@@ -52,33 +41,12 @@ class BigCalendar extends Component {
     }
   }
 
-  handleSemestre(semestre) {
-    this.getEvents(semestre)
-  }
-
   render() {
     return (
       <Fragment>
-        <div className="module--container">
-          {this.renderSelectInput()}
-          {this.renderCalendar()}
-        </div>
+        <div className="module--container">{this.renderCalendar()}</div>
       </Fragment>
     )
-  }
-
-  renderSelectInput() {
-    const { rol } = cookie.load('user') || ''
-
-    if (rol === 'Jefe de Programa') {
-      return (
-        <SemestreInput
-          handleSelectOption={this.handleSemestre}
-          defaultValue="2018-2"
-          type="semestre"
-        />
-      )
-    }
   }
 
   renderCalendar() {

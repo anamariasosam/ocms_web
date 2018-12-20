@@ -63,7 +63,7 @@ class Event extends Component {
     const titles = ['tipo', 'fecha Inicio', 'fecha Fin']
     return (
       <Fragment>
-        <h2>Programar Evento</h2>
+        <h2>Eventos</h2>
 
         <AditionalInfo data={schedules} titles={titles} handleSelect={this.handleTipoEvento} />
 
@@ -112,11 +112,7 @@ class Event extends Component {
             </ul>
           </td>
           <td>{event.encargado.nombre}</td>
-          <td>
-            {moment(event.fecha)
-              .utc()
-              .format('l')}
-          </td>
+          <td>{moment(event.fecha).format('l')}</td>
           <td>{moment(event.fecha).format('h:mm a')}</td>
           <td>{event.aforo}</td>
           <td>

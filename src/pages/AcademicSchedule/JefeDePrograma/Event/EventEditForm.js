@@ -86,7 +86,7 @@ class EventEditForm extends Component {
         <AditionalInfo data={schedule} titles={titles} />
 
         <div className="form--container">
-          <h3 className="form--title">Crear Evento</h3>
+          <h3 className="form--title">Editar Evento</h3>
           <form onSubmit={this.handleSubmit}>
             <label htmlFor="encargado" className="required label">
               Encargado:
@@ -109,7 +109,7 @@ class EventEditForm extends Component {
             </label>
             <input type="datetime-local" id="fecha" className="input" ref={this.fecha} required />
 
-            <label htmlFor="grupos" className="required label">
+            <label htmlFor="grupos" className="label">
               Grupos:
             </label>
             {this.renderMultiSelect()}

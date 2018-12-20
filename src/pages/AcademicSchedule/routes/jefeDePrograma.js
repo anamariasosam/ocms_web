@@ -30,7 +30,7 @@ export const jefeDeProgramaMenu = [
     name: 'Eventos',
   },
   {
-    path: `/calendarioAcademico/reserva/show/Super%20Evento`,
+    path: `/calendarioAcademico/reserva/show/${currentYear}-2-1-1`,
     name: 'Reservas',
   },
 ]
@@ -77,7 +77,7 @@ export const jefeDeProgramaRoutes = [
     component: Reserva,
   },
   {
-    path: '/calendarioAcademico/reserva/create/:nombre',
+    path: '/calendarioAcademico/reserva/create',
     component: ReservaCreateForm,
   },
   {

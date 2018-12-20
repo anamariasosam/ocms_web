@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import moment from 'moment'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { MultiSelect } from 'react-selectize'
@@ -95,7 +96,7 @@ class EventCreateForm extends Component {
             </label>
             <input type="datetime-local" id="fecha" className="input" ref={this.fecha} required />
 
-            <label htmlFor="grupos" className="required label">
+            <label htmlFor="grupos" className="label">
               Grupos:
             </label>
             {this.renderMultiSelect()}

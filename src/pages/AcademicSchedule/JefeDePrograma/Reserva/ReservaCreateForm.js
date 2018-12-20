@@ -38,8 +38,7 @@ class ReservaCreateForm extends Component {
     const observaciones = this.observaciones.current.value
 
     const { createReserva, location } = this.props
-    const { _id: evento } = location.state.event
-    const { nombre: programacionNombre } = location.state.schedule
+    const { _id: evento, nombre: eventoNombre } = location.state.event
 
     const data = {
       fechaInicio,
@@ -49,7 +48,7 @@ class ReservaCreateForm extends Component {
       estado,
       observaciones,
       evento,
-      programacionNombre,
+      eventoNombre,
     }
 
     createReserva(data)
@@ -125,10 +124,10 @@ class ReservaCreateForm extends Component {
               ))}
             </select>
 
-            <label htmlFor="observaciones" className="required label">
+            <label htmlFor="observaciones" className="label">
               Observaciones:
             </label>
-            <textarea id="observaciones" className="input" ref={this.observaciones} required />
+            <textarea id="observaciones" className="input" ref={this.observaciones} />
 
             <div className="form--controls">
               <input type="submit" value="Guardar" className="reset--button button" />

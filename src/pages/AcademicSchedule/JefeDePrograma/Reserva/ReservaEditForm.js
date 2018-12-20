@@ -1,118 +1,142 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { MultiSelect } from 'react-selectize'
 import moment from 'moment'
 import Success from '../../../../components/Success'
 import Error from '../../../../components/Error'
 import AditionalInfo from '../../../../components/AditionalInfo'
-import {
-  fetchAsignaturas,
-  fetchGrupos,
-  fetchEvent,
-  updateEvent,
-  fetchAttendats,
-} from '../../../../actions/event'
+import { updateReserva, fetchReserva, fetchPlaces } from '../../../../actions/booking'
 
-class EventEditForm extends Component {
+class ReservaEditForm extends Component {
   constructor(props) {
     super(props)
 
-    this.encargado = React.createRef()
-    this.fecha = React.createRef()
-    this.aforo = React.createRef()
-    this.grupos = React.createRef()
+    this.fechaInicio = React.createRef()
+    this.fechaFin = React.createRef()
+    this.fechaReserva = React.createRef()
+    this.lugar = React.createRef()
+    this.estado = React.createRef()
+    this.observaciones = React.createRef()
 
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
-    const { fetchAsignaturas, fetchGrupos, fetchAttendats } = this.props
-    fetchAsignaturas()
-    fetchGrupos()
-    fetchAttendats()
-    this.getEventValues()
-  }
+    const { fetchPlaces, fetchReserva, location } = this.props
+    const { _id: reservaId } = location.state.reserva
 
-  getEventValues() {
-    const { match, fetchEvent } = this.props
-    const { nombre } = match.params
-
-    fetchEvent({ nombre })
+    fetchPlaces()
+    fetchReserva({ reservaId })
   }
 
   handleSubmit(e) {
     e.preventDefault()
 
-    const { match, location, updateEvent } = this.props
-    const fecha = this.fecha.current.value
-    const aforo = this.aforo.current.value
-    const encargado = this.encargado.current.value
-    const selectedGroups = this.grupos.current.state.values
+    const fechaInicio = this.fechaInicio.current.value
+    const fechaFin = this.fechaFin.current.value
+    const fechaReserva = this.fechaReserva.current.value
+    const lugar = this.lugar.current.value
+    const estado = this.estado.current.value
+    const observaciones = this.observaciones.current.value
 
-    const grupos = selectedGroups.map(grupo => grupo.value)
-
-    const { nombre } = match.params
-
-    const { schedule } = location.state
-    const { nombre: programacionNombre } = schedule
+    const { updateReserva, location } = this.props
+    const { nombre: eventoNombre } = location.state.event
+    const { _id: reservaId } = location.state.reserva
 
     const data = {
       params: {
-        nombre,
+        reservaId,
       },
       data: {
-        fecha,
-        aforo,
-        grupos,
-        encargado,
-        programacionNombre,
+        fechaInicio,
+        fechaFin,
+        fechaReserva,
+        lugar,
+        estado,
+        observaciones,
+        eventoNombre,
       },
     }
 
-    updateEvent(data)
+    updateReserva(data)
   }
 
   render() {
-    const { profesores, location } = this.props
-    const titles = ['tipo', 'fecha Inicio', 'fecha Fin']
-    const { schedule } = location.state
+    const titles = ['nombre', 'fecha', 'aforo']
+    const { lugares, location } = this.props
+    const { event } = location.state
+    const estados = ['Pendiente', 'Reservado']
 
-    this.renderEventValues()
+    this.renderReservaValues()
+
     return (
       <Fragment>
-        <h2>Gestionar Evento</h2>
+        <h2>Reserva</h2>
 
-        <AditionalInfo data={schedule} titles={titles} />
+        <AditionalInfo data={event} titles={titles} />
 
         <div className="form--container">
-          <h3 className="form--title">Crear Evento</h3>
+          <h3 className="form--title">Gestionar Reserva</h3>
           <form onSubmit={this.handleSubmit}>
-            <label htmlFor="encargado" className="required label">
-              Encargado:
+            <label htmlFor="fechaInicio" className="required label">
+              Fecha Inicio:
             </label>
-            <select id="encargado" className="input select--input" ref={this.encargado}>
-              {profesores.map(encargado => (
-                <option key={encargado._id} value={encargado._id}>
-                  {encargado.nombre}
+            <input
+              type="datetime-local"
+              id="fechaInicio"
+              className="input"
+              ref={this.fechaInicio}
+              required
+            />
+
+            <label htmlFor="fechaFin" className="required label">
+              Fecha Fin:
+            </label>
+            <input
+              type="datetime-local"
+              id="fechaFin"
+              className="input"
+              ref={this.fechaFin}
+              required
+            />
+
+            <label htmlFor="fechaReserva" className="required label">
+              Fecha Reserva:
+            </label>
+            <input
+              type="date"
+              id="fechaReserva"
+              className="input"
+              ref={this.fechaReserva}
+              required
+            />
+
+            <label htmlFor="grupos" className="required label">
+              Lugar:
+            </label>
+            <select id="lugar" className="input select--input" ref={this.lugar}>
+              {lugares.map(lugar => (
+                <option key={lugar._id} value={lugar._id}>
+                  {lugar.nombreCompleto}
                 </option>
               ))}
             </select>
 
-            <label htmlFor="aforo" className="required label">
-              Aforo:
+            <label htmlFor="estado" className="required label">
+              Estado:
             </label>
-            <input type="number" id="aforo" className="input" ref={this.aforo} required />
+            <select id="estado" className="input select--input" ref={this.estado}>
+              {estados.map(estado => (
+                <option key={estado} value={estado}>
+                  {estado}
+                </option>
+              ))}
+            </select>
 
-            <label htmlFor="fecha" className="required label">
-              Fecha / Hora:
+            <label htmlFor="observaciones" className="label">
+              Observaciones:
             </label>
-            <input type="datetime-local" id="fecha" className="input" ref={this.fecha} required />
-
-            <label htmlFor="grupos" className="required label">
-              Grupos:
-            </label>
-            {this.renderMultiSelect()}
+            <textarea id="observaciones" className="input" ref={this.observaciones} />
 
             <div className="form--controls">
               <input type="submit" value="Guardar" className="reset--button button" />
@@ -123,40 +147,6 @@ class EventEditForm extends Component {
         </div>
       </Fragment>
     )
-  }
-
-  renderMultiSelect() {
-    const { asignaturas, grupos, events } = this.props
-
-    const asignaturasList = asignaturas.map(asignatura => ({
-      groupId: asignatura._id,
-      title: asignatura.nombre,
-    }))
-
-    const gruposList = grupos.map(grupo => ({
-      groupId: grupo.asignatura._id,
-      label: `${grupo.asignatura.nombre}: ${grupo.nombre}`,
-      value: grupo._id,
-    }))
-
-    if (Object.keys(events).length > 0 && events.grupos) {
-      const defaultValues = events.grupos.map(grupo => ({
-        groupId: grupo.asignatura._id,
-        label: `${grupo.asignatura.nombre}: ${grupo.nombre}`,
-        value: grupo._id,
-      }))
-
-      return (
-        <MultiSelect
-          groups={asignaturasList}
-          options={gruposList}
-          placeholder="Elige los grupos"
-          ref={this.grupos}
-          defaultValues={defaultValues}
-          anchor
-        />
-      )
-    }
   }
 
   renderAlert() {
@@ -170,54 +160,55 @@ class EventEditForm extends Component {
     }
   }
 
-  renderEventValues() {
-    const { events } = this.props
-    const { fecha, aforo, encargado } = events
+  renderReservaValues() {
+    const { reservas } = this.props
+    const { fechaInicio, fechaFin, fechaReserva, lugar, estado, observaciones } = reservas
 
-    if (fecha) {
-      this.fecha.current.value = moment(fecha).format('YYYY-MM-DD[T]hh:mm')
+    if (fechaInicio) {
+      this.fechaInicio.current.value = moment(fechaInicio).format('YYYY-MM-DD[T]hh:mm')
     }
-
-    if (aforo) {
-      this.aforo.current.value = aforo
+    if (fechaFin) {
+      this.fechaFin.current.value = moment(fechaFin).format('YYYY-MM-DD[T]hh:mm')
     }
-
-    if (encargado) {
-      this.encargado.current.value = encargado._id
+    if (fechaReserva) {
+      this.fechaReserva.current.value = moment(fechaReserva).format('YYYY-MM-DD')
+    }
+    if (lugar) {
+      this.lugar.current.value = lugar._id
+    }
+    if (estado) {
+      this.estado.current.value = estado
+    }
+    if (observaciones) {
+      this.observaciones.current.value = observaciones
     }
   }
 }
 
-EventEditForm.propTypes = {
-  fetchAsignaturas: PropTypes.func.isRequired,
-  updateEvent: PropTypes.func.isRequired,
-  fetchGrupos: PropTypes.func.isRequired,
-  fetchAttendats: PropTypes.func.isRequired,
-  asignaturas: PropTypes.array.isRequired,
-  profesores: PropTypes.array.isRequired,
-  events: PropTypes.any.isRequired,
-  grupos: PropTypes.any.isRequired,
+ReservaEditForm.propTypes = {
+  fetchReserva: PropTypes.func.isRequired,
+  fetchPlaces: PropTypes.func.isRequired,
+  updateReserva: PropTypes.func.isRequired,
   errorMessage: PropTypes.string.isRequired,
   successMessage: PropTypes.string.isRequired,
-  fetchEvent: PropTypes.func.isRequired,
-  match: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
+  lugares: PropTypes.array.isRequired,
+  reservas: PropTypes.any.isRequired,
 }
 
 function mapStateToProps(state) {
-  const { errorMessage, successMessage, asignaturas, grupos, events, profesores } = state.event
-
+  const { errorMessage, successMessage, reservas, lugares } = state.booking
+  const { events } = state.event
   return {
     errorMessage,
     successMessage,
-    asignaturas,
-    grupos,
     events,
-    profesores,
+    reservas,
+    lugares,
   }
 }
 
 export default connect(
   mapStateToProps,
-  { fetchAsignaturas, fetchGrupos, fetchEvent, updateEvent, fetchAttendats },
-)(EventEditForm)
+  { updateReserva, fetchReserva, fetchPlaces },
+)(ReservaEditForm)

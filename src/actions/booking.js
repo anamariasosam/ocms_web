@@ -10,7 +10,7 @@ import {
 
 const BOOKING_ENDPOINT = '/reservas'
 export const createReserva = data => {
-  const redirect = `/calendarioAcademico/evento/show/${data.programacionNombre}`
+  const redirect = `/calendarioAcademico/reserva/show/${data.eventoNombre}`
   return dispatch =>
     postData(CREATE_BOOKING, BOOKING_ERROR, true, BOOKING_ENDPOINT, dispatch, data, redirect)
 }
@@ -26,7 +26,7 @@ export const fetchReserva = params => {
 }
 
 export const updateReserva = data => {
-  const redirect = `/calendarioAcademico/evento/show/${data.data.programacionNombre}`
+  const redirect = `/calendarioAcademico/reserva/show/${data.data.eventoNombre}`
 
   return dispatch =>
     putData(UPDATE_BOOKING, BOOKING_ERROR, true, BOOKING_ENDPOINT, dispatch, data, redirect)
